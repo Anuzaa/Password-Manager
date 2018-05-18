@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Category extends JsonResource
+class Secret extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,16 +15,11 @@ class Category extends JsonResource
     public function toArray($request)
     {
         return [
-            'category_id' => $this->category_id,
-            'category_name' => $this->category_name,
-
-        ];
-    }
-
-    public function with($request){
-        return [
-            'version' => '1.0.0',
-
+            'secret_id'=> $this->secret_id,
+            'url'=>$this->url,
+            'email'=>$this->email,
+            'password'=>$this->password,
+            'owner'=>$this->owner
         ];
     }
 }

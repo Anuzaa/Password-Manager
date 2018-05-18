@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use Illuminate\Http\Request;
-use App\Http\Resources\Category as CategoryResource;
 
-class CategoryController extends Controller
+use App\Http\Resources\Secret;
+use Illuminate\Http\Request;
+
+class SecretController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(15);
-
-        //Return collection of articles as a resource
-        return CategoryResource::collection($categories);
+        $secrets = Secret::paginate(15);
+        return SecretResource::collection($secrets);
     }
 
     /**
@@ -39,14 +37,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = $request->isMethod('put') ? Category::findorFail($request->category_id) : new Category;
+        $secret=$request->isMethod('put')? Secret::findOrFail($request->secret_id) : new Secret;
+        $secret->id=$request->input('secret_id');
+        $secret->url=$request->input('url');
+        $secret->email=$request->input('email');
+        $secret->password=$request->input('password');
+        $secret->owner=$request->input('owner');
 
-        $category->id = $request->input('category_id');
-        $category->name = $request->input('category_name');
-
-
-        if ($category->save()) {
-            return new CategoryResource($category);
+        if ($secret->save()) {
+            return new SecretResource($secret);
         }
     }
 
@@ -56,17 +55,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($category_id)
+    public function show($secret_id)
     {
-
-        //Get article
-        $category = Category::findOrFail($category_id);
-        dd($category->toArray());
-        dd(new CategoryResource($category));
-
-        //Return single article as a resource
-
-        return new CategoryResource($category);
+        $secret=Secret::findOrFail($secret_id);
+        return new SecretResource($secret);
     }
 
     /**
@@ -75,9 +67,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($category_id)
+    public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -87,7 +79,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $category_id)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -98,14 +90,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($category_id)
+    public function destroy($secret_id)
     {
-        //Get category
-        $category = Category::findOrFail($category_id);
+        $secret=Secret::findOrFail($secret_id);
 
-        if ($category->delete()) {
-            return new CategoryResource($category);
+        if($secret->delete()){
+            return new SecretResource($secret);
         }
     }
 }
-
