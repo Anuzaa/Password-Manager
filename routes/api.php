@@ -1,17 +1,17 @@
 <?php
 
-//Route::group([
-//
-//    'prefix' => 'auth',
-//
-//], function () {
-//
-//    Route::post('login', 'AuthController@login');
-//    Route::post('logout', 'AuthController@logout');
-//    Route::post('refresh', 'AuthController@refresh');
-//    Route::post('me', 'AuthController@me');
-//
-//});
+Route::group([
+
+    'prefix' => 'auth',
+
+], function () {
+
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+
+});
 
 $api = app(\Dingo\Api\Routing\Router::class);
 
@@ -50,5 +50,14 @@ $api->version('v1', function ($api) {
     $api->post('secrets', 'App\Http\Controllers\SecretController@store');
     $api->put('secrets', 'App\Http\Controllers\SecretController@store');
     $api->delete('secrets/{id}', 'App\Http\Controllers\SecretController@destroy');
+});
+
+$api->version('v1', function ($api) {
+//    $api->group(['middleware' => ['jwt-auth']], function ($api) {
+    $api->get('roles', 'App\Http\Controllers\RoleController@index');
+    $api->get('roles/{id}', 'App\Http\Controllers\RoleController@show');
+    $api->post('roles', 'App\Http\Controllers\RoleController@store');
+    $api->put('roles', 'App\Http\Controllers\RoleController@store');
+    $api->delete('roles/{id}', 'App\Http\Controllers\RoleController@destroy');
 });
 //});

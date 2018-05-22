@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Role;
 use Illuminate\Http\Request;
-use App\Http\Resources\Category as CategoryResource;
+use App\Http\Resources\Role as RoleResource;
 
-class CategoryController extends Controller
+class RoleController extends Controller
 {
+
+//    public function __construct()
+////    {
+////        $this->middleware('jwt-auth');
+////    }
     /**
      * Display a listing of the resource.
      *
@@ -15,11 +20,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(15);
+        $roles = Role::paginate(15);
 
-        //Return collection of category as a resource
-
-        return CategoryResource::collection($categories);
+         //Return collection of role as a resource
+        return RoleResource::collection($roles);
     }
 
     /**
@@ -40,14 +44,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = $request->isMethod('put') ? Category::findorFail($request->id) : new Category;
+        $role = $request->isMethod('put') ? Role::findOrFail($request->id) : new Role;
+        $role->id = $request->input('id');
+        $role->name = $request->input('role_name');
 
-        $category->id = $request->input('id');
-        $category->name = $request->input('category_name');
-
-
-        if ($category->save()) {
-            return new CategoryResource($category);
+        if ($role->save()) {
+            return new RoleResource($role);
         }
     }
 
@@ -59,15 +61,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-
-        //Get article
-        $category = Category::findOrFail($id);
-//        dd($category->toArray());
-//        dd(new CategoryResource($category));
-
-        //Return single category as a resource
-
-        return new CategoryResource($category);
+        $role = Role::findOrFail($id);
+        return new RoleResource($role);
     }
 
     /**
@@ -101,12 +96,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //Get category
-        $category = Category::findOrFail($id);
-
-        if ($category->delete()) {
-            return new CategoryResource($category);
+        $role=Role::findOrFail($id);
+        if($role->delete()){
+            return new RoleResource($role);
         }
     }
 }
-

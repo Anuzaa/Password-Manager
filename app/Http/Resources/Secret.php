@@ -15,7 +15,7 @@ class Secret extends JsonResource
     public function toArray($request)
     {
         return [
-            'secret_id'=> $this->secret_id,
+            'secret_id'=> $this->id,
             'url'=>$this->url,
             'email'=>$this->email,
             'password'=>$this->password,

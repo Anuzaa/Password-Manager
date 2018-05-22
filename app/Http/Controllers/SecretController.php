@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Resources\Secret;
+use App\Secret;
 use Illuminate\Http\Request;
+use App\Http\Resources\Secret as SecretResource;
 
 class SecretController extends Controller
 {
+
+//    public function __construct()
+//    {
+//        $this->middleware('jwt-auth');
+//    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +22,8 @@ class SecretController extends Controller
     public function index()
     {
         $secrets = Secret::paginate(15);
+
+        //Return collection of category as a resource
         return SecretResource::collection($secrets);
     }
 
@@ -32,17 +40,17 @@ class SecretController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $secret=$request->isMethod('put')? Secret::findOrFail($request->secret_id) : new Secret;
-        $secret->id=$request->input('secret_id');
-        $secret->url=$request->input('url');
-        $secret->email=$request->input('email');
-        $secret->password=$request->input('password');
-        $secret->owner=$request->input('owner');
+        $secret = $request->isMethod('put') ? Secret::findOrFail($request->id) : new Secret;
+        $secret->id = $request->input('id');
+        $secret->url = $request->input('url');
+        $secret->email = $request->input('email');
+        $secret->password = Hash::make($request->input('password'));
+        $secret->owner = $request->input('owner');
 
         if ($secret->save()) {
             return new SecretResource($secret);
@@ -52,19 +60,19 @@ class SecretController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($secret_id)
+    public function show($id)
     {
-        $secret=Secret::findOrFail($secret_id);
+        $secret = Secret::findOrFail($id);
         return new SecretResource($secret);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -75,8 +83,8 @@ class SecretController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -87,14 +95,14 @@ class SecretController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($secret_id)
+    public function destroy($id)
     {
-        $secret=Secret::findOrFail($secret_id);
+        $secret = Secret::findOrFail($id);
 
-        if($secret->delete()){
+        if ($secret->delete()) {
             return new SecretResource($secret);
         }
     }
