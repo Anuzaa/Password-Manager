@@ -13,8 +13,10 @@ class Secret extends Model
         'url',
         'user_name',
         'password',
-        'owner'
-
-
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

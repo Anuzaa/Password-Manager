@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use Illuminate\Http\Request;
-use App\Http\Resources\Category as CategoryResource;
 
-class CategoryController extends Controller
+use Illuminate\Http\Request;
+use App\Http\Resources\CategoryTransformer as CategoryTransformer;
+
+class CategoryController extends BaseController
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +21,9 @@ class CategoryController extends Controller
         $categories = Category::paginate(15);
 
         //Return collection of category as a resource
+        return $this->response->paginator($categories, new CategoryTransformer);
 
-        return CategoryResource::collection($categories);
+//        return CategoryResource::collection($categories);
     }
 
     /**
@@ -29,7 +33,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return $this->response->created();
     }
 
     /**
@@ -78,7 +82,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+//        $category = Category::findOrFail($id);
+//        $category->e
     }
 
     /**
@@ -90,7 +95,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+//        $category->update($request->all());
+//        return $this->response
     }
 
     /**

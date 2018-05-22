@@ -14,21 +14,20 @@ class AuthController extends Controller
     //  *
     //  * @return void
     //  */
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login']]);
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth:api', ['except' => ['login']]);
+//    }
 
     /**
      * Get a JWT via given credentials.
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
+    public function authenticate(Request $request)
     {
         // grab credentials from the request
         $credentials = $request->only('email', 'password');
-        dd(auth()->attempt($credentials));
 
         try {
             // attempt to verify the credentials and create a token for the user

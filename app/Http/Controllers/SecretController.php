@@ -10,10 +10,6 @@ use App\Http\Resources\Secret as SecretResource;
 class SecretController extends Controller
 {
 
-//    public function __construct()
-//    {
-//        $this->middleware('jwt-auth');
-//    }
     /**
      * Display a listing of the resource.
      *
@@ -21,10 +17,9 @@ class SecretController extends Controller
      */
     public function index()
     {
-        $secrets = Secret::paginate(15);
+        $secrets = Secret::query()->with('category')->paginate(15);
 
-        //Return collection of category as a resource
-        return SecretResource::collection($secrets);
+        return $this->response->paginator($secrets, new \App\Http\Resources\SecretTransformer);
     }
 
     /**
