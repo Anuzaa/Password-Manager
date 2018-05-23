@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 
 use App\Secret;
 use Illuminate\Http\Request;
-use App\Http\Resources\Secret as SecretResource;
+use App\Http\Transformers\SecretTransformer as SecretTransformer;
 
-class SecretController extends Controller
+class SecretController extends BaseController
 {
 
     /**
@@ -19,7 +19,7 @@ class SecretController extends Controller
     {
         $secrets = Secret::query()->with('category')->paginate(15);
 
-        return $this->response->paginator($secrets, new \App\Http\Resources\SecretTransformer);
+        return $this->response->paginator($secrets, new SecretTransformer);
     }
 
     /**
@@ -27,9 +27,10 @@ class SecretController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        Secret::Create($request->all());
+        return $this->response->created();
     }
 
     /**
@@ -48,7 +49,9 @@ class SecretController extends Controller
         $secret->owner = $request->input('owner');
 
         if ($secret->save()) {
-            return new SecretResource($secret);
+            return $this->response->created();
+        }else{
+            return $this->response->errorBadRequest();
         }
     }
 
@@ -61,7 +64,7 @@ class SecretController extends Controller
     public function show($id)
     {
         $secret = Secret::findOrFail($id);
-        return new SecretResource($secret);
+        return $this->response->item($secret, new SecretTransformer);
     }
 
     /**
@@ -84,7 +87,13 @@ class SecretController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $secret = $request->isMethod('put') ? Role::findOrFail($request->id) : new Role;
+        $secret->id = $request->input('id');
+        $secret->url = $request->input('url');
+        $secret->email = $request->input('email');
+        $secret->password = Hash::make($request->input('password'));
+        $secret->owner = $request->input('owner');
+        $secret->save();
     }
 
     /**
@@ -98,7 +107,7 @@ class SecretController extends Controller
         $secret = Secret::findOrFail($id);
 
         if ($secret->delete()) {
-            return new SecretResource($secret);
+            return $this->response->item($secret, new SecretTransformer);
         }
     }
 }

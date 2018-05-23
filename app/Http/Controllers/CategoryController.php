@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryTransformer as CategoryTransformer;
+use App\Http\Transformers\CategoryTransformer as CategoryTransformer;
 
 class CategoryController extends BaseController
 {
@@ -31,8 +31,9 @@ class CategoryController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        Category::Create($request->all());
         return $this->response->created();
     }
 
@@ -45,14 +46,16 @@ class CategoryController extends BaseController
     public function store(Request $request)
     {
         $category = $request->isMethod('put') ? Category::findorFail($request->id) : new Category;
-
         $category->id = $request->input('id');
         $category->name = $request->input('category_name');
+        if($category->save()) {
+            return $this->response->created();
+            } else {
+            return $this->response->errorBadRequest();
+
+    }
 
 
-        if ($category->save()) {
-            return new CategoryResource($category);
-        }
     }
 
     /**
@@ -71,20 +74,10 @@ class CategoryController extends BaseController
 
         //Return single category as a resource
 
-        return new CategoryResource($category);
+        return $this->response->item($category,new CategoryTransformer);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-//        $category = Category::findOrFail($id);
-//        $category->e
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -95,8 +88,11 @@ class CategoryController extends BaseController
      */
     public function update(Request $request, $id)
     {
-//        $category->update($request->all());
-//        return $this->response
+       $category=new $request->isMethod('put') ? Category::findorFail($request->id) : new Category;
+        $category->id = $request->input('id');
+        $category->name = $request->input('category_name');
+
+        $category->save();
     }
 
     /**
@@ -111,7 +107,7 @@ class CategoryController extends BaseController
         $category = Category::findOrFail($id);
 
         if ($category->delete()) {
-            return new CategoryResource($category);
+            return $this->response->item($category, new CategoryTransformer);
         }
     }
 }

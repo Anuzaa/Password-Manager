@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Transformers;
 
 
 use Dingo\Api\Transformer\Adapter\Fractal;

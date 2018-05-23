@@ -6,6 +6,8 @@ $api = app(\Dingo\Api\Routing\Router::class);
 
 $api->version('v1', function ($api) {
     $api->post('login', 'App\Http\Controllers\AuthController@authenticate');
+    $api->post('logout', 'App\Http\Controllers\AuthController@logout');
+    $api->post('token', 'App\Http\Controllers\AuthController@getToken');
 });
 
 $api->version('v1', ['middleware' => ['api.auth'], 'namespace' => 'App\Http\Controllers'], function ($api) {
