@@ -70,6 +70,8 @@ class AuthController extends Controller
             if (!$user = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
             }
+
+            //@TODO need rework here
         } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
             return response()->json(['token_expired'], $e->getStatusCode());
         } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
@@ -94,6 +96,8 @@ class AuthController extends Controller
         }
         try {
             $refreshedToken = JWTAuth::refresh($token);
+            //@TODO need rework here
+
         } catch (JWTException $e) {
             return $this->response->errorInternal('Not able to refresh Token');
         }
