@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Http\Transformers\CategoryTransformer as CategoryTransformer;
 
 // @TODO fix indentation better if you follow PSR-2 coding style... done ;)
@@ -16,6 +17,25 @@ use App\Http\Transformers\CategoryTransformer as CategoryTransformer;
 class CategoryController extends BaseController
 {
 
+    /**
+     * The category repository implementation.
+     *
+     * @var CategoryRepository
+     */
+    protected $category;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  Category $category
+     * @return void
+     */
+    public function __construct(Category $category)
+    {
+        $this->category = $category;
+
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -24,26 +44,26 @@ class CategoryController extends BaseController
      */
     public function index()
     {
-        //@TODO what if user want to paginate 20 records per page
-
-        $categories = Category::paginate(15);
-
-        //Return collection of category as a resource
+        //@TODO what if user want to paginate 20 records per page...done
+        $limit = Input::get('limit');
+        $categories = Category::paginate($limit);
         return $this->response->paginator($categories, new CategoryTransformer);
 
-//        return CategoryResource::collection($categories);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         //@TODO create should be strtolower and avoid using static methods
-        Category::create($request->all());
-        return $this->response->created();
+
+//        Category::create($request->all());
+        $category = $this->category->all();
+        return $this->response->item($category, new CategoryTransformer);
     }
 
     /**
@@ -51,17 +71,18 @@ class CategoryController extends BaseController
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @param int id
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
         //@TODO the doc block says it create the new resource but looks like it is updating to .... have a look at SOLID
 
-        $category = $request->isMethod('put') ? Category::findorFail($request->id) : new Category;
+        $category = $this->category->find($id);
         $category->id = $request->input('id');
         $category->name = $request->input('category_name');
         if ($category->save()) {
             //@TODO if would be better if it returns the item just created
-            return $this->response->created();
+            return $this->response->created('Category created ');
         } else {
             //@TODO Looks like it should be internal server error
 
@@ -80,15 +101,8 @@ class CategoryController extends BaseController
      */
     public function show($id)
     {
-
-        //Get article
-//        @TODO avoid using static methods
-        $category = Category::findOrFail($id);
-//        dd($category->toArray());
-//        dd(new CategoryResource($category));
-
-        //Return single category as a resource
-
+        // @TODO avoid using static methods..done
+        $category = $this->category->find($id);
         return $this->response->item($category, new CategoryTransformer);
     }
 
@@ -100,12 +114,12 @@ class CategoryController extends BaseController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        // @TODO $id is saying why are you using me in the code....
+        // @TODO $id is saying why are you using me in the code....DONE
 
         // @TODO i don't this this action works try it. look for SOLID... looks like this action can also create new resource
-        $category = new $request->isMethod('put') ? Category::findorFail($request->id) : new Category;
+//        $category = new $request->isMethod('put') ? Category::findorFail($request->id) : new Category;
         $category->id = $request->input('id');
         $category->name = $request->input('category_name');
 
@@ -121,12 +135,9 @@ class CategoryController extends BaseController
      */
     public function destroy($id)
     {
-        //        @TODO avoid using static methods
-
-        //Get category
-        $category = Category::findOrFail($id);
+        //        @TODO avoid using static methods...done
+        $category = $this->category->find($id);
         // @TODO what if the delete fails
-
         if ($category->delete()) {
             return $this->response->item($category, new CategoryTransformer);
         }
