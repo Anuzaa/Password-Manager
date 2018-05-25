@@ -14,7 +14,7 @@ $api->version('v1', ['middleware' => ['api.auth'], 'namespace' => 'App\Http\Cont
     $api->get('categories', 'CategoryController@index');
     $api->get('categories/{id}', 'CategoryController@show');
     $api->post('categories', 'CategoryController@store');
-    $api->put('categories', 'CategoryController@store');
+    $api->put('categories/{id}', 'CategoryController@update');
     $api->delete('categories/{id}', 'CategoryController@destroy');
 
 

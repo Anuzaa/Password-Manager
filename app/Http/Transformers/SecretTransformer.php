@@ -26,7 +26,8 @@ class SecretTransformer extends TransformerAbstract
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request $request
+     *
+     * @param  \Illuminate\Http\Secret $secret
      * @return array
      */
     public function transform(Secret $secret)

@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable=[
-        'category_id',
-        'user_id',
-        'category_name',
-
+    protected $fillable = [
+        'category_name'
     ];
+
+
+    public function user(){
+        return $this->hasOne('Category','user_id');
+    }
 }

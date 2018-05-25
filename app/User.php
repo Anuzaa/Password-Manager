@@ -27,6 +27,12 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function category(){
+        return $this->hasMany('User');
+
+    }
     
     // // Rest omitted for brevity
 

@@ -7,6 +7,8 @@ use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Transformers\CategoryTransformer as CategoryTransformer;
+use League\Fractal\TransformerAbstract;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 // @TODO fix indentation better if you follow PSR-2 coding style... done ;)
 // @TODO always remove unnecessary comments.
@@ -20,7 +22,7 @@ class CategoryController extends BaseController
     /**
      * The category repository implementation.
      *
-     * @var CategoryRepository
+     * @var Category
      */
     protected $category;
 
@@ -34,6 +36,7 @@ class CategoryController extends BaseController
     {
         $this->category = $category;
 
+
     }
 
 
@@ -44,26 +47,10 @@ class CategoryController extends BaseController
      */
     public function index()
     {
-        //@TODO what if user want to paginate 20 records per page...done
         $limit = Input::get('limit');
-        $categories = Category::paginate($limit);
-        return $this->response->paginator($categories, new CategoryTransformer);
+        $categories = $this->category->paginate($limit);
+        return $this->response->paginator($categories,  new CategoryTransformer)->setStatusCode(200);
 
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //@TODO create should be strtolower and avoid using static methods
-
-//        Category::create($request->all());
-        $category = $this->category->all();
-        return $this->response->item($category, new CategoryTransformer);
     }
 
     /**
@@ -73,25 +60,11 @@ class CategoryController extends BaseController
      * @return \Illuminate\Http\Response
      * @param int id
      */
-    public function store(Request $request,$id)
+    public function store(Request $request)
     {
-        //@TODO the doc block says it create the new resource but looks like it is updating to .... have a look at SOLID
-
-        $category = $this->category->find($id);
-        $category->id = $request->input('id');
-        $category->name = $request->input('category_name');
-        if ($category->save()) {
-            //@TODO if would be better if it returns the item just created
-            return $this->response->created('Category created ');
-        } else {
-            //@TODO Looks like it should be internal server error
-
-            return $this->response->errorBadRequest();
-
-        }
-
-
+        $this->category->create($request->only('category_name'));
     }
+
 
     /**
      * Display the specified resource.
@@ -101,10 +74,13 @@ class CategoryController extends BaseController
      */
     public function show($id)
     {
-        // @TODO avoid using static methods..done
         $category = $this->category->find($id);
-        return $this->response->item($category, new CategoryTransformer);
+        if (!$category){
+            throw new NotFoundHttpException('Category not found');
+        }
+        return $this->response->item($category, new CategoryTransformer)->setStatusCode(200);
     }
+
 
 
     /**
@@ -114,17 +90,20 @@ class CategoryController extends BaseController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        // @TODO $id is saying why are you using me in the code....DONE
+//        dd($request->all());
+        $category = $this->category->find($id);
+        if (!$category){
+            throw new NotFoundHttpException('Category not found');
+        }
+        if ($this->category->save($request->all())) {
+            return $this->response->noContent();
+        } else{
+            return $this->response->error('Category could not be updated');
+        }
 
-        // @TODO i don't this this action works try it. look for SOLID... looks like this action can also create new resource
-//        $category = new $request->isMethod('put') ? Category::findorFail($request->id) : new Category;
-        $category->id = $request->input('id');
-        $category->name = $request->input('category_name');
 
-        // @TODO what if the save fails
-        $category->save();
     }
 
     /**
@@ -135,11 +114,13 @@ class CategoryController extends BaseController
      */
     public function destroy($id)
     {
-        //        @TODO avoid using static methods...done
         $category = $this->category->find($id);
-        // @TODO what if the delete fails
+        if (!$category)
+            throw new NotFoundHttpException('Category not found');
         if ($category->delete()) {
-            return $this->response->item($category, new CategoryTransformer);
+            return $this->response->noContent();
+        } else {
+            return $this->response->error('Category could not be deleted', 500);
         }
     }
 }
