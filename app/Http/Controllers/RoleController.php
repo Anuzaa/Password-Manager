@@ -4,34 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use Illuminate\Http\Request;
-use App\Http\Transformers\RoleTransformer as RoleTransformer;
+use App\Http\Transformers\RoleTransformer ;
 
 class RoleController extends BaseController
 {
+    /**
+     * The category repository implementation.
+     *
+     * @var Role
+     */
+    protected $role;
 
+    /**
+     * Create a new controller instance.
+     *
+     * @param  Role $role
+     * @return void
+     */
+    public function __construct(Role $role)
+    {
+        $this->role = $role;
+    }
 
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $roles = Role::query()->paginate(15);
-
-        //Return collection of role as a resource
+//        dd('asd');
+        $roles = $this->role->paginate($request->query('per_page'));
         return $this->response->paginator($roles, new RoleTransformer);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        Role::Create($request->all());
-        return $this->response->created();
     }
 
     /**
@@ -39,19 +44,18 @@ class RoleController extends BaseController
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @param int id
      */
     public function store(Request $request)
     {
-        $role = $request->isMethod('put') ? Role::findOrFail($request->id) : new Role;
-        $role->id = $request->input('id');
-        $role->name = $request->input('role_name');
+        $role = $request->validate([
+            'role_name' => 'required',
+        ]);
+        $this->role->create($request->only('role_name'));
+        return $this->response->collection($role, new RoleTransformer)->setStatusCode(200);
 
-        if ($role->save()) {
-            return $this->response->created();
-        } else {
-            return $this->response->errorBadRequest();
-        }
     }
+
 
     /**
      * Display the specified resource.
@@ -61,20 +65,13 @@ class RoleController extends BaseController
      */
     public function show($id)
     {
-        $role = Role::findOrFail($id);
-        return new $this->response->item($role, new RoleTransformer);
+        $role = $this->role->find($id);
+        if (!$role) {
+            throw new NotFoundHttpException('Role not found');
+        }
+        return $this->response->item($role, new RoleTransformer)->setStatusCode(200);
     }
 
-//    /**
-//     * Show the form for editing the specified resource.
-//     *
-//     * @param  int  $id
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function edit($id)
-//    {
-//        //
-//    }
 
     /**
      * Update the specified resource in storage.
@@ -85,24 +82,35 @@ class RoleController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $role = $request->isMethod('put') ? Role::findOrFail($request->id) : new Role;
-        $role->id = $request->input('id');
-        $role->name = $request->input('role_name');
-        $role->save();
+//        dd($request->all());
+        $role = $this->role->find($id);
+        $this->validate($request, [
+            'category_name' => 'required'
+        ]);
+        if ($this->role->save($role, $request->all())) {
+            $this->response->item($role, new RoleTransformer)->setStatusCode(200);
+        } else {
+            $this->response->error('Role could not be updated', 500);
+        }
+        return $role;
     }
 
     /**
      * Remove the specified resource from storage.
+     *
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $role = Role::findOrFail($id);
+        $role = $this->role->find($id);
         if ($role->delete()) {
-            return $this->response->item($role, new RoleTransformer);
+            $this->response->item($role, new RoleTransformer);
+        } else {
+            $this->response->error('Role could not be deleted', 500);
         }
+        return $role;
     }
 }
 

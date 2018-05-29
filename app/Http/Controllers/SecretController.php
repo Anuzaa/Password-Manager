@@ -3,34 +3,42 @@
 namespace App\Http\Controllers;
 
 
+
 use App\Secret;
 use Illuminate\Http\Request;
-use App\Http\Transformers\SecretTransformer as SecretTransformer;
+use App\Http\Transformers\SecretTransformer;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SecretController extends BaseController
 {
+    /**
+     * The category repository implementation.
+     *
+     * @var Secret
+     */
+    protected $secret;
 
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Secret $secret
+     * @return void
      */
-    public function index()
+    public function __construct(Secret $secret)
     {
-        $secrets = Secret::query()->with('category')->paginate(15);
-
-        return $this->response->paginator($secrets, new SecretTransformer);
+        $this->secret = $secret;
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
+     * Display a listing of the resource.
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function index(Request $request)
     {
-        Secret::Create($request->all());
-        return $this->response->created();
+        $secrets = $this->secret->with('category')->paginate($request->query('per_page'));
+
+        return $this->response->paginator($secrets, new SecretTransformer);
     }
 
     /**
@@ -41,18 +49,13 @@ class SecretController extends BaseController
      */
     public function store(Request $request)
     {
-        $secret = $request->isMethod('put') ? Secret::findOrFail($request->id) : new Secret;
-        $secret->id = $request->input('id');
-        $secret->url = $request->input('url');
-        $secret->email = $request->input('email');
-        $secret->password = Hash::make($request->input('password'));
-        $secret->owner = $request->input('owner');
-
-        if ($secret->save()) {
-            return $this->response->created();
-        }else{
-            return $this->response->errorBadRequest();
-        }
+        $secret = $request->validate([
+            'url' => 'required',
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+        $this->secret->create($request->all());
+        return $this->response->collection($secret, new SecretTransformer)->setStatusCode(200);
     }
 
     /**
@@ -63,19 +66,11 @@ class SecretController extends BaseController
      */
     public function show($id)
     {
-        $secret = Secret::findOrFail($id);
-        return $this->response->item($secret, new SecretTransformer);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-
+        $secret = $this->secret->find($id);
+        if (!$secret) {
+            throw new NotFoundHttpException('Secret not found');
+        }
+        return $this->response->item($secret, new SecretTransformer)->setStatusCode(200);
     }
 
     /**
@@ -87,13 +82,17 @@ class SecretController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $secret = $request->isMethod('put') ? Role::findOrFail($request->id) : new Role;
-        $secret->id = $request->input('id');
-        $secret->url = $request->input('url');
-        $secret->email = $request->input('email');
-        $secret->password = Hash::make($request->input('password'));
-        $secret->owner = $request->input('owner');
-        $secret->save();
+        $secret = $this->secret->find($id);
+        $this->validate($request, [
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+        if ($this->secret->save($secret, $request->all())) {
+            $this->response->item($secret, new SecretTransformer)->setStatusCode(200);
+        } else {
+            $this->response->error('Secret could not be updated', 500);
+        }
+        return $secret;
     }
 
     /**
@@ -104,10 +103,12 @@ class SecretController extends BaseController
      */
     public function destroy($id)
     {
-        $secret = Secret::findOrFail($id);
-
+        $secret = $this->secret->find($id);
         if ($secret->delete()) {
-            return $this->response->item($secret, new SecretTransformer);
+            $this->response->item($secret, new SecretTransformer);
+        } else {
+            $this->response->error('Secret could not be deleted', 500);
         }
+        return $secret;
     }
 }

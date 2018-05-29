@@ -27,7 +27,7 @@ class SecretTransformer extends TransformerAbstract
      * Transform the resource into an array.
      *
      *
-     * @param  \Illuminate\Http\Secret $secret
+     * @param  Secret $secret
      * @return array
      */
     public function transform(Secret $secret)
@@ -43,6 +43,7 @@ class SecretTransformer extends TransformerAbstract
     /**
      * Include Author
      *
+     * @param  Secret $secret
      * @return \League\Fractal\Resource\Item
      */
     public function includeCategory(Secret $secret)
@@ -56,5 +57,7 @@ class SecretTransformer extends TransformerAbstract
             ];
         });
     }
+
+
 
 }

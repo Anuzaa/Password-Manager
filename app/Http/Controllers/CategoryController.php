@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
-use App\Http\Transformers\CategoryTransformer as CategoryTransformer;
-use League\Fractal\TransformerAbstract;
+use App\Http\Transformers\CategoryTransformer;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 // @TODO fix indentation better if you follow PSR-2 coding style... done ;)
@@ -35,22 +33,19 @@ class CategoryController extends BaseController
     public function __construct(Category $category)
     {
         $this->category = $category;
-
-
     }
-
 
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $limit = Input::get('limit');
-        $categories = $this->category->paginate($limit);
-        return $this->response->paginator($categories,  new CategoryTransformer)->setStatusCode(200);
+        $categories = $this->category->with('secret')->paginate($request->query('per_page'));
 
+        return $this->response->paginator($categories, new CategoryTransformer);
     }
 
     /**
@@ -62,7 +57,12 @@ class CategoryController extends BaseController
      */
     public function store(Request $request)
     {
+        $category = $request->validate([
+            'category_name' => 'required',
+        ]);
         $this->category->create($request->only('category_name'));
+        return $this->response->collection($category, new CategoryTransformer)->setStatusCode(200);
+
     }
 
 
@@ -74,13 +74,12 @@ class CategoryController extends BaseController
      */
     public function show($id)
     {
-        $category = $this->category->find($id);
-        if (!$category){
+        $category = $this->category->find($id)->secret;
+        if (!$category) {
             throw new NotFoundHttpException('Category not found');
         }
         return $this->response->item($category, new CategoryTransformer)->setStatusCode(200);
     }
-
 
 
     /**
@@ -92,22 +91,21 @@ class CategoryController extends BaseController
      */
     public function update(Request $request, $id)
     {
-//        dd($request->all());
         $category = $this->category->find($id);
-        if (!$category){
-            throw new NotFoundHttpException('Category not found');
+        $this->validate($request, [
+            'category_name' => 'required'
+        ]);
+        if ($this->category->save($category, $request->all())) {
+            $this->response->item($category, new CategoryTransformer)->setStatusCode(200);
+        } else {
+            $this->response->error('Category could not be updated', 500);
         }
-        if ($this->category->save($request->all())) {
-            return $this->response->noContent();
-        } else{
-            return $this->response->error('Category could not be updated');
-        }
-
-
+        return $category;
     }
 
     /**
      * Remove the specified resource from storage.
+     *
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
@@ -115,13 +113,13 @@ class CategoryController extends BaseController
     public function destroy($id)
     {
         $category = $this->category->find($id);
-        if (!$category)
-            throw new NotFoundHttpException('Category not found');
         if ($category->delete()) {
-            return $this->response->noContent();
+            $this->response->item($category, new CategoryTransformer);
         } else {
-            return $this->response->error('Category could not be deleted', 500);
+            $this->response->error('Category could not be deleted', 500);
         }
+        return $category;
     }
 }
+
 
