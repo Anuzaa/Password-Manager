@@ -29,32 +29,11 @@ class User extends Authenticatable implements JWTSubject
     ];
 
 
-    public function category(){
-        return $this->hasMany('User');
+    public function categories(){
+        return $this->hasMany(Category::class, 'author_id');
 
     }
-    
-    // // Rest omitted for brevity
 
-    // /**
-    //  * Get the identifier that will be stored in the subject claim of the JWT.
-    //  *
-    //  * @return mixed
-    //  */
-    // public function getJWTIdentifier()
-    // {
-    //     return $this->getKey();
-    // }
-
-    // /**
-    //  * Return a key value array, containing any custom claims to be added to the JWT.
-    //  *
-    //  * @return array
-    //  */
-    // public function getJWTCustomClaims()
-    // {
-    //     return [];
-    // }
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

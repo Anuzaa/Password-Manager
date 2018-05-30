@@ -43,7 +43,7 @@ class CategoryController extends BaseController
      */
     public function index(Request $request)
     {
-        $categories = $this->category->with('secret')->paginate($request->query('per_page'));
+        $categories = $this->category->where('author_id', $request->user()->id)->paginate($request->query('per_page'));
 
         return $this->response->paginator($categories, new CategoryTransformer);
     }
@@ -57,12 +57,16 @@ class CategoryController extends BaseController
      */
     public function store(Request $request)
     {
-        $category = $request->validate([
-            'category_name' => 'required',
+        $this->validate($request, [
+            'name' => 'required',
         ]);
-        $this->category->create($request->only('category_name'));
-        return $this->response->collection($category, new CategoryTransformer)->setStatusCode(200);
+        $category = $this->category->newInstance($request->only('name'));
+        $category->forceFill(['author_id' => $request->user()->id]);
 
+        $category->save();
+
+        $this->response->item($category->refresh(), new CategoryTransformer)->setStatusCode(201);
+        return "Successfully created category";
     }
 
 
@@ -74,7 +78,7 @@ class CategoryController extends BaseController
      */
     public function show($id)
     {
-        $category = $this->category->find($id)->secret;
+        $category = $this->category->find($id);
         if (!$category) {
             throw new NotFoundHttpException('Category not found');
         }
@@ -92,15 +96,20 @@ class CategoryController extends BaseController
     public function update(Request $request, $id)
     {
         $category = $this->category->find($id);
-        $this->validate($request, [
-            'category_name' => 'required'
+        $validatedData = $this->validate($request, [
+            'name' => 'required'
         ]);
-        if ($this->category->save($category, $request->all())) {
-            $this->response->item($category, new CategoryTransformer)->setStatusCode(200);
-        } else {
-            $this->response->error('Category could not be updated', 500);
+        if (!$category) {
+            throw new NotFoundHttpException('Category not found');
         }
-        return $category;
+
+
+        if ($category->fill($validatedData)->save()) {
+            $this->response->item($category->fresh(), new CategoryTransformer)->setStatusCode(200);
+            return "Successfully updated category";
+        }
+
+        return $this->response->error('Category could not be updated', 500);
     }
 
     /**
@@ -114,11 +123,11 @@ class CategoryController extends BaseController
     {
         $category = $this->category->find($id);
         if ($category->delete()) {
-            $this->response->item($category, new CategoryTransformer);
-        } else {
-            $this->response->error('Category could not be deleted', 500);
+            $this->response->noContent();
+            return "Successfully deleted category";
         }
-        return $category;
+        return $this->response->error('Category could not  be deleted', 500);
+
     }
 }
 

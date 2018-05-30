@@ -16,9 +16,9 @@ class CategoryTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $defaultIncludes = [
-        'secret'
-    ];
+//    protected $defaultIncludes = [
+//        'secret'
+//    ];
 
     /**
      * Transform the resource into an array.
@@ -29,8 +29,10 @@ class CategoryTransformer extends TransformerAbstract
     public function transform(Category $category)
     {
         return [
-            'category_id' => $category->id,
-            'category_name' => $category->category_name,
+            'id' => $category->getKey(),
+            'name' => $category->getAttribute('name'),
+            'author_id' => $category->getAttribute('author_id'),
+            'created_at' => $category->getAttribute('created_at'),
 
         ];
     }
@@ -48,7 +50,7 @@ class CategoryTransformer extends TransformerAbstract
         return $this->item($secret, function ($secret) {
             return [
                 'id' => $secret->id,
-                'name' => $secret->email,
+                'email' => $secret->email,
                 'password' => $secret->password
             ];
         });

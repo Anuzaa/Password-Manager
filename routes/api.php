@@ -1,8 +1,17 @@
 <?php
 
 
+
 $api = app(\Dingo\Api\Routing\Router::class);
 
+//$factory->define(App\Post::class, function ($faker) {
+//    return [
+//        'title' => $faker->title,
+//        'content' => $faker->paragraph,
+//        'user_id' => function () {
+//            return factory(App\User::class)->create()->id;
+//        },
+//    });
 
 $api->version('v1', function ($api) {
     $api->post('login', 'App\Http\Controllers\AuthController@authenticate');

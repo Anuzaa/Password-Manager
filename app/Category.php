@@ -8,14 +8,13 @@ class Category extends Model
 {
 
     protected $fillable = [
-        'category_name',
-        'secret_id'
+        'name',
     ];
 
-    public function secrets()
-    {
-        return $this->hasMany(Secret::class);
-    }
+//    public function secrets()
+//    {
+//        return $this->hasMany(Secret::class);
+//    }
 
 //    protected $table='categories';
 //
