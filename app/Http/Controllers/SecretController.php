@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 
-
 use App\Secret;
 use Illuminate\Http\Request;
 use App\Http\Transformers\SecretTransformer;
@@ -36,6 +35,7 @@ class SecretController extends BaseController
      */
     public function index(Request $request)
     {
+
         $secrets = $this->secret->where('author_id', $request->user()->id)->paginate($request->query('per_page'));
 
         return $this->response->paginator($secrets, new SecretTransformer);
@@ -49,24 +49,35 @@ class SecretController extends BaseController
      */
     public function store(Request $request)
     {
-        $secret = $request->validate([
+
+        $this->validate($request, [
             'url' => 'required',
+            'name' => 'required',
             'email' => 'required',
             'password' => 'required'
         ]);
-        $this->secret->create($request->all());
-        return $this->response->collection($secret, new SecretTransformer)->setStatusCode(200);
+        $secret = $this->secret->newInstance($request->all());
+        $secret->forceFill(['author_id' => $request->user()->id, 'category_id' => $request->user()->id]);
+
+        if ($secret->save()) {
+            $this->response->item($secret->refresh(), new SecretTransformer)->setStatusCode(200);
+            return 'success';
+        }
+
+        return $this->response->error("Secret could not be created", 500);
+
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int $id
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
-        $secret = $this->secret->find($id);
+        $secret = $this->secret->where('author_id', $request->user()->id)->find($id);
         if (!$secret) {
             throw new NotFoundHttpException('Secret not found');
         }
@@ -83,16 +94,22 @@ class SecretController extends BaseController
     public function update(Request $request, $id)
     {
         $secret = $this->secret->find($id);
-        $this->validate($request, [
+        $validatedData=$this->validate($request, [
+            'url'=>'required',
+            'name'=>'required',
             'email' => 'required',
             'password' => 'required'
         ]);
-        if ($this->secret->save($secret, $request->all())) {
-            $this->response->item($secret, new SecretTransformer)->setStatusCode(200);
-        } else {
-            $this->response->error('Secret could not be updated', 500);
+        if(!$secret){
+            throw new NotFoundHttpException();
         }
-        return $secret;
+        if ($secret->fill($validatedData)->save()) {
+            $this->response->item($secret->fresh(), new SecretTransformer)->setStatusCode(200);
+            return "Successfully updated secret";
+        }
+        return $this->response->error('Secret could not be updated', 500);
+
+
     }
 
     /**
@@ -101,14 +118,15 @@ class SecretController extends BaseController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        $secret = $this->secret->find($id);
+        $secret = $this->secret->where('author_id', $request->user()->id)->find($id);
         if ($secret->delete()) {
-            $this->response->item($secret, new SecretTransformer);
+            $this->response->noContent();
+            return "Successfully deleted secret";
         } else {
-            $this->response->error('Secret could not be deleted', 500);
+            return $this->response->error('Secret could not be deleted', 500);
         }
-        return $secret;
+
     }
 }

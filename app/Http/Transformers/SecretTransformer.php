@@ -15,14 +15,19 @@ class SecretTransformer extends TransformerAbstract
     protected $availableIncludes = [
         'category'
     ];
+
+
     /**
      * List of resources possible to include
      *
      * @var array
      */
     protected $defaultIncludes = [
-        'category'
+        'category',
+//        'user'
     ];
+
+
     /**
      * Transform the resource into an array.
      *
@@ -33,10 +38,13 @@ class SecretTransformer extends TransformerAbstract
     public function transform(Secret $secret)
     {
         return [
-            'secret_id' => $secret->id,
-            'url' => $secret->url,
-            'email' => $secret->email,
-            'password' => $secret->password,
+            'id' => $secret->getKey(),
+            'url' => $secret->getAttribute('url'),
+            'name' => $secret->getAttribute('name'),
+            'email' => $secret->getAttribute('email'),
+            'password' => $secret->getAttribute('password'),
+            'author_id' => $secret->getAttribute('author_id'),
+            'category_id' => $secret->getAttribute('category_id'),
         ];
     }
 
@@ -50,14 +58,29 @@ class SecretTransformer extends TransformerAbstract
     {
         $category = $secret->category;
 
-        return $this->item($category, function($category) {
+        return $this->item($category, function ($category) {
             return [
                 'id' => $category->id,
-                'name' => $category->category_name
+                'name' => $category->name
             ];
         });
     }
+    /**
+     * Include Author
+     *
+     * @param  Secret $secret
+     * @return \League\Fractal\Resource\Item
+     */
 
-
+    public function includeUser(Secret $secret)
+    {
+        $user = $secret->user;
+        return $this->item($user, function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->name
+            ];
+        });
+    }
 
 }

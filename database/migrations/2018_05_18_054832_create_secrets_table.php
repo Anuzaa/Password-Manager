@@ -23,8 +23,8 @@ class CreateSecretsTable extends Migration
             $table->unsignedInteger('author_id');
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('author_id')->references('id')->on('users');
         });
     }
 

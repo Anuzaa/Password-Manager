@@ -10,6 +10,10 @@ class Category extends Model
     protected $fillable = [
         'name',
     ];
+    public function secrets(){
+        return $this->hasMany(Secret::class, 'category_id');
+
+    }
 
 //    public function secrets()
 //    {
@@ -18,7 +22,5 @@ class Category extends Model
 
 //    protected $table='categories';
 //
-//    public function owner(){
-//        return $this->hasOne('Category','user_id');
-//    }
+//
 }
