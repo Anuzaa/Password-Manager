@@ -3,7 +3,6 @@
 namespace App\Http\Transformers;
 
 
-use App\Secret;
 use League\Fractal\TransformerAbstract;
 use App\Category;
 
@@ -16,9 +15,9 @@ class CategoryTransformer extends TransformerAbstract
      *
      * @var array
      */
-//    protected $defaultIncludes = [
-//        'secret'
-//    ];
+    protected $defaultIncludes = [
+        'user'
+    ];
 
     /**
      * Transform the resource into an array.
@@ -43,15 +42,13 @@ class CategoryTransformer extends TransformerAbstract
      * @param  Category $category
      * @return \League\Fractal\Resource\Item
      */
-    public function includeSecret(Category $category)
+    public function includeUser(Category $category)
     {
-        $secret = $category->secret;
-
-        return $this->item($secret, function ($secret) {
+        $user = $category->user;
+        return $this->item($user, function ($user) {
             return [
-                'id' => $secret->id,
-                'email' => $secret->email,
-                'password' => $secret->password
+                'id' => $user->id,
+                'name' => $user->name
             ];
         });
     }

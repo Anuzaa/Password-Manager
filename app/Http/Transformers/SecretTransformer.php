@@ -24,7 +24,7 @@ class SecretTransformer extends TransformerAbstract
      */
     protected $defaultIncludes = [
         'category',
-//        'user'
+        'user'
     ];
 
 
@@ -45,6 +45,7 @@ class SecretTransformer extends TransformerAbstract
             'password' => $secret->getAttribute('password'),
             'author_id' => $secret->getAttribute('author_id'),
             'category_id' => $secret->getAttribute('category_id'),
+            'created_at' => $secret->getAttribute('created_at'),
         ];
     }
 
