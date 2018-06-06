@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use Illuminate\Http\Request;
-use App\Http\Transformers\RoleTransformer ;
+use App\Http\Transformers\RoleTransformer;
 
 class RoleController extends BaseController
 {
@@ -35,7 +35,7 @@ class RoleController extends BaseController
     public function index(Request $request)
     {
 //        dd('asd');
-        $roles = $this->role->paginate($request->query('per_page'));
+        $roles = $this->role->latest()->paginate($request->query('per_page'));
         return $this->response->paginator($roles, new RoleTransformer);
     }
 
@@ -48,11 +48,20 @@ class RoleController extends BaseController
      */
     public function store(Request $request)
     {
-        $role = $request->validate([
+        $this->validate($request, [
             'role_name' => 'required',
+
         ]);
-        $this->role->create($request->only('role_name'));
-        return $this->response->collection($role, new RoleTransformer)->setStatusCode(200);
+        $role = $this->role->newInstance($request->only('role_name'));
+        $role->forceFill(['author_id' => $request->user()->id]);
+
+        if ($role->save()) {
+            $this->response->item($role->refresh(), new RoleTransformer)->setStatusCode(200);
+            return 'success';
+        }
+
+        return $this->response->error("Role could not be created");
+
 
     }
 
@@ -106,11 +115,11 @@ class RoleController extends BaseController
     {
         $role = $this->role->find($id);
         if ($role->delete()) {
-            $this->response->item($role, new RoleTransformer);
+            return $this->response->noContent();
         } else {
-            $this->response->error('Role could not be deleted', 500);
+            return $this->response->error('Role could not be deleted', 500);
         }
-        return $role;
+
     }
 }
 

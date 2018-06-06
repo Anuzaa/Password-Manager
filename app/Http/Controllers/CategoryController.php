@@ -63,12 +63,12 @@ class CategoryController extends BaseController
         $category = $this->category->newInstance($request->only('name'));
         $category->forceFill(['author_id' => $request->user()->id]);
 
-       if( $category->save()) {
-           $this->response->item($category->refresh(), new CategoryTransformer)->setStatusCode(201);
-           return "Successfully created category";
-       }else{
-           return $this->response->error("Category could not be created",500);
-       }
+        if ($category->save()) {
+            $this->response->item($category->refresh(), new CategoryTransformer)->setStatusCode(201);
+            return "Successfully created category";
+        } else {
+            return $this->response->error("Category could not be created", 500);
+        }
     }
 
 
@@ -76,10 +76,10 @@ class CategoryController extends BaseController
      * Display the specified resource.
      *
      * @param  int $id
-     *  @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
+    public function show(Request $request, $id)
     {
         $category = $this->category->where('author_id', $request->user()->id)->find($id);
         if (!$category) {
@@ -112,7 +112,7 @@ class CategoryController extends BaseController
             return "Successfully updated category";
         }
 
-        return $this->response->error('Category could not be updated', 404);
+        return $this->response->error('Category could not be updated');
     }
 
     /**
@@ -123,7 +123,7 @@ class CategoryController extends BaseController
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
         $category = $this->category->where('author_id', $request->user()->id)->find($id);
         if (!$category) {
@@ -133,7 +133,7 @@ class CategoryController extends BaseController
             $this->response->noContent();
             return "Successfully deleted category";
         }
-        return $this->response->error('Category could not  be deleted', 500);
+        return $this->response->error('Category could not  be deleted');
 
     }
 }
