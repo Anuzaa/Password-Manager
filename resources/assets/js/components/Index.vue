@@ -1,20 +1,22 @@
 <template>
     <main>
-
-        <!--<navBar></navBar>-->
-        <!--<categoryList></categoryList>-->
-        <router-view></router-view>
+        <nav-bar></nav-bar>
+        <div class="panel">
+            <router-view></router-view>
+        </div>
     </main>
 </template>
 
 <script>
-    // import navBar from './NavBar.vue';
-    // import categoryList from './CategoryList.vue';
     import 'bulma';
+    import navBar from './NavBar';
 
 
     export default {
         name: 'Index',
+        components: {
+            navBar
+        }
     }
 </script>
 

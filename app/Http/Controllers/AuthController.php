@@ -10,6 +10,8 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 class AuthController extends Controller
 {
 
+
+
     /**
      * Get a JWT via given credentials.
      *
@@ -24,7 +26,9 @@ class AuthController extends Controller
         try {
             // attempt to verify the credentials and create a token for the user
             if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 401);
+                return response()->json([
+                    'status'=>'error',
+                    'error' => 'invalid_credentials'], 401);
             }
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
@@ -42,6 +46,7 @@ class AuthController extends Controller
      * They have to re-login to get a new token
      *
      * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function logout(Request $request)
     {
@@ -49,6 +54,10 @@ class AuthController extends Controller
             'token' => 'required'
         ]);
         JWTAuth::invalidate($request->input('token'));
+        return response([
+            'status' => 'success',
+            'msg' => 'Logged out successfully'
+        ], 200);
     }
 
     /**
