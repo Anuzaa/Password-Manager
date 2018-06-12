@@ -5,12 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\User;
+use App\Http\Requests\RegisterFormRequest;
 
 
 class AuthController extends Controller
 {
 
-
+    /**
+     * Register the user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *  @param \Illuminate\Http\Request $request
+     */
+    public function register(RegisterFormRequest $request)
+    {
+        $user = new User;
+        $user->email = $request->email;
+        $user->name = $request->name;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return response([
+            'status' => 'success',
+            'data' => $user
+        ], 200);
+    }
 
     /**
      * Get a JWT via given credentials.
@@ -69,6 +88,16 @@ class AuthController extends Controller
     {
         return response()->json(auth()->user());
     }
+
+
+//    public function user(Request $request)
+//    {
+//        $user = User::find(auth()->user()->id);
+//        return response([
+//            'status' => 'success',
+//            'data' => $user
+//        ]);
+//    }
 
 
     /**

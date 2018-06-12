@@ -1,4 +1,5 @@
 
+
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
 
@@ -60,3 +61,4 @@ window.axios.defaults.baseURL = '/api/';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+

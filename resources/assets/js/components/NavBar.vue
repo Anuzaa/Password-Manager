@@ -1,19 +1,28 @@
 <template>
     <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <router-link :to="{name:'home'}" class="navbar-item"> Home</router-link>
+            <router-link :to="{name:'dashboard'}" class="navbar-item"> Home</router-link>
+        </div>
+        <div class="navbar-brand">
+            <router-link :to="{name:'category'}" class="navbar-item">Category</router-link>
         </div>
         <div class="navbar-end">
-            <router-link :to="{name:'login'}" class="navbar-item"> Login</router-link>
-            <router-link :to="{name:'register'}" class="navbar-item"> Register</router-link>
-            <a href="#" @click.prevent="$auth.logout()">Logout</a>
+            <a href="#" class="navbar-item" @click.prevent="logout">Logout</a>
         </div>
     </nav>
 </template>
 
 <script>
+    import Auth from '../common/auth/index';
+
     export default {
         name: "navBar",
+        methods: {
+            logout() {
+                Auth.logout();
+                this.$router.push({name: 'login'});
+            }
+        }
     }
 </script>
 

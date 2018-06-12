@@ -10,7 +10,8 @@
                     <form class="form-signin" @submit.prevent="login">
                         <div class="field">
                             <p class="control has-icons-left has-icons-right">
-                                <input class="input" v-model="email" type="email" placeholder="Your Email" autofocus="">
+                                <input class="input" v-model="credentials.email" type="email" placeholder="Your Email"
+                                       autofocus="">
                                 <span class="icon is-small is-left">
                                   <i class="fas fa-envelope"></i>
                              </span>
@@ -23,7 +24,8 @@
 
                         <div class="field">
                             <p class="control has-icons-left">
-                                <input class="input" v-model="password" type="password" placeholder="Your Password">
+                                <input class="input" v-model="credentials.password" type="password"
+                                       placeholder="Your Password">
                                 <span class="icon is-small is-left">
                             <i class="fas fa-lock"></i>
                             </span>
@@ -40,11 +42,6 @@
                         <button class="button is-primary  is-medium is-fullwidth" type="submit">Login</button>
                     </form>
                 </div>
-                <!--<p class="has-text-grey">-->
-                <!--<a href="../">Sign Up</a> &nbsp;·&nbsp;-->
-                <!--<a href="../">Forgot Password</a> &nbsp;·&nbsp;-->
-                <!--<a href="../">Need Help?</a>-->
-                <!--</p>-->
             </div>
         </div>
     </div>
@@ -52,41 +49,29 @@
 </template>
 
 <script>
+    import Auth from '../common/auth/index';
+
     export default {
         name: "Login",
         data() {
-
             return {
-                email: '',
-                password: '',
-                error: false
-            }
+                credentials: {
+                    email: '',
+                    password: '',
+
+                },
+                error: false,
+            };
         },
         methods: {
             login() {
-                this.$http.post('/login',
-                    {
-                        email: this.email,
-                        password: this.password
-                    })
-                    .then(request => this.loginSuccessful(request))
-                    .catch(() => this.loginFailed())
-            },
-
-            loginSuccessful(req) {
-                if (!req.data.token) {
-                    this.loginFailed();
-                }
-                localStorage.token = req.data.token;
-                this.error = false;
-                this.$router.replace(this.$route.query.redirect || '/categories');
-            },
-            loginFailed() {
-                this.error = 'Login failed';
-                delete localStorage.token;
-            },
-
+                Auth.attempt(this.credentials).then(() => {
+                    this.$router.push({name: 'dashboard'});
+                });
+                this.error = "Login failed";
+            }
         }
+
     }
 </script>
 

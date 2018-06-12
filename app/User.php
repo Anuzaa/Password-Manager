@@ -29,13 +29,11 @@ class User extends Authenticatable implements JWTSubject
     ];
 
 
-    public function categories(){
+    public function categories()
+    {
         return $this->hasMany(Category::class, 'author_id');
 
     }
-
-
-
 
 
     /**

@@ -1,41 +1,37 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-import './bootstrap';
 import Vue from 'vue';
 import axios from 'axios';
-import VueAxios from 'vue-axios';
-import router from './routes';
+import router from './router/index';
+import Index from './Index.vue';
+import Auth from "./common/auth";
 
 
 window.axios = axios;
-Vue.use(VueAxios, axios);
+window.axios.defaults.baseURL = '/api/';
 
-Vue.use(require('@websanova/vue-auth'), {
-    auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
-    http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
-    router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js')
-})
+window.axios.interceptors.request.use((config) => {
+    const Config = config;
+    if (Auth.check()) {
+        Config.headers.common.Authorization = Auth.getBearerToken();
+    }
+    Config.headers.common.Accept = 'application/json';
+    return Config;
+}, error =>
+    Promise.reject(error));
 
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-import Index from './components/Index.vue';
-
+// Add a response interceptor
+window.axios.interceptors.response.use(response =>
+    response, (error) => {
+    if (error.response.status === 401) { // if the error is 401 and hasnt already been retried
+        return Auth.logout();
+    }
+    return Promise.reject(error);
+});
 
 new Vue({
     el: '#app',
     router,
-    axios,
+
     components: {
-        Index,
+        Index
     },
 });
