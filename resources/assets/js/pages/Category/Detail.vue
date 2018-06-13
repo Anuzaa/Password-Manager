@@ -13,25 +13,32 @@
                         <router-link to="/categories" class="button is-primary is-pulled-right">Back</router-link>
                     </div>
                 </div>
-                <div class="panel-body">
-                    <div class="column is-half">
-                        CategoryID #{{category.user.data.id}}
-                    </div>
-                    <div class="column is-half is-small">
-                        UserID #{{category.user.data.id}}
-                    </div>
-                    <div class="column is-half is-small">
-                        User : {{category.user.data.name}}
-                    </div>
+                <small>
+                    <div class="panel-body">
+                        <div class="column is-half">
+                            CategoryID #{{category.id}}
+                        </div>
+                        <div class="column is-half is-small">
+                            UserID #{{category.user.data.id}}
+                        </div>
+                        <div class="column is-half is-small">
+                            User : {{category.user.data.name}}
+                        </div>
+                        <hr>
+                        <small>Created at {{category.created_at.date}}</small>
 
-                </div>
+                    </div>
+                </small>
             </div>
         </div>
     </div>
 
+
 </template>
 
 <script>
+    import axios from 'axios';
+
     export default {
         name: "category-detail",
         data() {
@@ -40,7 +47,7 @@
             }
         },
         mounted() {
-            window.axios
+            axios
                 .get(`categories/${this.$route.params.id}`)
                 .then(response => {
                     this.category = response.data.data;

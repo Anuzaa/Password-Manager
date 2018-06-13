@@ -56,8 +56,8 @@
         data() {
             return {
                 credentials: {
-                    email: '',
-                    password: '',
+                    email: 'anu@gmail.com',
+                    password: '123456',
 
                 },
                 error: false,

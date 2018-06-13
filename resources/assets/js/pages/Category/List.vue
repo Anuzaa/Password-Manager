@@ -3,8 +3,8 @@
 
         <div class="panel">
             <div class="panel-heading has-text-centered"><strong>Categories</strong>
-                <router-link to="/category/create" class="is-pulled-right">
-                    <a class="button is-primary" >Add</a>
+                <router-link class="button is-primary is-pulled-right " :to="{name:'category.create'}">
+                    Add
                 </router-link>
             </div>
             <br>
@@ -29,9 +29,14 @@
                             <i class="fa fa-eye"></i>
                         </router-link>
                         <router-link class="button is-white" type="button"
-                                     :to="{name:'category.detail',params:{id:category.id}}">
+                                     :to="{name:'category.edit',params:{id:category.id}}">
+                            <i class="fas fa-edit"></i>
+                        </router-link>
+                        <router-link class="button is-white" type="button"
+                                     :to="{name:'category.list',params:{id:category.id}}">
                             <i class="fa fa-trash"></i>
                         </router-link>
+
                     </td>
 
                 </tr>
@@ -46,7 +51,7 @@
 
     export default {
 
-        name: "List",
+        name: "category-list",
         data() {
             return {
                 categories: {},
@@ -59,6 +64,11 @@
                     this.categories = response.data
                 });
 
+        },
+        methods:{
+          delete(){
+
+          }
         }
     }
 </script>
