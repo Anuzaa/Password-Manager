@@ -56,7 +56,7 @@ const router = new Router({
             },
         },
         {
-            path: '/category/:id',
+            path: '/category/:id/edit',
             name: 'category.edit',
             component: EditCategory,
             meta: {

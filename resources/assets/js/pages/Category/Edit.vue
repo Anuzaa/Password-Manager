@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <form @submit.prevent="update">
+            <br>
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">Edit Category</p>
@@ -36,13 +37,23 @@
                 },
             }
         },
+
         methods: {
             update() {
-                axios.put(`categories/${this.$route.params.id}`)
-                    .then(response => {
-                        this.formData = response.data.data;
+                axios.put(`categories/${this.$route.params.id}`,this.formData)
+                    .then(() => {
+                        this.$router.push({name:"category"})
                     });
             }
+        },
+        mounted() {
+            axios
+                .get(`categories/${this.$route.params.id}`)
+                .then(response => {
+                    // console.log(response.data.data.name);
+                    this.formData.name = response.data.data.name;
+                });
+
         }
 
     }

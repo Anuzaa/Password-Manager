@@ -43,7 +43,12 @@
         name: "category-detail",
         data() {
             return {
-                category: {},
+                category: {
+                    user: {
+                        data: {},
+                    },
+                    created_at: {},
+                },
             }
         },
         mounted() {

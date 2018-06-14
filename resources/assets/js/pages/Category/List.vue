@@ -32,10 +32,9 @@
                                      :to="{name:'category.edit',params:{id:category.id}}">
                             <i class="fas fa-edit"></i>
                         </router-link>
-                        <router-link class="button is-white" type="button"
-                                     :to="{name:'category.list',params:{id:category.id}}">
+                        <button @click="deleteCategory(category.id)" class="button is-white">
                             <i class="fa fa-trash"></i>
-                        </router-link>
+                        </button>
 
                     </td>
 
@@ -57,18 +56,25 @@
                 categories: {},
             }
         },
-        mounted() {
-            window.axios
-                .get('categories')
-                .then(response => {
-                    this.categories = response.data
-                });
+        methods: {
+            deleteCategory(id) {
+                if (confirm("Are you sure?")) {
+                    window.axios
+                        .delete(`categories/${id}`).then(() => {
+                            this.categories.splice();
 
-        },
-        methods:{
-          delete(){
+                        }
+                    )
+                }
+            },
+            mounted() {
+                window.axios
+                    .get('categories')
+                    .then(response => {
+                        this.categories = response.data
+                    });
 
-          }
+            },
         }
     }
 </script>

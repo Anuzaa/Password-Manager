@@ -13673,7 +13673,7 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
             requiresAuth: true
         }
     }, {
-        path: '/category/:id',
+        path: '/category/:id/edit',
         name: 'category.edit',
         component: __WEBPACK_IMPORTED_MODULE_5__pages_Category_Edit_vue___default.a,
         meta: {
@@ -16804,7 +16804,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -16862,7 +16862,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -16873,16 +16872,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             categories: {}
         };
     },
-    mounted: function mounted() {
-        var _this = this;
-
-        window.axios.get('categories').then(function (response) {
-            _this.categories = response.data;
-        });
-    },
 
     methods: {
-        delete: function _delete() {}
+        deleteCategory: function deleteCategory(id) {
+            var _this = this;
+
+            if (confirm("Are you sure?")) {
+                window.axios.delete("categories/" + id).then(function () {
+                    _this.categories.splice();
+                });
+            }
+        },
+        mounted: function mounted() {
+            var _this2 = this;
+
+            window.axios.get('categories').then(function (response) {
+                _this2.categories = response.data;
+            });
+        }
     }
 });
 
@@ -16963,14 +16970,12 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c(
-                    "router-link",
+                    "button",
                     {
                       staticClass: "button is-white",
-                      attrs: {
-                        type: "button",
-                        to: {
-                          name: "category.list",
-                          params: { id: category.id }
+                      on: {
+                        click: function($event) {
+                          _vm.deleteCategory(category.id)
                         }
                       }
                     },
@@ -17097,7 +17102,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17155,7 +17160,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     name: "category-detail",
     data: function data() {
         return {
-            category: {}
+            category: {
+                user: {
+                    data: {}
+                },
+                created_at: {}
+            }
         };
     },
     mounted: function mounted() {
@@ -17335,7 +17345,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17348,6 +17358,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+//
 //
 //
 //
@@ -17387,16 +17398,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
+
     methods: {
         update: function update() {
             var _this = this;
 
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('categories/' + this.$route.params.id).then(function (response) {
-                _this.formData = response.data.data;
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('categories/' + this.$route.params.id, this.formData).then(function () {
+                _this.$router.push({ name: "category" });
             });
         }
-    }
+    },
+    mounted: function mounted() {
+        var _this2 = this;
 
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('categories/' + this.$route.params.id).then(function (response) {
+            // console.log(response.data.data.name);
+            _this2.formData.name = response.data.data.name;
+        });
+    }
 });
 
 /***/ }),
@@ -17419,6 +17438,8 @@ var render = function() {
         }
       },
       [
+        _c("br"),
+        _vm._v(" "),
         _c("div", { staticClass: "card" }, [
           _vm._m(0),
           _vm._v(" "),
