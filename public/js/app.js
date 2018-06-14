@@ -16804,7 +16804,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -16879,17 +16879,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (confirm("Are you sure?")) {
                 window.axios.delete("categories/" + id).then(function () {
-                    _this.categories.splice();
+                    _this.getCategory();
                 });
             }
         },
-        mounted: function mounted() {
+        getCategory: function getCategory() {
             var _this2 = this;
 
             window.axios.get('categories').then(function (response) {
                 _this2.categories = response.data;
             });
         }
+    },
+    mounted: function mounted() {
+        this.getCategory();
     }
 });
 

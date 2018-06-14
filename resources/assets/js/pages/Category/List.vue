@@ -61,13 +61,14 @@
                 if (confirm("Are you sure?")) {
                     window.axios
                         .delete(`categories/${id}`).then(() => {
-                            this.categories.splice();
+                            this.getCategory();
+
 
                         }
                     )
                 }
             },
-            mounted() {
+            getCategory() {
                 window.axios
                     .get('categories')
                     .then(response => {
@@ -75,7 +76,10 @@
                     });
 
             },
-        }
+        },
+        mounted() {
+            this.getCategory();
+        },
     }
 </script>
 
