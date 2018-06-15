@@ -794,16 +794,10 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(19);
-
-/***/ }),
-/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
 
@@ -842,7 +836,7 @@ var LOGIN_URL = 'login';
 });
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 var g;
@@ -869,7 +863,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -970,10 +964,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11936,10 +11930,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(17).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(17).setImmediate))
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -12127,6 +12121,12 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(19);
 
 /***/ }),
 /* 10 */
@@ -12409,14 +12409,14 @@ module.exports = __webpack_require__(16);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__router_index__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Index_vue__ = __webpack_require__(70);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Index_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_auth__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_auth__ = __webpack_require__(4);
 
 
 
@@ -12525,7 +12525,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
 /* 18 */
@@ -12718,7 +12718,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(8)))
 
 /***/ }),
 /* 19 */
@@ -12730,7 +12730,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(10);
 var Axios = __webpack_require__(21);
-var defaults = __webpack_require__(7);
+var defaults = __webpack_require__(6);
 
 /**
  * Create an instance of Axios
@@ -12813,7 +12813,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(7);
+var defaults = __webpack_require__(6);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(30);
 var dispatchRequest = __webpack_require__(31);
@@ -13352,7 +13352,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(32);
 var isCancel = __webpack_require__(13);
-var defaults = __webpack_require__(7);
+var defaults = __webpack_require__(6);
 var isAbsoluteURL = __webpack_require__(33);
 var combineURLs = __webpack_require__(34);
 
@@ -13607,7 +13607,7 @@ module.exports = function spread(callback) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_Login_vue__ = __webpack_require__(39);
@@ -13622,7 +13622,7 @@ module.exports = function spread(callback) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_Category_Create_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__pages_Category_Create_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_Dashboard_vue__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_Dashboard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__pages_Dashboard_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common_auth_index__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common_auth_index__ = __webpack_require__(4);
 
 
 
@@ -13659,7 +13659,7 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
             requiresAuth: true
         }
     }, {
-        path: '/category/:id',
+        path: '/category/:id/detail',
         name: 'category.detail',
         component: __WEBPACK_IMPORTED_MODULE_4__pages_Category_Detail_vue___default.a,
         meta: {
@@ -16419,7 +16419,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -16463,7 +16463,7 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_auth_index__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_auth_index__ = __webpack_require__(4);
 //
 //
 //
@@ -16536,8 +16536,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             __WEBPACK_IMPORTED_MODULE_0__common_auth_index__["a" /* default */].attempt(this.credentials).then(function () {
                 _this.$router.push({ name: 'dashboard' });
+            }).catch(function () {
+                _this.error = "Login failed";
             });
-            this.error = "Login failed";
         }
     }
 
@@ -16804,7 +16805,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -16862,6 +16863,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -16869,7 +16874,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     name: "category-list",
     data: function data() {
         return {
-            categories: {}
+            categories: {},
+            added: true
         };
     },
 
@@ -16905,96 +16911,106 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "category" } }, [
-    _c("div", { staticClass: "panel" }, [
-      _c(
-        "div",
-        { staticClass: "panel-heading has-text-centered" },
-        [
-          _c("strong", [_vm._v("Categories")]),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            {
-              staticClass: "button is-primary is-pulled-right ",
-              attrs: { to: { name: "category.create" } }
-            },
-            [_vm._v("\n                Add\n            ")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("br")
-    ]),
-    _vm._v(" "),
     _c("div", { staticClass: "container" }, [
-      _c("table", { staticClass: "table is-hoverable is-fullwidth " }, [
+      _c("div", { staticClass: "columns" }, [
         _vm._m(0),
         _vm._v(" "),
         _c(
-          "tbody",
-          _vm._l(_vm.categories.data, function(category) {
-            return _c("tr", { key: category.id }, [
-              _c("td", [_vm._v(_vm._s(category.id))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(category.name))]),
-              _vm._v(" "),
-              _c(
-                "td",
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "button is-white",
-                      attrs: {
-                        type: "button",
-                        to: {
-                          name: "category.detail",
-                          params: { id: category.id }
-                        }
-                      }
-                    },
-                    [_c("i", { staticClass: "fa fa-eye" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "button is-white",
-                      attrs: {
-                        type: "button",
-                        to: {
-                          name: "category.edit",
-                          params: { id: category.id }
-                        }
-                      }
-                    },
-                    [_c("i", { staticClass: "fas fa-edit" })]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "button is-white",
-                      on: {
-                        click: function($event) {
-                          _vm.deleteCategory(category.id)
-                        }
-                      }
-                    },
-                    [_c("i", { staticClass: "fa fa-trash" })]
-                  )
-                ],
-                1
-              )
-            ])
-          })
+          "div",
+          { staticClass: "column is-1" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "button is-primary is-pulled-right ",
+                attrs: { to: { name: "category.create" } }
+              },
+              [_vm._v("\n                    Add\n                ")]
+            )
+          ],
+          1
         )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "columns" }, [
+        _c("div", { staticClass: "column is-12" }, [
+          _c("table", { staticClass: "table is-hoverable is-fullwidth " }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.categories.data, function(category) {
+                return _c("tr", { key: category.id }, [
+                  _c("td", [_vm._v(_vm._s(category.id))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(category.name))]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "button is-white",
+                          attrs: {
+                            type: "button",
+                            to: {
+                              name: "category.detail",
+                              params: { id: category.id }
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-eye" })]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "button is-white",
+                          attrs: {
+                            type: "button",
+                            to: {
+                              name: "category.edit",
+                              params: { id: category.id }
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-edit" })]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "button is-white",
+                          on: {
+                            click: function($event) {
+                              _vm.deleteCategory(category.id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-trash" })]
+                      )
+                    ],
+                    1
+                  )
+                ])
+              })
+            )
+          ])
+        ])
       ])
     ])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "column is-11" }, [
+      _c("strong", [_vm._v("Categories")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -17105,7 +17121,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17116,8 +17132,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
 //
@@ -17156,7 +17170,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -17174,7 +17187,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("categories/" + this.$route.params.id).then(function (response) {
+        window.axios.get("categories/" + this.$route.params.id).then(function (response) {
             _this.category = response.data.data;
         });
     }
@@ -17348,7 +17361,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17359,8 +17372,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
 //
@@ -17388,7 +17399,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -17406,7 +17425,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         update: function update() {
             var _this = this;
 
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('categories/' + this.$route.params.id, this.formData).then(function () {
+            window.axios.put("categories/" + this.$route.params.id, this.formData).then(function () {
                 _this.$router.push({ name: "category" });
             });
         }
@@ -17414,7 +17433,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this2 = this;
 
-        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('categories/' + this.$route.params.id).then(function (response) {
+        window.axios.get("categories/" + this.$route.params.id).then(function (response) {
             // console.log(response.data.data.name);
             _this2.formData.name = response.data.data.name;
         });
@@ -17441,12 +17460,10 @@ var render = function() {
         }
       },
       [
-        _c("br"),
+        _vm._m(0),
         _vm._v(" "),
-        _c("div", { staticClass: "card" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("section", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "columns" }, [
+          _c("div", { staticClass: "column is-11" }, [
             _c("div", { staticClass: "field" }, [
               _c("label", { staticClass: "label" }, [_vm._v("Category Name")]),
               _vm._v(" "),
@@ -17461,11 +17478,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "input",
-                  attrs: {
-                    type: "text",
-                    placeholder: "Enter Category Name",
-                    required: ""
-                  },
+                  attrs: { type: "text", required: "" },
                   domProps: { value: _vm.formData.name },
                   on: {
                     input: function($event) {
@@ -17478,29 +17491,31 @@ var render = function() {
                 })
               ])
             ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "footer",
-            { staticClass: "card-footer" },
-            [
-              _c(
-                "button",
-                { staticClass: "button is-success", attrs: { type: "submit" } },
-                [_vm._v("Save")]
-              ),
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "columns" }, [
+          _c("div", { staticClass: "column is-11" }, [
+            _c("div", { staticClass: "field is-grouped" }, [
+              _vm._m(1),
               _vm._v(" "),
               _c(
-                "router-link",
-                {
-                  staticClass: "button",
-                  attrs: { to: "/categories", button: "" }
-                },
-                [_vm._v("Cancel")]
+                "div",
+                { staticClass: "control" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "button",
+                      attrs: { to: "/categories", button: "" }
+                    },
+                    [_vm._v("Cancel")]
+                  )
+                ],
+                1
               )
-            ],
-            1
-          )
+            ])
+          ])
         ])
       ]
     )
@@ -17511,8 +17526,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("header", { staticClass: "card-header" }, [
-      _c("p", { staticClass: "card-header-title" }, [_vm._v("Edit Category")])
+    return _c("div", { staticClass: "columns" }, [
+      _c("div", { staticClass: "column is-11" }, [
+        _c("strong", [_vm._v("Edit Category")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "control" }, [
+      _c(
+        "button",
+        { staticClass: "button is-success", attrs: { type: "submit" } },
+        [_vm._v("Save")]
+      )
     ])
   }
 ]
@@ -17611,7 +17640,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17622,8 +17651,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
 //
@@ -17652,7 +17679,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -17670,7 +17704,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         create: function create() {
             var _this = this;
 
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('categories', this.formData).then(function () {
+            window.axios.post('categories', this.formData).then(function () {
                 _this.$router.push({ name: 'category' });
             });
         }
@@ -17685,86 +17719,77 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "modal is-active" }, [
-    _c("div", { staticClass: "modal-background" }, [
-      _c(
-        "form",
-        {
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.create($event)
-            }
+  return _c("div", { staticClass: "container" }, [
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.create($event)
           }
-        },
-        [
-          _c("div", { staticClass: "modal-card" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("section", { staticClass: "modal-card-body" }, [
-              _c("div", { staticClass: "field" }, [
-                _c("label", { staticClass: "label" }, [
-                  _vm._v("Category Name")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "control" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.name,
-                        expression: "formData.name"
-                      }
-                    ],
-                    staticClass: "input",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Enter Category Name",
-                      required: ""
-                    },
-                    domProps: { value: _vm.formData.name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.formData, "name", $event.target.value)
-                      }
+        }
+      },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "columns" }, [
+          _c("div", { staticClass: "column is-half" }, [
+            _c("div", { staticClass: "field" }, [
+              _c("label", { staticClass: "label" }, [_vm._v("Category Name")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.formData.name,
+                      expression: "formData.name"
                     }
-                  })
-                ])
+                  ],
+                  staticClass: "input",
+                  attrs: { type: "text", required: "" },
+                  domProps: { value: _vm.formData.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.formData, "name", $event.target.value)
+                    }
+                  }
+                })
               ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "footer",
-              { staticClass: "modal-card-foot" },
-              [
-                _c(
-                  "button",
-                  {
-                    staticClass: "button is-success",
-                    attrs: { type: "submit" }
-                  },
-                  [_vm._v("Save")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "button",
-                    attrs: { to: "/categories", button: "" }
-                  },
-                  [_vm._v("Cancel")]
-                )
-              ],
-              1
-            )
+            ])
           ])
-        ]
-      )
-    ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "columns" }, [
+          _c("div", { staticClass: "column is-11" }, [
+            _c("div", { staticClass: "field is-grouped" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "control" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "button",
+                      attrs: { to: "/categories", button: "" }
+                    },
+                    [_vm._v("Cancel")]
+                  )
+                ],
+                1
+              )
+            ])
+          ])
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -17772,8 +17797,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("header", { staticClass: "modal-card-head" }, [
-      _c("p", { staticClass: "modal-card-title" }, [_vm._v("Add Category")])
+    return _c("div", { staticClass: "columns" }, [
+      _c("div", { staticClass: "column is-11" }, [
+        _c("strong", [_vm._v("Add Category")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "control" }, [
+      _c(
+        "button",
+        { staticClass: "button is-success", attrs: { type: "submit" } },
+        [_vm._v("Save")]
+      )
     ])
   }
 ]
@@ -17872,7 +17911,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17883,6 +17922,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -17916,11 +17957,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "hero is-medium is-light is-bold" }, [
-      _c("div", { staticClass: "hero-body has-text-centered" }, [
-        _c("div", { staticClass: "container" }, [
-          _c("h1", { staticClass: "title" }, [
-            _vm._v("\n               Welcome to Password Manager\n            ")
+    return _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "columns" }, [
+        _c("div", { staticClass: "column is-12" }, [
+          _c("div", { staticClass: "hero-body has-text-centered" }, [
+            _c("h1", { staticClass: "title" }, [
+              _vm._v(
+                "\n                    Welcome to Password Manager\n                "
+              )
+            ])
           ])
         ])
       ])
@@ -18647,7 +18692,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -18658,7 +18703,11 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_auth_index__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_auth_index__ = __webpack_require__(4);
+//
+//
+//
+//
 //
 //
 //
@@ -18694,60 +18743,67 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "nav",
-    {
-      staticClass: "navbar is-primary",
-      attrs: { role: "navigation", "aria-label": "main navigation" }
-    },
-    [
+  return _c("div", { staticClass: "columns" }, [
+    _c("div", { staticClass: "column is-12" }, [
       _c(
-        "div",
-        { staticClass: "navbar-brand" },
+        "nav",
+        {
+          staticClass: "navbar is-primary",
+          attrs: { role: "navigation", "aria-label": "main navigation" }
+        },
         [
           _c(
-            "router-link",
-            {
-              staticClass: "navbar-item",
-              attrs: { to: { name: "dashboard" } }
-            },
-            [_vm._v(" Home")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "navbar-brand" },
-        [
+            "div",
+            { staticClass: "navbar-brand" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "navbar-item",
+                  attrs: { to: { name: "dashboard" } }
+                },
+                [_vm._v(" Home")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c(
-            "router-link",
-            { staticClass: "navbar-item", attrs: { to: { name: "category" } } },
-            [_vm._v("Category")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "navbar-end" }, [
-        _c(
-          "a",
-          {
-            staticClass: "navbar-item",
-            attrs: { href: "#" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.logout($event)
-              }
-            }
-          },
-          [_vm._v("Logout")]
-        )
-      ])
-    ]
-  )
+            "div",
+            { staticClass: "navbar-brand" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "navbar-item",
+                  attrs: { to: { name: "category" } }
+                },
+                [_vm._v("Category")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "navbar-end" }, [
+            _c(
+              "a",
+              {
+                staticClass: "navbar-item",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.logout($event)
+                  }
+                }
+              },
+              [_vm._v("Logout")]
+            )
+          ])
+        ]
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

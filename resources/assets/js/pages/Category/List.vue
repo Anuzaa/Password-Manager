@@ -1,46 +1,50 @@
 <template>
     <div id="category">
-
-        <div class="panel">
-            <div class="panel-heading has-text-centered"><strong>Categories</strong>
-                <router-link class="button is-primary is-pulled-right " :to="{name:'category.create'}">
-                    Add
-                </router-link>
-            </div>
-            <br>
-
-        </div>
         <div class="container">
-            <table class="table is-hoverable is-fullwidth ">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="category in categories.data" :key="category.id">
-                    <td>{{category.id}}</td>
-                    <td>{{category.name}}</td>
-                    <td>
-                        <router-link class="button is-white" type="button"
-                                     :to="{name:'category.detail',params:{id:category.id}}">
-                            <i class="fa fa-eye"></i>
-                        </router-link>
-                        <router-link class="button is-white" type="button"
-                                     :to="{name:'category.edit',params:{id:category.id}}">
-                            <i class="fas fa-edit"></i>
-                        </router-link>
-                        <button @click="deleteCategory(category.id)" class="button is-white">
-                            <i class="fa fa-trash"></i>
-                        </button>
+            <div class="columns">
+                <div class="column is-11">
+                    <strong>Categories</strong>
 
-                    </td>
+                </div>
+                <div class="column is-1">
+                    <router-link class="button is-primary is-pulled-right " :to="{name:'category.create'}">
+                        Add
+                    </router-link>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-12">
+                    <table class="table is-hoverable is-fullwidth ">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="category in categories.data" :key="category.id">
+                            <td>{{category.id}}</td>
+                            <td>{{category.name}}</td>
+                            <td>
+                                <router-link class="button is-white" type="button"
+                                             :to="{name:'category.detail',params:{id:category.id}}">
+                                    <i class="fa fa-eye"></i>
+                                </router-link>
+                                <router-link class="button is-white" type="button"
+                                             :to="{name:'category.edit',params:{id:category.id}}">
+                                    <i class="fas fa-edit"></i>
+                                </router-link>
+                                <button @click="deleteCategory(category.id)" class="button is-white">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 </template>
@@ -54,6 +58,7 @@
         data() {
             return {
                 categories: {},
+                added: true,
             }
         },
         methods: {
@@ -69,11 +74,14 @@
                 }
             },
             getCategory() {
+
                 window.axios
                     .get('categories')
                     .then(response => {
                         this.categories = response.data
+
                     });
+
 
             },
         },

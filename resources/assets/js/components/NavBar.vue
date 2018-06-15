@@ -1,15 +1,19 @@
 <template>
-    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <router-link :to="{name:'dashboard'}" class="navbar-item"> Home</router-link>
+    <div class="columns">
+        <div class="column is-12">
+            <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <router-link :to="{name:'dashboard'}" class="navbar-item"> Home</router-link>
+                </div>
+                <div class="navbar-brand">
+                    <router-link :to="{name:'category'}" class="navbar-item">Category</router-link>
+                </div>
+                <div class="navbar-end">
+                    <a href="#" class="navbar-item" @click.prevent="logout">Logout</a>
+                </div>
+            </nav>
         </div>
-        <div class="navbar-brand">
-            <router-link :to="{name:'category'}" class="navbar-item">Category</router-link>
-        </div>
-        <div class="navbar-end">
-            <a href="#" class="navbar-item" @click.prevent="logout">Logout</a>
-        </div>
-    </nav>
+    </div>
 </template>
 
 <script>

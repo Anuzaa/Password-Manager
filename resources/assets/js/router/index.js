@@ -40,7 +40,7 @@ const router = new Router({
             },
         },
         {
-            path: '/category/:id',
+            path: '/category/:id/detail',
             name: 'category.detail',
             component: CategoryDetail,
             meta: {

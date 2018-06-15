@@ -1,32 +1,41 @@
 <template>
     <div class="container">
         <form @submit.prevent="update">
-            <br>
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">Edit Category</p>
-                </header>
-                <section class="card-body">
+            <div class="columns">
+                <div class="column is-11">
+                    <strong>Edit Category</strong>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-11">
                     <div class="field">
                         <label class="label">Category Name</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Enter Category Name"
+                            <input class="input" type="text"
                                    v-model="formData.name"
                                    required>
                         </div>
                     </div>
-                </section>
-                <footer class="card-footer">
-                    <button type="submit" class="button is-success">Save</button>
-                    <router-link to="/categories" button class="button">Cancel</router-link>
-                </footer>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-11">
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button type="submit" class="button is-success">Save</button>
+                        </div>
+                        <div class="control">
+                            <router-link to="/categories" button class="button">Cancel</router-link>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
 </template>
 
 <script>
-    import axios from 'axios';
+
 
     export default {
         name: "edit-category",
@@ -40,14 +49,14 @@
 
         methods: {
             update() {
-                axios.put(`categories/${this.$route.params.id}`,this.formData)
+                window.axios.put(`categories/${this.$route.params.id}`, this.formData)
                     .then(() => {
-                        this.$router.push({name:"category"})
+                        this.$router.push({name: "category"})
                     });
             }
         },
         mounted() {
-            axios
+            window.axios
                 .get(`categories/${this.$route.params.id}`)
                 .then(response => {
                     // console.log(response.data.data.name);

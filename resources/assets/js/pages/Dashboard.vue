@@ -1,14 +1,16 @@
 <template>
-    <section class="hero is-medium is-light is-bold">
-        <div class="hero-body has-text-centered">
-            <div class="container">
-                <h1 class="title">
-                   Welcome to Password Manager
-                </h1>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-12">
+                <div class="hero-body has-text-centered">
+                    <h1 class="title">
+                        Welcome to Password Manager
+                    </h1>
 
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 </template>
 
 <script>

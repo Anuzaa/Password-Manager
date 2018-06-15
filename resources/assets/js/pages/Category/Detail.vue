@@ -37,7 +37,6 @@
 </template>
 
 <script>
-    import axios from 'axios';
 
     export default {
         name: "category-detail",
@@ -52,7 +51,7 @@
             }
         },
         mounted() {
-            axios
+           window.axios
                 .get(`categories/${this.$route.params.id}`)
                 .then(response => {
                     this.category = response.data.data;

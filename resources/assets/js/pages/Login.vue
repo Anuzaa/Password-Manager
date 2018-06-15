@@ -67,8 +67,10 @@
             login() {
                 Auth.attempt(this.credentials).then(() => {
                     this.$router.push({name: 'dashboard'});
-                });
-                this.error = "Login failed";
+                })
+                    .catch(() => {
+                        this.error = "Login failed";
+                    });
             }
         }
 

@@ -1,33 +1,41 @@
 <template>
-    <div class="modal is-active">
-        <div class="modal-background">
-            <form @submit.prevent="create">
-                <div class="modal-card">
-                    <header class="modal-card-head">
-                        <p class="modal-card-title">Add Category</p>
-                    </header>
-                    <section class="modal-card-body">
-                        <div class="field">
-                            <label class="label">Category Name</label>
-                            <div class="control">
-                                <input class="input" type="text" placeholder="Enter Category Name"
-                                       v-model="formData.name"
-                                       required>
-                            </div>
-                        </div>
-                    </section>
-                    <footer class="modal-card-foot">
-                        <button type="submit" class="button is-success">Save</button>
-                        <router-link to="/categories" button class="button">Cancel</router-link>
-                    </footer>
+    <div class="container">
+        <form @submit.prevent="create">
+            <div class="columns">
+                <div class="column is-11">
+                    <strong>Add Category</strong>
                 </div>
-            </form>
-        </div>
+            </div>
+            <div class="columns">
+                <div class="column is-half">
+                    <div class="field">
+                        <label class="label">Category Name</label>
+                        <div class="control">
+                            <input class="input" type="text"
+                                   v-model="formData.name"
+                                   required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-11">
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button type="submit" class="button is-success">Save</button>
+                        </div>
+                        <div class="control">
+                            <router-link to="/categories" button class="button">Cancel</router-link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </template>
 
 <script>
-    import axios from 'axios';
+
 
     export default {
         name: "category-create",
@@ -42,7 +50,7 @@
         },
         methods: {
             create() {
-                axios.post('categories', this.formData).then(() => {
+                window.axios.post('categories', this.formData).then(() => {
                     this.$router.push({name: 'category'});
                 });
             }
