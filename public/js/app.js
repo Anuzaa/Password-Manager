@@ -17539,7 +17539,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "control" }, [
       _c(
         "button",
-        { staticClass: "button is-success", attrs: { type: "submit" } },
+        { staticClass: "button is-primary", attrs: { type: "submit" } },
         [_vm._v("Save")]
       )
     ])
@@ -17810,7 +17810,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "control" }, [
       _c(
         "button",
-        { staticClass: "button is-success", attrs: { type: "submit" } },
+        { staticClass: "button is-primary", attrs: { type: "submit" } },
         [_vm._v("Save")]
       )
     ])

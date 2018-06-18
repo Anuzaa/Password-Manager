@@ -22,7 +22,7 @@
                 <div class="column is-11">
                     <div class="field is-grouped">
                         <div class="control">
-                            <button type="submit" class="button is-success">Save</button>
+                            <button type="submit" class="button is-primary">Save</button>
                         </div>
                         <div class="control">
                             <router-link to="/categories" button class="button">Cancel</router-link>
