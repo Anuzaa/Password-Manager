@@ -8,6 +8,9 @@
                 <div class="navbar-brand">
                     <router-link :to="{name:'category'}" class="navbar-item">Category</router-link>
                 </div>
+                <div class="navbar-brand">
+                    <router-link :to="{name:'secret'}" class="navbar-item">Secret</router-link>
+                </div>
                 <div class="navbar-end">
                     <a href="#" class="navbar-item" @click.prevent="logout">Logout</a>
                 </div>

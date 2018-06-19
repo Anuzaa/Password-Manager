@@ -35,8 +35,8 @@ class SecretController extends BaseController
      */
     public function index(Request $request)
     {
-
-        $secrets = $this->secret->latest()->where('author_id', $request->user()->id)->paginate($request->query('per_page'));
+//        dd($request->user()->id);
+        $secrets = $this->secret->where('author_id', $request->user()->id)->paginate($request->query('per_page'));
 
         return $this->response->paginator($secrets, new SecretTransformer);
     }

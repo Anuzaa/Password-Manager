@@ -2,9 +2,13 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '../pages/Login.vue';
 import Category from '../pages/Category/List.vue';
+import Secret from '../pages/Secret/List.vue';
 import CategoryDetail from '../pages/Category/Detail.vue';
 import EditCategory from '../pages/Category/Edit.vue';
 import CreateCategory from '../pages/Category/Create.vue';
+import CreateSecret from '../pages/Secret/Create.vue';
+import SecretDetail from '../pages/Secret/Detail.vue';
+import EditSecret from '../pages/Secret/Edit.vue';
 import Dashboard from '../pages/Dashboard.vue';
 import Auth from '../common/auth/index';
 
@@ -27,6 +31,14 @@ const router = new Router({
             path: '/categories',
             name: 'category',
             component: Category,
+            meta: {
+                requiresAuth: true
+            },
+        },
+        {
+            path: '/secrets',
+            name: 'secret',
+            component: Secret,
             meta: {
                 requiresAuth: true
             },
@@ -63,6 +75,31 @@ const router = new Router({
                 requiresAuth: true
             },
         },
+        {
+            path: '/secret/create',
+            name: 'secret.create',
+            component: CreateSecret,
+            meta: {
+                requiresAuth: true
+            },
+        },
+        {
+            path: '/secret/:id/detail',
+            name: 'secret.detail',
+            component: SecretDetail,
+            meta: {
+                requiresAuth: true
+            },
+        },
+        {
+            path: '/secret/:id/edit',
+            name: 'secret.edit',
+            component: EditSecret,
+            meta: {
+                requiresAuth: true
+            },
+        },
+
 
         {path: '*', redirect: '/'},
     ],
