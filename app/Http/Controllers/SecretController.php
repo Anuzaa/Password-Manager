@@ -49,15 +49,17 @@ class SecretController extends BaseController
      */
     public function store(Request $request)
     {
-
+//        dd($request->all());
         $this->validate($request, [
             'url' => 'required',
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            'category_id'=>'required'
         ]);
         $secret = $this->secret->newInstance($request->all());
-        $secret->forceFill(['author_id' => $request->user()->id, 'category_id' => $request->user()->id]);
+        $secret->password=bcrypt(request('password'));
+        $secret->forceFill(['author_id' => $request->user()->id]);
 
         if ($secret->save()) {
             $this->response->item($secret->refresh(), new SecretTransformer)->setStatusCode(200);

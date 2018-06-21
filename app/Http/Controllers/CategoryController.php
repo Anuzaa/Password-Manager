@@ -57,6 +57,7 @@ class CategoryController extends BaseController
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'name' => 'required',
         ]);

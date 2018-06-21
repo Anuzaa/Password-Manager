@@ -31,7 +31,7 @@
                             <td>{{secret.url}}</td>
                             <td>{{secret.name}}</td>
                             <td>{{secret.email}}</td>
-                            <td>{{secret.password}}</td>
+                            <td v-html="password"></td>
                             <td>
                                 <router-link class="button is-white" type="button"
                                              :to="{name:'secret.detail',params:{id:secret.id}}">
@@ -63,6 +63,7 @@
         data() {
             return {
                 secrets: {},
+                password: '&bull;&bull;&bull;&bull;&bull;&bull;',
 
             }
         },

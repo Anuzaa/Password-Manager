@@ -35,7 +35,7 @@
                     <div class="field">
                         <label class="label">Email</label>
                         <div class="control">
-                            <input class="input" type="text"
+                            <input class="input" type="email"
                                    v-model="formData.email"
                                    required>
                         </div>
@@ -47,11 +47,22 @@
                     <div class="field">
                         <label class="label">Password</label>
                         <div class="control">
-                            <input class="input" type="text"
+                            <input class="input" type="password"
                                    v-model="formData.password"
                                    required>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-half">
+                    <label class="label">Category</label>
+                    <select class="form-control" v-model="selected">
+                        <option v-for="option in options" v-bind:value="option.category_id">
+                            {{ option.name }}
+                        </option>
+                    </select>
+
                 </div>
             </div>
             <div class="columns">
@@ -79,9 +90,12 @@
                     url: '',
                     name: '',
                     email: '',
-                    password: ''
+                    password: '',
+                    category_id: ''
                 },
-
+                selected: '',
+                value:[],
+                options: []
             }
 
         },

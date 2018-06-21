@@ -21,9 +21,6 @@
                             Email : {{secret.name}}
                         </div>
                         <div class="column is-half is-small">
-                            Password : {{secret.password}}
-                        </div>
-                        <div class="column is-half is-small">
                             User : {{secret.user.data.name}}
                         </div>
                         <hr>

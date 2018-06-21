@@ -35,7 +35,7 @@
                     <div class="field">
                         <label class="label">Email</label>
                         <div class="control">
-                            <input class="input" type="text"
+                            <input class="input" type="email"
                                    v-model="formData.email"
                                    required>
                         </div>
@@ -47,7 +47,7 @@
                     <div class="field">
                         <label class="label">Password</label>
                         <div class="control">
-                            <input class="input" type="text"
+                            <input class="input" type="password"
                                    v-model="formData.password"
                                    required>
                         </div>
@@ -77,9 +77,9 @@
             return {
                 formData: {
                     url: '',
-                    name:'',
-                    email:'',
-                    password:''
+                    name: '',
+                    email: '',
+                    password: ''
                 },
             }
         },
@@ -104,7 +104,7 @@
 
         }
 
-        }
+
     }
 </script>
 

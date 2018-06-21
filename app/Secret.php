@@ -12,6 +12,7 @@ class Secret extends Model
         'name',
         'email',
         'password',
+        'category_id'
     ];
 
 
