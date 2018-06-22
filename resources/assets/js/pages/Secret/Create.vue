@@ -57,9 +57,10 @@
             <div class="columns">
                 <div class="column is-half">
                     <label class="label">Category</label>
-                    <select class="form-control" v-model="selected">
-                        <option v-for="option in options" v-bind:value="option.category_id">
-                            {{ option.name }}
+                    <select class="form-control" v-model="formData.category_id">
+                        <option disabled value=''>Please select one </option>
+                        <option v-for="category in categories.data" v-bind:value="category.id">
+                            {{ category.name }}
                         </option>
                     </select>
 
@@ -86,16 +87,16 @@
         name: "secret-create",
         data() {
             return {
+                categories: [],
                 formData: {
                     url: '',
                     name: '',
                     email: '',
                     password: '',
-                    category_id: ''
+                   category_id:'',
+
                 },
-                selected: '',
-                value:[],
-                options: []
+
             }
 
         },
@@ -104,9 +105,26 @@
                 window.axios.post('secrets', this.formData).then(() => {
                     this.$router.push({name: 'secret'});
                 });
-            }
-        }
+
+
+            },
+            getCategory() {
+
+                window.axios
+                    .get('categories')
+                    .then(response => {
+                        this.categories = response.data;
+
+                    });
+
+
+            },
+        },
+        mounted() {
+            this.getCategory();
+        },
     }
+
 </script>
 
 <style scoped>

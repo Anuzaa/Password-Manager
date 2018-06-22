@@ -53,12 +53,14 @@ class SecretController extends BaseController
         $this->validate($request, [
             'url' => 'required',
             'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
             'category_id'=>'required'
+
         ]);
         $secret = $this->secret->newInstance($request->all());
         $secret->password=bcrypt(request('password'));
+
         $secret->forceFill(['author_id' => $request->user()->id]);
 
         if ($secret->save()) {
@@ -99,8 +101,8 @@ class SecretController extends BaseController
         $validatedData = $this->validate($request, [
             'url' => 'required',
             'name' => 'required',
-            'email' => 'required',
-            'password' => 'required'
+            'email' => 'required|email',
+            'password' => 'required|min:6'
         ]);
         if (!$secret) {
             throw new NotFoundHttpException();

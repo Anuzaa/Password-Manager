@@ -22,6 +22,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Password</th>
+                            <th>Category</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -32,6 +33,7 @@
                             <td>{{secret.name}}</td>
                             <td>{{secret.email}}</td>
                             <td v-html="password"></td>
+                            <td>{{secret.category.data.name}}</td>
                             <td>
                                 <router-link class="button is-white" type="button"
                                              :to="{name:'secret.detail',params:{id:secret.id}}">

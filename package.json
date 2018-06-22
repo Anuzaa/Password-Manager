@@ -20,8 +20,8 @@
     "vue": "^2.5.7"
   },
   "dependencies": {
-    "@websanova/vue-auth": "^2.21.11-beta",
     "bulma": "^0.7.1",
+    "vee-validate": "^2.1.0-beta.2",
     "vue-axios": "^2.1.1",
     "vue-router": "^3.0.1"
   }

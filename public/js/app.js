@@ -16620,47 +16620,60 @@ var render = function() {
               }
             },
             [
-              _c("div", { staticClass: "field" }, [
-                _c(
-                  "p",
-                  { staticClass: "control has-icons-left has-icons-right" },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.credentials.email,
-                          expression: "credentials.email"
-                        }
-                      ],
-                      staticClass: "input",
-                      attrs: {
-                        type: "email",
-                        placeholder: "Your Email",
-                        autofocus: ""
-                      },
-                      domProps: { value: _vm.credentials.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+              _c(
+                "div",
+                {
+                  staticClass: "field",
+                  class: { "has-danger": _vm.errors.has("email") }
+                },
+                [
+                  _c(
+                    "p",
+                    { staticClass: "control has-icons-left has-icons-right" },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.credentials.email,
+                            expression: "credentials.email"
+                          },
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
                           }
-                          _vm.$set(
-                            _vm.credentials,
-                            "email",
-                            $event.target.value
-                          )
+                        ],
+                        staticClass: "input",
+                        attrs: {
+                          type: "email",
+                          placeholder: "Your Email",
+                          autofocus: ""
+                        },
+                        domProps: { value: _vm.credentials.email },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.credentials,
+                              "email",
+                              $event.target.value
+                            )
+                          }
                         }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _vm._m(1)
-                  ]
-                )
-              ]),
+                      }),
+                      _vm._v(" "),
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _vm._m(1)
+                    ]
+                  )
+                ]
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "field" }, [
                 _c("p", { staticClass: "control has-icons-left" }, [
@@ -17161,7 +17174,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17172,6 +17185,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -17315,6 +17330,8 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", { domProps: { innerHTML: _vm._s(_vm.password) } }),
                   _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(secret.category.data.name))]),
+                  _vm._v(" "),
                   _c(
                     "td",
                     [
@@ -17396,6 +17413,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Email")]),
         _vm._v(" "),
         _c("th", [_vm._v("Password")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Category")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
       ])
@@ -18287,7 +18306,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -18381,17 +18400,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "secret-create",
     data: function data() {
         return {
+            categories: [],
             formData: {
                 url: '',
                 name: '',
                 email: '',
                 password: '',
                 category_id: ''
+
             }
 
         };
@@ -18404,7 +18426,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.axios.post('secrets', this.formData).then(function () {
                 _this.$router.push({ name: 'secret' });
             });
+        },
+        getCategory: function getCategory() {
+            var _this2 = this;
+
+            window.axios.get('categories').then(function (response) {
+                _this2.categories = response.data;
+            });
         }
+    },
+    mounted: function mounted() {
+        this.getCategory();
     }
 });
 
@@ -18569,10 +18601,11 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.selected,
-                    expression: "selected"
+                    value: _vm.formData.category_id,
+                    expression: "formData.category_id"
                   }
                 ],
+                staticClass: "form-control",
                 on: {
                   change: function($event) {
                     var $$selectedVal = Array.prototype.filter
@@ -18583,24 +18616,31 @@ var render = function() {
                         var val = "_value" in o ? o._value : o.value
                         return val
                       })
-                    _vm.selected = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
+                    _vm.$set(
+                      _vm.formData,
+                      "category_id",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
                   }
                 }
               },
-              _vm._l(_vm.options, function(option) {
-                return _c("option", { domProps: { value: option.value } }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(option.text) +
-                      "\n                    "
-                  )
-                ])
-              })
-            ),
-            _vm._v(" "),
-            _c("span", [_vm._v("Selected: " + _vm._s(_vm.selected))])
+              [
+                _c("option", { attrs: { disabled: "", value: "" } }, [
+                  _vm._v("Please select one ")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.categories.data, function(category) {
+                  return _c("option", { domProps: { value: category.id } }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(category.name) +
+                        "\n                    "
+                    )
+                  ])
+                })
+              ],
+              2
+            )
           ])
         ]),
         _vm._v(" "),

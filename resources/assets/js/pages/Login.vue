@@ -8,9 +8,9 @@
                 <div class="box">
 
                     <form class="form-signin" @submit.prevent="login">
-                        <div class="field">
+                        <div class="field" :class="{'has-danger': errors.has('email') }">
                             <p class="control has-icons-left has-icons-right">
-                                <input class="input" v-model="credentials.email" type="email" placeholder="Your Email"
+                                <input class="input" v-model="credentials.email" type="email" v-validate="'required'" placeholder="Your Email"
                                        autofocus="">
                                 <span class="icon is-small is-left">
                                   <i class="fas fa-envelope"></i>
