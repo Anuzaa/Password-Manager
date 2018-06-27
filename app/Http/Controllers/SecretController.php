@@ -59,7 +59,7 @@ class SecretController extends BaseController
 
         ]);
         $secret = $this->secret->newInstance($request->all());
-        $secret->password=bcrypt(request('password'));
+        $secret->password= encrypt(request('password'));
 
         $secret->forceFill(['author_id' => $request->user()->id]);
 

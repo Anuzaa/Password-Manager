@@ -11,26 +11,6 @@ use App\Http\Requests\RegisterFormRequest;
 
 class AuthController extends Controller
 {
-
-    /**
-     * Register the user
-     *
-     * @return \Illuminate\Http\JsonResponse
-     *  @param \Illuminate\Http\Request $request
-     */
-    public function register(RegisterFormRequest $request)
-    {
-        $user = new User;
-        $user->email = $request->email;
-        $user->name = $request->name;
-        $user->password = bcrypt($request->password);
-        $user->save();
-        return response([
-            'status' => 'success',
-            'data' => $user
-        ], 200);
-    }
-
     /**
      * Get a JWT via given credentials.
      *
@@ -39,14 +19,16 @@ class AuthController extends Controller
      */
     public function authenticate(Request $request)
     {
+//        dd($request->all());
+//        dd(5646);
         // grab credentials from the request
-        $credentials = $request->only('email', 'password');
+        $emailLogin = EmailLogin::validFromToken($request->only('email'));
 
         try {
             // attempt to verify the credentials and create a token for the user
-            if (!$token = JWTAuth::attempt($credentials)) {
+            if (!$token = JWTAuth::login($emailLogin->user)) {
                 return response()->json([
-                    'status'=>'error',
+                    'status' => 'error',
                     'error' => 'invalid_credentials'], 401);
             }
         } catch (JWTException $e) {
@@ -55,7 +37,34 @@ class AuthController extends Controller
         }
 
         // all good so return the token
-        return response()->json(compact('token'));
+        $this->response->json(compact('token'));
+        return 'success';
+
+    }
+
+    public function login(Request $request)
+    {
+        $this->validate($request, ['email' => 'required|email|exists:users']);
+
+        $emailLogin = EmailLogin::createForEmail($request->only('email'));
+
+        $url = route('email-authenticate', [
+            'token' => $emailLogin->token
+        ]);
+        Mail::send('emails.email-login', ['url' => $url], function ($m) use ($request) {
+            $m->from('anuja.bhattarai@introcept.co', 'MyApp');
+            $m->to($request->input('email'))->subject('MyApp Login');
+        });
+        return 'Login email sent. Go check your email.';
+    }
+
+
+    protected function create(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+        ]);
     }
 
 
@@ -90,16 +99,6 @@ class AuthController extends Controller
     }
 
 
-//    public function user(Request $request)
-//    {
-//        $user = User::find(auth()->user()->id);
-//        return response([
-//            'status' => 'success',
-//            'data' => $user
-//        ]);
-//    }
-
-
     /**
      * Refresh a token.
      *
@@ -123,6 +122,14 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
         ]);
     }
 

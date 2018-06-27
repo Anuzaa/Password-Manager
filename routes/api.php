@@ -1,7 +1,6 @@
 <?php
 
 
-
 $api = app(\Dingo\Api\Routing\Router::class);
 
 
@@ -13,7 +12,8 @@ $api = app(\Dingo\Api\Routing\Router::class);
 
 
 $api->version('v1', function ($api) {
-    $api->post('login', 'App\Http\Controllers\AuthController@authenticate');
+    $api->post('login', 'App\Http\Controllers\AuthController@login');
+    $api->post('login/magic', 'App\Http\Controllers\AuthController@authenticateEmail');
 
     $api->post('register', 'App\Http\Controllers\AuthController@register');
 
@@ -37,11 +37,7 @@ $api->version('v1', ['middleware' => ['api.auth'], 'namespace' => 'App\Http\Cont
     $api->put('secrets/{id}', 'SecretController@update');
     $api->delete('secrets/{id}', 'SecretController@destroy');
 
-    $api->get('roles', 'RoleController@index');
-    $api->get('roles/{id}', 'RoleController@show');
-    $api->post('roles', 'RoleController@store');
-    $api->put('roles/{id}', 'RoleController@store');
-    $api->delete('roles/{id}', 'RoleController@destroy');
+
 
 
 });

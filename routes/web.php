@@ -14,7 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/email-authenticate', [
+    'as' => 'email-authenticate',
+    'uses' => 'AuthController@login'
+]);
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Route::get('/email-authenticate', 'Auth'
+
+

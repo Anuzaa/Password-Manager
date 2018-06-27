@@ -16459,7 +16459,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -16554,6 +16554,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -16562,8 +16576,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             credentials: {
-                email: 'anu@gmail.com',
-                password: '123456'
+                email: 'bb@gmail.com'
+                // password: '123456',
 
             },
             error: false
@@ -16620,94 +16634,49 @@ var render = function() {
               }
             },
             [
-              _c(
-                "div",
-                {
-                  staticClass: "field",
-                  class: { "has-danger": _vm.errors.has("email") }
-                },
-                [
-                  _c(
-                    "p",
-                    { staticClass: "control has-icons-left has-icons-right" },
-                    [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.credentials.email,
-                            expression: "credentials.email"
-                          },
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required",
-                            expression: "'required'"
-                          }
-                        ],
-                        staticClass: "input",
-                        attrs: {
-                          type: "email",
-                          placeholder: "Your Email",
-                          autofocus: ""
-                        },
-                        domProps: { value: _vm.credentials.email },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.credentials,
-                              "email",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _vm._m(1)
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
               _c("div", { staticClass: "field" }, [
-                _c("p", { staticClass: "control has-icons-left" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.credentials.password,
-                        expression: "credentials.password"
-                      }
-                    ],
-                    staticClass: "input",
-                    attrs: { type: "password", placeholder: "Your Password" },
-                    domProps: { value: _vm.credentials.password },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c(
+                  "p",
+                  { staticClass: "control has-icons-left has-icons-right" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.credentials.email,
+                          expression: "credentials.email"
                         }
-                        _vm.$set(
-                          _vm.credentials,
-                          "password",
-                          $event.target.value
-                        )
+                      ],
+                      staticClass: "input",
+                      attrs: {
+                        type: "email",
+                        placeholder: "Your Email",
+                        autofocus: ""
+                      },
+                      domProps: { value: _vm.credentials.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.credentials,
+                            "email",
+                            $event.target.value
+                          )
+                        }
                       }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm._m(2)
-                ])
+                    }),
+                    _vm._v(" "),
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _vm._m(1)
+                  ]
+                )
               ]),
               _vm._v(" "),
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
               _c(
                 "button",
@@ -16715,7 +16684,7 @@ var render = function() {
                   staticClass: "button is-primary  is-medium is-fullwidth",
                   attrs: { type: "submit" }
                 },
-                [_vm._v("Login")]
+                [_vm._v("Send Magic Link")]
               )
             ]
           )
@@ -16739,14 +16708,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon is-small is-right" }, [
       _c("i", { staticClass: "fas fa-check" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small is-left" }, [
-      _c("i", { staticClass: "fas fa-lock" })
     ])
   },
   function() {
@@ -17174,7 +17135,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17244,6 +17205,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -17252,13 +17214,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             secrets: {},
-            password: '&bull;&bull;&bull;&bull;&bull;&bull;'
-
+            shownPasswordId: []
         };
     },
 
-
     methods: {
+        getPassword: function getPassword(id, password) {
+            if (this.isPasswordShown(id)) {
+                return password;
+            } else {
+                return '&bull;&bull;&bull;&bull;&bull;&bull;';
+            }
+        },
+        isPasswordShown: function isPasswordShown(id) {
+            return this.shownPasswordId.includes(id);
+        },
         deleteSecret: function deleteSecret(id) {
             var _this = this;
 
@@ -17274,6 +17244,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.axios.get('secrets').then(function (response) {
                 _this2.secrets = response.data;
             });
+        },
+        togglePasswordVisibility: function togglePasswordVisibility(id) {
+            if (this.isPasswordShown(id)) {
+                this.shownPasswordId = this.shownPasswordId.filter(function (pid) {
+                    return pid !== id;
+                });
+            } else {
+                this.shownPasswordId.push(id);
+            }
         }
     },
     mounted: function mounted() {
@@ -17328,7 +17307,13 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(secret.email))]),
                   _vm._v(" "),
-                  _c("td", { domProps: { innerHTML: _vm._s(_vm.password) } }),
+                  _c("td", {
+                    domProps: {
+                      innerHTML: _vm._s(
+                        _vm.getPassword(secret.id, secret.password)
+                      )
+                    }
+                  }),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(secret.category.data.name))]),
                   _vm._v(" "),
@@ -17336,14 +17321,13 @@ var render = function() {
                     "td",
                     [
                       _c(
-                        "router-link",
+                        "button",
                         {
                           staticClass: "button is-white",
-                          attrs: {
-                            type: "button",
-                            to: {
-                              name: "secret.detail",
-                              params: { id: secret.id }
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              _vm.togglePasswordVisibility(secret.id)
                             }
                           }
                         },

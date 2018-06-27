@@ -32,13 +32,14 @@
                             <td>{{secret.url}}</td>
                             <td>{{secret.name}}</td>
                             <td>{{secret.email}}</td>
-                            <td v-html="password"></td>
+                            <td v-html="getPassword(secret.id, secret.password)"></td>
                             <td>{{secret.category.data.name}}</td>
                             <td>
-                                <router-link class="button is-white" type="button"
-                                             :to="{name:'secret.detail',params:{id:secret.id}}">
+                                <button class="button is-white" type="button"
+                                        @click="togglePasswordVisibility(secret.id)">
+
                                     <i class="fa fa-eye"></i>
-                                </router-link>
+                                </button>
                                 <router-link class="button is-white" type="button"
                                              :to="{name:'secret.edit',params:{id:secret.id}}">
                                     <i class="fas fa-edit"></i>
@@ -65,31 +66,47 @@
         data() {
             return {
                 secrets: {},
-                password: '&bull;&bull;&bull;&bull;&bull;&bull;',
-
+                shownPasswordId: [],
             }
         },
-
         methods: {
+            getPassword(id, password) {
+                if (this.isPasswordShown(id)) {
+                    return password;
+                } else {
+                    return '&bull;&bull;&bull;&bull;&bull;&bull;'
+                }
+            },
+            isPasswordShown(id) {
+                return this.shownPasswordId.includes(id);
+            },
             deleteSecret(id) {
                 if (confirm("Are you sure?")) {
                     window.axios
                         .delete(`secrets/${id}`).then(() => {
                             this.getSecret();
-
-
                         }
                     )
                 }
             },
             getSecret() {
-
                 window.axios
                     .get('secrets')
                     .then(response => {
                         this.secrets = response.data
                     })
             },
+            togglePasswordVisibility(id) {
+                if (this.isPasswordShown(id)) {
+                    this.shownPasswordId = this.shownPasswordId.filter(pid => pid !== id);
+                } else {
+                    this.shownPasswordId.push(id)
+                }
+
+
+            },
+
+
         },
         mounted() {
             this.getSecret();
