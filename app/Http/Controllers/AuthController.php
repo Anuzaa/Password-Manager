@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Mail\SendMailable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\User;
-use App\Http\Requests\RegisterFormRequest;
+
 
 
 class AuthController extends Controller
@@ -19,14 +23,12 @@ class AuthController extends Controller
      */
     public function authenticate(Request $request)
     {
-//        dd($request->all());
-//        dd(5646);
         // grab credentials from the request
-        $emailLogin = EmailLogin::validFromToken($request->only('email'));
+        $credentials = $request->only('email');
 
         try {
             // attempt to verify the credentials and create a token for the user
-            if (!$token = JWTAuth::login($emailLogin->user)) {
+            if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json([
                     'status' => 'error',
                     'error' => 'invalid_credentials'], 401);
@@ -37,24 +39,20 @@ class AuthController extends Controller
         }
 
         // all good so return the token
-        $this->response->json(compact('token'));
-        return 'success';
+        return $this->response->json(compact('token'));
+
 
     }
 
     public function login(Request $request)
     {
-        $this->validate($request, ['email' => 'required|email|exists:users']);
+//        $this->validate($request, ['email' => 'required|email|exists:users']);
+//
+//        $emailLogin = EmailLogin::createForEmail($request->only('email'));
 
-        $emailLogin = EmailLogin::createForEmail($request->only('email'));
-
-        $url = route('email-authenticate', [
-            'token' => $emailLogin->token
-        ]);
-        Mail::send('emails.email-login', ['url' => $url], function ($m) use ($request) {
-            $m->from('anuja.bhattarai@introcept.co', 'MyApp');
-            $m->to($request->input('email'))->subject('MyApp Login');
-        });
+        $url = URL::signedRoute('sign-email', ['email' => 'anuja.bhattarai@introcept.co']);
+        $to = 'anuja.bhattarai@introcept.co';
+        $this->mail($url, $to);
         return 'Login email sent. Go check your email.';
     }
 
@@ -131,6 +129,12 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
         ]);
+    }
+
+    public function mail(string $url, string $to)
+    {
+        Mail::to($to)->send(new SendMailable($url));
+        return 'success';
     }
 
 

@@ -9,11 +9,11 @@ class EmailLogin extends Model
 {
     public $fillable = ['email', 'token'];
 
-    public static function createForEmail($email,$token)
+    public static function createForEmail($email)
     {
+
         return self::create([
             'email' => $email,
-            'token' => $token
         ]);
     }
 

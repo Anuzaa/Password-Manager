@@ -11,18 +11,29 @@
 |
 */
 
+
+Route::get('/email', 'AuthController@login');
+
+
+use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/email-authenticate', [
-    'as' => 'email-authenticate',
-    'uses' => 'AuthController@login'
-]);
 
-Auth::routes();
+Route::get('/login/{email}', function (Request $request) {
+    if (! $request->hasValidSignature()) {
+        abort(401);
+    }
+    $email  = $request->route('email');
 
-Route::get('/home', 'HomeController@index')->name('home');
+    $user = \App\User::query()->firstOrNew(['email' => $email], ['password' => str_random(), 'name' => str_random()]);
 
-//Route::get('/email-authenticate', 'Auth'
+    $user->save();
+
+    $token = JWTAuth::fromUser($user);
+    return $token;
+})->name('sign-email');
 
 

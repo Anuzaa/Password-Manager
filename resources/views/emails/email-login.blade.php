@@ -4,6 +4,6 @@
 </head>
 <body>
 Please click in this link
-<a href="{{ $url }}">{{ $url }}</a>
+<a href="{{ $url }}" target="_blank">{{ $url }}</a>
 </body>
 </html>
