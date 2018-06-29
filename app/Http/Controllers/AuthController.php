@@ -7,62 +7,62 @@ use App\Mail\SendMailable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\User;
 
 
-
 class AuthController extends Controller
 {
+
     /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
+     * @return \Illuminate\Routing\Route|object|string
      */
     public function authenticate(Request $request)
     {
-        // grab credentials from the request
-        $credentials = $request->only('email');
-
-        try {
-            // attempt to verify the credentials and create a token for the user
-            if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json([
-                    'status' => 'error',
-                    'error' => 'invalid_credentials'], 401);
-            }
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'could_not_create_token'], 500);
+        if (!$request->hasValidSignature()) {
+            abort(401);
         }
+        $email = $request->route('email');
+        $user = User::query()->firstOrNew(['email' => $email], ['name' => str_random()]);
 
-        // all good so return the token
-        return $this->response->json(compact('token'));
+        $token = JWTAuth::fromUser($user);
+
+        return response()->json(compact('token'));
+
+        // grab credentials from the request
+//        $credentials = $request->only('email');
+//
+//        try {
+//            // attempt to verify the credentials and create a token for the user
+//            if (!$token = JWTAuth::attempt($credentials)) {
+//                return response()->json([
+//                    'status' => 'error',
+//                    'error' => 'invalid_credentials'], 401);
+//            }
+//        } catch (JWTException $e) {
+//            // something went wrong whilst attempting to encode the token
+//            return response()->json(['error' => 'could_not_create_token'], 500);
+//        }
+//
+//        // all good so return the token
+//        return $this->response->json(compact('token'));
 
 
     }
 
     public function login(Request $request)
     {
-//        $this->validate($request, ['email' => 'required|email|exists:users']);
-//
-//        $emailLogin = EmailLogin::createForEmail($request->only('email'));
+        $this->validate($request, ['email' => 'required|email']);
+        $url = URL::signedRoute('sign-email', [
+            'user' => $request->get('email'),
 
-        $url = URL::signedRoute('sign-email', ['email' => 'anuja.bhattarai@introcept.co']);
-        $to = 'anuja.bhattarai@introcept.co';
+        ]);
+        $to = $request->get('email');
         $this->mail($url, $to);
         return 'Login email sent. Go check your email.';
-    }
-
-
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-        ]);
     }
 
 

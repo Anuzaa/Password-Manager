@@ -13,7 +13,7 @@ $api = app(\Dingo\Api\Routing\Router::class);
 
 $api->version('v1', function ($api) {
     $api->post('login', 'App\Http\Controllers\AuthController@login');
-    $api->post('login/magic', 'App\Http\Controllers\AuthController@authenticateEmail');
+
 
     $api->post('register', 'App\Http\Controllers\AuthController@register');
 

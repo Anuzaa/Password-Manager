@@ -16459,7 +16459,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -16543,31 +16543,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -16577,10 +16552,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             credentials: {
                 email: 'bb@gmail.com'
-                // password: '123456',
-
             },
-            error: false
+            error: false,
+            emailsent: false
         };
     },
 
@@ -16589,7 +16563,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             __WEBPACK_IMPORTED_MODULE_0__common_auth_index__["a" /* default */].attempt(this.credentials).then(function () {
-                _this.$router.push({ name: 'dashboard' });
+                _this.emailsent = "Please Check your email";
             }).catch(function () {
                 _this.error = "Login failed";
             });
@@ -16685,7 +16659,13 @@ var render = function() {
                   attrs: { type: "submit" }
                 },
                 [_vm._v("Send Magic Link")]
-              )
+              ),
+              _vm._v(" "),
+              _vm.emailsent
+                ? _c("div", { staticClass: "alert alert-danger" }, [
+                    _vm._v(_vm._s(_vm.emailsent))
+                  ])
+                : _vm._e()
             ]
           )
         ])
