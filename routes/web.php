@@ -12,7 +12,9 @@
 */
 
 Route::get('/email', 'AuthController@login');
-Route::get('/login/{email}', 'AuthController@authenticate')->name('sign-email');
+Route::get('/login/{email}', 'AuthController@authenticate')->name('sign-email')->middleware('signed');
+Route::get('/show','EmailController@parseEmail');
+
 
 Route::get('/', function () {
     return view('welcome');

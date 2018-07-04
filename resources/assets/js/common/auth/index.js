@@ -9,7 +9,9 @@ export default {
 
     attempt(credentials) {
         return axios.post(LOGIN_URL, credentials).then((req => {
+
             const token = req.data.token;
+            console.log(token);
             localStorage.setItem('auth_token', token);
             this.user.authenticated = true;
         }))

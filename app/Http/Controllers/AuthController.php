@@ -22,33 +22,20 @@ class AuthController extends Controller
      */
     public function authenticate(Request $request)
     {
+//        dd($email);
         if (!$request->hasValidSignature()) {
             abort(401);
         }
         $email = $request->route('email');
-        $user = User::query()->firstOrNew(['email' => $email], ['name' => str_random()]);
+        $user = User::query()->firstOrNew(['email' => $email]);
 
         $token = JWTAuth::fromUser($user);
 
-        return response()->json(compact('token'));
+//
+        return redirect('/#/dashboard')->with(compact('token'));
 
-        // grab credentials from the request
-//        $credentials = $request->only('email');
-//
-//        try {
-//            // attempt to verify the credentials and create a token for the user
-//            if (!$token = JWTAuth::attempt($credentials)) {
-//                return response()->json([
-//                    'status' => 'error',
-//                    'error' => 'invalid_credentials'], 401);
-//            }
-//        } catch (JWTException $e) {
-//            // something went wrong whilst attempting to encode the token
-//            return response()->json(['error' => 'could_not_create_token'], 500);
-//        }
-//
-//        // all good so return the token
-//        return $this->response->json(compact('token'));
+//        return response()->json(compact('token'));
+
 
 
     }
@@ -56,7 +43,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, ['email' => 'required|email']);
-        $url = URL::signedRoute('sign-email', [
+        $url = URL::temporarySignedRoute('sign-email', now()->addDays(1), [
             'user' => $request->get('email'),
 
         ]);

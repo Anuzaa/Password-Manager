@@ -812,7 +812,9 @@ var LOGIN_URL = 'login';
         var _this = this;
 
         return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(LOGIN_URL, credentials).then(function (req) {
+
             var token = req.data.token;
+            console.log(token);
             localStorage.setItem('auth_token', token);
             _this.user.authenticated = true;
         });
@@ -16459,7 +16461,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -16504,6 +16506,7 @@ module.exports = function listToStyles (parentId, list) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_auth_index__ = __webpack_require__(4);
+//
 //
 //
 //
@@ -16659,16 +16662,16 @@ var render = function() {
                   attrs: { type: "submit" }
                 },
                 [_vm._v("Send Magic Link")]
-              ),
-              _vm._v(" "),
-              _vm.emailsent
-                ? _c("div", { staticClass: "alert alert-danger" }, [
-                    _vm._v(_vm._s(_vm.emailsent))
-                  ])
-                : _vm._e()
+              )
             ]
           )
-        ])
+        ]),
+        _vm._v(" "),
+        _vm.emailsent
+          ? _c("div", { staticClass: "alert alert-danger" }, [
+              _vm._v(_vm._s(_vm.emailsent))
+            ])
+          : _vm._e()
       ])
     ])
   ])
