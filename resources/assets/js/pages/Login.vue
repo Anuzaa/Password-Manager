@@ -27,7 +27,7 @@
                                 Remember me
                             </label>
                         </div>
-                        <button class="button is-primary  is-medium is-fullwidth" type="submit">Send Magic Link</button>
+                        <button class="button is-info  is-medium is-fullwidth" type="submit">Send Magic Link</button>
 
                     </form>
                 </div>

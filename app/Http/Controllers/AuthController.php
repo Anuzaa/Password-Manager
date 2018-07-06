@@ -22,7 +22,6 @@ class AuthController extends Controller
      */
     public function authenticate(Request $request)
     {
-//        dd($email);
         if (!$request->hasValidSignature()) {
             abort(401);
         }
@@ -32,7 +31,7 @@ class AuthController extends Controller
         $token = JWTAuth::fromUser($user);
 
 //
-        return redirect('/#/dashboard')->with(compact('token'));
+        return redirect('/#/verify?token='.$token)->with(compact('token'));
 
 //        return response()->json(compact('token'));
 

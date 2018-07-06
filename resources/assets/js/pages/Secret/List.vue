@@ -7,7 +7,7 @@
 
                 </div>
                 <div class="column is-1">
-                    <router-link class="button is-primary is-pulled-right " :to="{name:'secret.create'}">
+                    <router-link class="button is-info is-pulled-right " :to="{name:'secret.create'}">
                         Add
                     </router-link>
                 </div>

@@ -1,6 +1,7 @@
 <template>
     <main>
         <navBar v-if="$route.meta.requiresAuth"></navBar>
+
         <router-view></router-view>
     </main>
 </template>
@@ -8,6 +9,7 @@
 <script>
     import 'bulma';
     import navBar from './components/NavBar';
+    import EmailVerify from "./components/EmailVerify";
 
 
     export default {
@@ -19,6 +21,7 @@
             };
         },
         components: {
+
             navBar,
         },
     }

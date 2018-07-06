@@ -58,7 +58,7 @@
                 <div class="column is-11">
                     <div class="field is-grouped">
                         <div class="control">
-                            <button type="submit" class="button is-primary">Save</button>
+                            <button type="submit" class="button is-info">Save</button>
                         </div>
                         <div class="control">
                             <router-link to="/secrets" button class="button">Cancel</router-link>

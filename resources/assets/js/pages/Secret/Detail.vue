@@ -9,7 +9,7 @@
                     </div>
 
                     <div class="column">
-                        <router-link to="/secrets" class="button is-primary is-pulled-right">Back</router-link>
+                        <router-link to="/secrets" class="button is-info is-pulled-right">Back</router-link>
                     </div>
                 </div>
                 <small>

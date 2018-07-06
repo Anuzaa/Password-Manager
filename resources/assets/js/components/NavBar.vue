@@ -1,7 +1,7 @@
 <template>
     <div class="columns">
         <div class="column is-12">
-            <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+            <nav class="navbar is-info" role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
                     <router-link :to="{name:'dashboard'}" class="navbar-item"> Home</router-link>
                 </div>

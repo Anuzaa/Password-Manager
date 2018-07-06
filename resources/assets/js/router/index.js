@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '../pages/Login.vue';
+import EmailVerify from '../components/EmailVerify.vue';
+import ErrorPage from '../pages/ErrorPage.vue';
 import Category from '../pages/Category/List.vue';
 import Secret from '../pages/Secret/List.vue';
 import CategoryDetail from '../pages/Category/Detail.vue';
@@ -26,7 +28,22 @@ const router = new Router({
                 requiresAuth: false
             },
         },
-
+        {
+            path: '/verify',
+            name: 'EmailVerify',
+            component: EmailVerify,
+            meta: {
+                requiresAuth: false
+            },
+        },
+        {
+            path: '/error',
+            name: 'ErrorPage',
+            component: ErrorPage,
+            meta: {
+                requiresAuth: false
+            },
+        },
         {
             path: '/categories',
             name: 'category',
