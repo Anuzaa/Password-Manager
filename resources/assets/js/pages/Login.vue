@@ -9,16 +9,14 @@
                 <div class="box">
 
                     <form class="form-signin" @submit.prevent="login">
-                        <div class="field">
-                            <p class="control has-icons-left has-icons-right">
-                                <input class="input" v-model="credentials.email" type="email" placeholder="Your Email"
-                                       autofocus="">
-                                <span class="icon is-small is-left">
-                                  <i class="fas fa-envelope"></i>
-                             </span>
-                                <span class="icon is-small is-right">
-                                   <i class="fas fa-check"></i>
-                                </span>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <input class="input" v-model="name" type="text" placeholder="Your email">
+                            </p>
+                            <p class="control">
+                                <a class="button is-static">
+                                    @introcept.co
+                                </a>
                             </p>
                         </div>
                         <div class="field">
@@ -45,16 +43,21 @@
         name: "Login",
         data() {
             return {
-                credentials: {
-                    email: 'bb@gmail.com',
-                },
+                name: '',
+                domain: '@introcept.co',
                 error: false,
                 emailsent: false,
             };
         },
+        computed: {
+            email: function () {
+                return this.name + '' + this.domain;
+            },
+        },
         methods: {
             login() {
-                Auth.attempt(this.credentials).then(() => {
+                const email = this.email;
+                Auth.attempt({email}).then(() => {
                     this.emailsent = "Please Check your email";
                 })
                     .catch(() => {

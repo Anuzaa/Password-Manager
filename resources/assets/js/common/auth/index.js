@@ -7,13 +7,14 @@ export default {
         authenticated: false,
     },
 
-    attempt(credentials) {
-        return axios.post(LOGIN_URL, credentials).then((req => {
-            const token = req.data.token;
-            console.log(token);
-            localStorage.setItem('auth_token', token);
-            this.user.authenticated = true;
-        }))
+    attempt(email) {
+        return axios.post(LOGIN_URL, email);
+        //     .then((req => {
+        //     const token = req.data.token;
+        //     console.log(token);
+        //     localStorage.setItem('auth_token', token);
+        //     this.user.authenticated = true;
+        // }))
     },
     storeToken(token) {
         localStorage.setItem('auth_token', token);

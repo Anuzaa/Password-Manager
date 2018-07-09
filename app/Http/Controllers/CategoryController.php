@@ -8,11 +8,6 @@ use Illuminate\Http\Request;
 use App\Http\Transformers\CategoryTransformer;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-// @TODO fix indentation better if you follow PSR-2 coding style... done ;)
-// @TODO always remove unnecessary comments.
-// @TODO  make use of laravel's fillable pattern for saving and creating resources
-// @TODO it would be better if the error message are translatable
-// @TODO fix doc block and try to make use of php 7.1 feature like strict types.
 
 class CategoryController extends BaseController
 {
@@ -57,6 +52,7 @@ class CategoryController extends BaseController
      */
     public function store(Request $request)
     {
+        dd($request->all());
 
         $this->validate($request, [
             'name' => 'required',

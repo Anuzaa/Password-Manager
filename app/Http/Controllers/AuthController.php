@@ -40,8 +40,10 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
+
     {
-        $this->validate($request, ['email' => 'required|email']);
+
+        $this->validate($request, ['email' => 'required']);
         $url = URL::temporarySignedRoute('sign-email', now()->addDays(1), [
             'user' => $request->get('email'),
 

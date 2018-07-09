@@ -808,15 +808,14 @@ var LOGIN_URL = 'login';
         authenticated: false
     },
 
-    attempt: function attempt(credentials) {
-        var _this = this;
-
-        return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(LOGIN_URL, credentials).then(function (req) {
-            var token = req.data.token;
-            console.log(token);
-            localStorage.setItem('auth_token', token);
-            _this.user.authenticated = true;
-        });
+    attempt: function attempt(email) {
+        return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(LOGIN_URL, email);
+        //     .then((req => {
+        //     const token = req.data.token;
+        //     console.log(token);
+        //     localStorage.setItem('auth_token', token);
+        //     this.user.authenticated = true;
+        // }))
     },
     storeToken: function storeToken(token) {
         localStorage.setItem('auth_token', token);
@@ -16540,7 +16539,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -16623,8 +16622,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -16632,19 +16629,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     name: "Login",
     data: function data() {
         return {
-            credentials: {
-                email: 'bb@gmail.com'
-            },
+            name: '',
+            domain: '@introcept.co',
             error: false,
             emailsent: false
         };
     },
 
+    computed: {
+        email: function email() {
+            return this.name + '' + this.domain;
+        }
+    },
     methods: {
         login: function login() {
             var _this = this;
 
-            __WEBPACK_IMPORTED_MODULE_0__common_auth_index__["a" /* default */].attempt(this.credentials).then(function () {
+            var email = this.email;
+            __WEBPACK_IMPORTED_MODULE_0__common_auth_index__["a" /* default */].attempt({ email: email }).then(function () {
                 _this.emailsent = "Please Check your email";
             }).catch(function () {
                 _this.error = "Login failed";
@@ -16690,49 +16692,35 @@ var render = function() {
               }
             },
             [
-              _c("div", { staticClass: "field" }, [
-                _c(
-                  "p",
-                  { staticClass: "control has-icons-left has-icons-right" },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.credentials.email,
-                          expression: "credentials.email"
-                        }
-                      ],
-                      staticClass: "input",
-                      attrs: {
-                        type: "email",
-                        placeholder: "Your Email",
-                        autofocus: ""
-                      },
-                      domProps: { value: _vm.credentials.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.credentials,
-                            "email",
-                            $event.target.value
-                          )
-                        }
+              _c("div", { staticClass: "field has-addons" }, [
+                _c("p", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.name,
+                        expression: "name"
                       }
-                    }),
-                    _vm._v(" "),
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _vm._m(1)
-                  ]
-                )
+                    ],
+                    staticClass: "input",
+                    attrs: { type: "text", placeholder: "Your email" },
+                    domProps: { value: _vm.name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.name = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm._m(0)
               ]),
               _vm._v(" "),
-              _vm._m(2),
+              _vm._m(1),
               _vm._v(" "),
               _c(
                 "button",
@@ -16760,16 +16748,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small is-left" }, [
-      _c("i", { staticClass: "fas fa-envelope" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small is-right" }, [
-      _c("i", { staticClass: "fas fa-check" })
+    return _c("p", { staticClass: "control" }, [
+      _c("a", { staticClass: "button is-static" }, [
+        _vm._v(
+          "\n                                @introcept.co\n                            "
+        )
+      ])
     ])
   },
   function() {
