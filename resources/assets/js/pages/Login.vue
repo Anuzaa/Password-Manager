@@ -43,7 +43,7 @@
         name: "Login",
         data() {
             return {
-                name: '',
+                name: 'anuja.bhattarai',
                 domain: '@introcept.co',
                 error: false,
                 emailsent: false,

@@ -489,7 +489,7 @@ module.exports = function normalizeComponent (
 "use strict";
 
 
-var bind = __webpack_require__(11);
+var bind = __webpack_require__(10);
 var isBuffer = __webpack_require__(21);
 
 /*global toString:true*/
@@ -797,7 +797,7 @@ module.exports = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
 
@@ -807,15 +807,11 @@ var LOGIN_URL = 'login';
     user: {
         authenticated: false
     },
-
     attempt: function attempt(email) {
         return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(LOGIN_URL, email);
-        //     .then((req => {
-        //     const token = req.data.token;
-        //     console.log(token);
-        //     localStorage.setItem('auth_token', token);
-        //     this.user.authenticated = true;
-        // }))
+    },
+    refreshToken: function refreshToken(refreshedToken) {
+        this.storeToken(refreshedToken);
     },
     storeToken: function storeToken(token) {
         localStorage.setItem('auth_token', token);
@@ -890,10 +886,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(12);
+    adapter = __webpack_require__(11);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(12);
+    adapter = __webpack_require__(11);
   }
   return adapter;
 }
@@ -968,61 +964,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(46)
-}
-var normalizeComponent = __webpack_require__(2)
-/* script */
-var __vue_script__ = __webpack_require__(48)
-/* template */
-var __vue_template__ = __webpack_require__(49)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-867f2764"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/EmailVerify.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-867f2764", Component.options)
-  } else {
-    hotAPI.reload("data-v-867f2764", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11988,7 +11933,7 @@ module.exports = Vue;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(18).setImmediate))
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -12178,13 +12123,13 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(20);
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12202,7 +12147,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12213,7 +12158,7 @@ var settle = __webpack_require__(24);
 var buildURL = __webpack_require__(26);
 var parseHeaders = __webpack_require__(27);
 var isURLSameOrigin = __webpack_require__(28);
-var createError = __webpack_require__(13);
+var createError = __webpack_require__(12);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(29);
 
 module.exports = function xhrAdapter(config) {
@@ -12389,7 +12334,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12414,7 +12359,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12426,7 +12371,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12452,6 +12397,57 @@ module.exports = Cancel;
 
 
 /***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(46)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(48)
+/* template */
+var __vue_template__ = __webpack_require__(49)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-867f2764"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/EmailVerify.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-867f2764", Component.options)
+  } else {
+    hotAPI.reload("data-v-867f2764", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12464,16 +12460,14 @@ module.exports = __webpack_require__(17);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__router_index__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Index_vue__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Index_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_EmailVerify_vue__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_EmailVerify_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_EmailVerify_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_auth__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_auth__ = __webpack_require__(4);
 
 
 
@@ -12481,14 +12475,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+var TOKEN_EXPIRED_MSG = 'Token has expired';
 
 window.axios = __WEBPACK_IMPORTED_MODULE_1_axios___default.a;
 window.axios.defaults.baseURL = '/api/';
 
 window.axios.interceptors.request.use(function (config) {
     var Config = config;
-    if (__WEBPACK_IMPORTED_MODULE_5__common_auth__["a" /* default */].check()) {
-        Config.headers.common.Authorization = __WEBPACK_IMPORTED_MODULE_5__common_auth__["a" /* default */].getBearerToken();
+    if (__WEBPACK_IMPORTED_MODULE_4__common_auth__["a" /* default */].check()) {
+        Config.headers.common.Authorization = __WEBPACK_IMPORTED_MODULE_4__common_auth__["a" /* default */].getBearerToken();
     }
     Config.headers.common.Accept = 'application/json';
     return Config;
@@ -12500,9 +12495,20 @@ window.axios.interceptors.request.use(function (config) {
 window.axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
-    if (error.response.status === 401) {
-        // if the error is 401 and hasnt already been retried
-        return __WEBPACK_IMPORTED_MODULE_5__common_auth__["a" /* default */].logout();
+    console.log(error.response);
+    var originalRequest = error.config;
+    var requestOptions = {};
+    requestOptions.headers = __WEBPACK_IMPORTED_MODULE_4__common_auth__["a" /* default */].getAuthHeader();
+    // debugger;
+    if (error.response.status === 401 && error.response.data.message === TOKEN_EXPIRED_MSG && !originalRequest._retry) {
+        return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/token', requestOptions).then(function (response) {
+            if (response.data.token) {
+                __WEBPACK_IMPORTED_MODULE_4__common_auth__["a" /* default */].storeToken(response.data.token);
+            }
+        }).catch(function (e) {
+            console.log(e.response);
+            debugger;
+        });
     }
     return Promise.reject(error);
 });
@@ -12512,8 +12518,8 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     router: __WEBPACK_IMPORTED_MODULE_2__router_index__["a" /* default */],
 
     components: {
-        Index: __WEBPACK_IMPORTED_MODULE_3__Index_vue___default.a,
-        EmailVerify: __WEBPACK_IMPORTED_MODULE_4__components_EmailVerify_vue___default.a
+        Index: __WEBPACK_IMPORTED_MODULE_3__Index_vue___default.a
+
     }
 });
 
@@ -12778,7 +12784,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(8)))
 
 /***/ }),
 /* 20 */
@@ -12788,7 +12794,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 
 var utils = __webpack_require__(3);
-var bind = __webpack_require__(11);
+var bind = __webpack_require__(10);
 var Axios = __webpack_require__(22);
 var defaults = __webpack_require__(6);
 
@@ -12823,9 +12829,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(15);
+axios.Cancel = __webpack_require__(14);
 axios.CancelToken = __webpack_require__(36);
-axios.isCancel = __webpack_require__(14);
+axios.isCancel = __webpack_require__(13);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -12978,7 +12984,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(13);
+var createError = __webpack_require__(12);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -13411,7 +13417,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(3);
 var transformData = __webpack_require__(33);
-var isCancel = __webpack_require__(14);
+var isCancel = __webpack_require__(13);
 var defaults = __webpack_require__(6);
 var isAbsoluteURL = __webpack_require__(34);
 var combineURLs = __webpack_require__(35);
@@ -13571,7 +13577,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(15);
+var Cancel = __webpack_require__(14);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -13667,12 +13673,12 @@ module.exports = function spread(callback) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_Login_vue__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_Login_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__pages_Login_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_EmailVerify_vue__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_EmailVerify_vue__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_EmailVerify_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_EmailVerify_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_ErrorPage_vue__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_ErrorPage_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__pages_ErrorPage_vue__);
@@ -16629,7 +16635,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     name: "Login",
     data: function data() {
         return {
-            name: '',
+            name: 'anuja.bhattarai',
             domain: '@introcept.co',
             error: false,
             emailsent: false
@@ -19918,7 +19924,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bulma___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_bulma__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_NavBar__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_NavBar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_NavBar__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_EmailVerify__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_EmailVerify__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_EmailVerify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_EmailVerify__);
 //
 //
@@ -20649,7 +20655,6 @@ var render = function() {
               "a",
               {
                 staticClass: "navbar-item",
-                attrs: { href: "#" },
                 on: {
                   click: function($event) {
                     $event.preventDefault()

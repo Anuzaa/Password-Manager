@@ -12,7 +12,7 @@
                     <router-link :to="{name:'secret'}" class="navbar-item">Secret</router-link>
                 </div>
                 <div class="navbar-end">
-                    <a href="#" class="navbar-item" @click.prevent="logout">Logout</a>
+                    <a class="navbar-item" @click.prevent="logout">Logout</a>
                 </div>
             </nav>
         </div>

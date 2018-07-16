@@ -7,7 +7,7 @@ use App\Mail\SendMailable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\User;
@@ -27,14 +27,9 @@ class AuthController extends Controller
         }
         $email = $request->route('email');
         $user = User::query()->firstOrNew(['email' => $email]);
-
         $token = JWTAuth::fromUser($user);
-
-//
-        return redirect('/#/verify?token='.$token)->with(compact('token'));
-
-//        return response()->json(compact('token'));
-
+//        $new_token = JWTAuth::refresh($token);
+        return redirect('/#/verify?token=' . $token)->with(compact('token'));
 
 
     }
@@ -46,7 +41,6 @@ class AuthController extends Controller
         $this->validate($request, ['email' => 'required']);
         $url = URL::temporarySignedRoute('sign-email', now()->addDays(1), [
             'user' => $request->get('email'),
-
         ]);
         $to = $request->get('email');
         $this->mail($url, $to);
@@ -84,16 +78,30 @@ class AuthController extends Controller
         return response()->json(auth()->user());
     }
 
-
     /**
-     * Refresh a token.
+     * Refresh the token
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return mixed
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        try {
+            $token = JWTAuth::getToken();
+            if (!$token) {
+                return $this->response->errorMethodNotAllowed('Token not provided');
+            }
+
+            JWTAuth::parseToken()->authenticate();
+        } catch (TokenExpiredException $e) {
+            try {
+                $refreshedToken = JWTAuth::refresh($token);
+                return $this->response->withArray(['token' => $refreshedToken]);
+            } catch (JWTException $e) {
+                return $this->response->errorInternal('Not able to refresh Token');
+            }
+        }
     }
+
 
     /**
      * Get the token array structure.
@@ -111,13 +119,6 @@ class AuthController extends Controller
         ]);
     }
 
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-        ]);
-    }
 
     public function mail(string $url, string $to)
     {

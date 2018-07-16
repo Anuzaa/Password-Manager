@@ -15,13 +15,16 @@ $api->version('v1', function ($api) {
     $api->post('login', 'App\Http\Controllers\AuthController@login');
 
 
-    $api->post('register', 'App\Http\Controllers\AuthController@register');
 
 });
 $api->version('v1', ['middleware' => ['api.auth'], 'namespace' => 'App\Http\Controllers'], function ($api) {
-//    $api->get('user', 'AuthController@user');
-    $api->post('logout', 'App\Http\Controllers\AuthController@logout');
+    $api->post('logout', 'AuthController@logout');
 });
+
+$api->version('v1',[ 'namespace' => 'App\Http\Controllers'], function ($api) {
+    $api->get('token', 'AuthController@refresh');
+});
+
 
 $api->version('v1', ['middleware' => ['api.auth'], 'namespace' => 'App\Http\Controllers'], function ($api) {
     $api->get('categories', 'CategoryController@index');
