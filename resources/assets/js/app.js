@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import _axios from 'axios';
 import axios from 'axios';
 import router from './router/index';
 import Index from './Index.vue';
@@ -9,9 +8,17 @@ const TOKEN_EXPIRED_MSG = 'Token has expired';
 
 window.axios = axios;
 window.axios.defaults.baseURL = '/api/';
+let token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
 
 window.axios.interceptors.request.use((config) => {
     const Config = config;
+    console.log(Auth.getBearerToken());
     if (Auth.check()) {
         Config.headers.common.Authorization = Auth.getBearerToken();
     }
@@ -23,22 +30,30 @@ window.axios.interceptors.request.use((config) => {
 // Add a response interceptor
 window.axios.interceptors.response.use(response =>
     response, (error) => {
-    console.log(error.response);
+    // console.log(error.response);
     const originalRequest = error.config;
     const requestOptions = {};
     requestOptions.headers = Auth.getAuthHeader();
-    // debugger;
+
     if (error.response.status === 401 && error.response.data.message === TOKEN_EXPIRED_MSG && !originalRequest._retry) {
-        return _axios.get('/token', requestOptions)
+        originalRequest._retry = true;
+        originalRequest.url = originalRequest.url.replace('/api/', '');
+        return window.axios.get('/token', requestOptions)
             .then((response) => {
-                if (response.data.token) {
+                if (response.data && response.data.token) {
+                    // window.axios.defaults.headers.Authorization = 'Bearer ' + response.data.token;
+                    originalRequest.headers.Authorization = 'Bearer ' + response.data.token;
                     Auth.storeToken(response.data.token);
+                    console.log(originalRequest);
+                    return window.axios(originalRequest);
                 }
             })
-            .catch(e => {
-                console.log(e.response);
-                debugger;
-            });
+            .then(() => {
+                originalRequest._retry = false;
+            })
+            .catch((err) => {
+                console.log('token error', err.response);
+            }) ;
     }
     return Promise.reject(error);
 });

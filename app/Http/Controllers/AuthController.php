@@ -90,7 +90,6 @@ class AuthController extends Controller
             if (!$token) {
                 return $this->response->errorMethodNotAllowed('Token not provided');
             }
-
             JWTAuth::parseToken()->authenticate();
         } catch (TokenExpiredException $e) {
             try {

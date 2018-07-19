@@ -92,7 +92,7 @@
             getSecret() {
                 window.axios
                     .get('secrets')
-                    .then(response => {
+                    .then((response) => {
                         this.secrets = response.data
                     })
             },

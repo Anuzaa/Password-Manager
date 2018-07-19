@@ -810,9 +810,6 @@ var LOGIN_URL = 'login';
     attempt: function attempt(email) {
         return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(LOGIN_URL, email);
     },
-    refreshToken: function refreshToken(refreshedToken) {
-        this.storeToken(refreshedToken);
-    },
     storeToken: function storeToken(token) {
         localStorage.setItem('auth_token', token);
         this.user.authenticated = true;
@@ -12474,14 +12471,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
 var TOKEN_EXPIRED_MSG = 'Token has expired';
 
 window.axios = __WEBPACK_IMPORTED_MODULE_1_axios___default.a;
 window.axios.defaults.baseURL = '/api/';
+var token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
 
 window.axios.interceptors.request.use(function (config) {
     var Config = config;
+    console.log(__WEBPACK_IMPORTED_MODULE_4__common_auth__["a" /* default */].getBearerToken());
     if (__WEBPACK_IMPORTED_MODULE_4__common_auth__["a" /* default */].check()) {
         Config.headers.common.Authorization = __WEBPACK_IMPORTED_MODULE_4__common_auth__["a" /* default */].getBearerToken();
     }
@@ -12495,19 +12499,26 @@ window.axios.interceptors.request.use(function (config) {
 window.axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
-    console.log(error.response);
+    // console.log(error.response);
     var originalRequest = error.config;
     var requestOptions = {};
     requestOptions.headers = __WEBPACK_IMPORTED_MODULE_4__common_auth__["a" /* default */].getAuthHeader();
-    // debugger;
+
     if (error.response.status === 401 && error.response.data.message === TOKEN_EXPIRED_MSG && !originalRequest._retry) {
-        return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/token', requestOptions).then(function (response) {
-            if (response.data.token) {
+        originalRequest._retry = true;
+        originalRequest.url = originalRequest.url.replace('/api/', '');
+        return window.axios.get('/token', requestOptions).then(function (response) {
+            if (response.data && response.data.token) {
+                // window.axios.defaults.headers.Authorization = 'Bearer ' + response.data.token;
+                originalRequest.headers.Authorization = 'Bearer ' + response.data.token;
                 __WEBPACK_IMPORTED_MODULE_4__common_auth__["a" /* default */].storeToken(response.data.token);
+                console.log(originalRequest);
+                return window.axios(originalRequest);
             }
-        }).catch(function (e) {
-            console.log(e.response);
-            debugger;
+        }).then(function () {
+            originalRequest._retry = false;
+        }).catch(function (err) {
+            console.log('token error', err.response);
         });
     }
     return Promise.reject(error);
@@ -17147,7 +17158,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17235,11 +17246,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             window.axios.get('categories').then(function (response) {
+
                 _this2.categories = response.data;
+                // console.log(response.data)
+            }).catch(function (error) {
+                console.log(error);
             });
+            // .then((response) => {
+            //     console.log(response.data)
+            // })
+
         }
     },
     mounted: function mounted() {
+
         this.getCategory();
     }
 });

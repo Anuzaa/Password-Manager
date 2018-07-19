@@ -9,9 +9,6 @@ export default {
     attempt(email) {
         return axios.post(LOGIN_URL, email);
     },
-    refreshToken(refreshedToken) {
-        this.storeToken(refreshedToken);
-    },
     storeToken(token) {
         localStorage.setItem('auth_token', token);
         this.user.authenticated = true;
