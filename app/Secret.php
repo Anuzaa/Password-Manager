@@ -25,4 +25,8 @@ class Secret extends Model
     {
         return $this->belongsTo(User::class, 'author_id','id');
     }
+
+    public function sharedUsers(){
+        return $this->belongsToMany(User::class, 'user_secret','secret_id','author_id')->withTimestamps();
+    }
 }

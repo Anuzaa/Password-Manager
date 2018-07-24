@@ -35,10 +35,13 @@ class SecretController extends BaseController
      */
     public function index(Request $request)
     {
-//        dd($request->user()->id);
-        $secrets = $this->secret->where('author_id', $request->user()->id)->paginate($request->query('per_page'));
+//        $secret=Secret::find();
+//        $secret->sharedUsers()->sync([3]);
+//        dd($secret->sharedUsers);
+////        dd($request->user()->id);
+        $secrets = $this->secret->where('author_id', $request->user()->id)->get();
 
-        return $this->response->paginator($secrets, new SecretTransformer);
+        return $this->response->collection($secrets, new SecretTransformer);
     }
 
     /**
@@ -47,7 +50,7 @@ class SecretController extends BaseController
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $user, $author_id)
     {
 //        dd($request->all());
         $this->validate($request, [
@@ -63,12 +66,15 @@ class SecretController extends BaseController
 
         $secret->forceFill(['author_id' => $request->user()->id]);
 
-        if ($secret->save()) {
-            $this->response->item($secret->refresh(), new SecretTransformer)->setStatusCode(200);
-            return 'success';
-        }
-
-        return $this->response->error("Secret could not be created");
+         $secret->sharedUsers()->save($user);
+         return $secret;
+// {
+//            $secret->sharedUsers()->sync([$author_id]);
+//            $this->response->item($secret->refresh(), new SecretTransformer)->setStatusCode(200);
+//            return 'success';
+//        }
+//
+//        return $this->response->error("Secret could not be created");
 
     }
 

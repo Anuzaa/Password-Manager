@@ -23,6 +23,7 @@
                             <th>Email</th>
                             <th>Password</th>
                             <th>Category</th>
+                            <th>User</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -34,6 +35,7 @@
                             <td>{{secret.email}}</td>
                             <td v-html="getPassword(secret.id, secret.password)"></td>
                             <td>{{secret.category.data.name}}</td>
+                            <td> {{secret.user.data.name}}</td>
                             <td>
                                 <button class="button is-white" type="button"
                                         @click="togglePasswordVisibility(secret.id)">
@@ -47,6 +49,10 @@
                                 <button @click="deleteSecret(secret.id)" class="button is-white">
                                     <i class="fa fa-trash"></i>
                                 </button>
+                                <button class="button is-white">
+                                    <i class="fas fa-share-square"></i>
+                                </button>
+
                             </td>
                         </tr>
                         </tbody>
@@ -65,7 +71,11 @@
         name: "secret-list",
         data() {
             return {
-                secrets: {},
+                secrets: {
+                    user: {
+                        data: {},
+                    },
+                },
                 shownPasswordId: [],
             }
         },

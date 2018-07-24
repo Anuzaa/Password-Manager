@@ -17483,7 +17483,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17554,6 +17554,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -17561,7 +17567,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     name: "secret-list",
     data: function data() {
         return {
-            secrets: {},
+            secrets: {
+                user: {
+                    data: {}
+                }
+            },
             shownPasswordId: []
         };
     },
@@ -17665,6 +17675,8 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(secret.category.data.name))]),
                   _vm._v(" "),
+                  _c("td", [_vm._v(" " + _vm._s(secret.user.data.name))]),
+                  _vm._v(" "),
                   _c(
                     "td",
                     [
@@ -17708,7 +17720,9 @@ var render = function() {
                           }
                         },
                         [_c("i", { staticClass: "fa fa-trash" })]
-                      )
+                      ),
+                      _vm._v(" "),
+                      _vm._m(2, true)
                     ],
                     1
                   )
@@ -17748,8 +17762,18 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Category")]),
         _vm._v(" "),
+        _c("th", [_vm._v("User")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Action")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("button", { staticClass: "button is-white" }, [
+      _c("i", { staticClass: "fas fa-share-square" })
     ])
   }
 ]

@@ -35,6 +35,10 @@ class User extends Authenticatable implements JWTSubject
 
     }
 
+    public function sharedSecrets(){
+        return $this->belongsToMany(Secret::class,'user_secret','author_id','secret_id');
+    }
+
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

@@ -38,9 +38,9 @@ class CategoryController extends BaseController
      */
     public function index(Request $request)
     {
-        $categories = $this->category->where('author_id', $request->user()->id)->paginate($request->query('per_page'));
+        $categories = $this->category->where('author_id', $request->user()->id)->get();
 
-        return $this->response->paginator($categories, new CategoryTransformer);
+        return $this->response->collection($categories, new CategoryTransformer);
     }
 
     /**
