@@ -17483,7 +17483,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17587,6 +17587,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         isPasswordShown: function isPasswordShown(id) {
             return this.shownPasswordId.includes(id);
         },
+        togglePasswordVisibility: function togglePasswordVisibility(id) {
+            if (this.isPasswordShown(id)) {
+                this.shownPasswordId = this.shownPasswordId.filter(function (pid) {
+                    return pid !== id;
+                });
+            } else {
+                this.shownPasswordId.push(id);
+            }
+        },
         deleteSecret: function deleteSecret(id) {
             var _this = this;
 
@@ -17602,15 +17611,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.axios.get('secrets').then(function (response) {
                 _this2.secrets = response.data;
             });
-        },
-        togglePasswordVisibility: function togglePasswordVisibility(id) {
-            if (this.isPasswordShown(id)) {
-                this.shownPasswordId = this.shownPasswordId.filter(function (pid) {
-                    return pid !== id;
-                });
-            } else {
-                this.shownPasswordId.push(id);
-            }
         }
     },
     mounted: function mounted() {

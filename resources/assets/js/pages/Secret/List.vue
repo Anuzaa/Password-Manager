@@ -90,6 +90,15 @@
             isPasswordShown(id) {
                 return this.shownPasswordId.includes(id);
             },
+            togglePasswordVisibility(id) {
+                if (this.isPasswordShown(id)) {
+                    this.shownPasswordId = this.shownPasswordId.filter(pid => pid !== id);
+                } else {
+                    this.shownPasswordId.push(id)
+                }
+
+
+            },
             deleteSecret(id) {
                 if (confirm("Are you sure?")) {
                     window.axios
@@ -106,17 +115,6 @@
                         this.secrets = response.data
                     })
             },
-            togglePasswordVisibility(id) {
-                if (this.isPasswordShown(id)) {
-                    this.shownPasswordId = this.shownPasswordId.filter(pid => pid !== id);
-                } else {
-                    this.shownPasswordId.push(id)
-                }
-
-
-            },
-
-
         },
         mounted() {
             this.getSecret();

@@ -42,7 +42,7 @@ class SecretTransformer extends TransformerAbstract
             'url' => $secret->getAttribute('url'),
             'name' => $secret->getAttribute('name'),
             'email' => $secret->getAttribute('email'),
-            'password' => decrypt($secret->getAttribute('password')),
+            'password' => $secret->getAttribute('password'),
             'author_id' => $secret->getAttribute('author_id'),
             'category_id' => $secret->getAttribute('category_id'),
             'created_at' => $secret->getAttribute('created_at'),

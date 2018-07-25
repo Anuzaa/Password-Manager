@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class SecretController extends BaseController
 {
     /**
-     * The category repository implementation.
+     * The secret repository implementation.
      *
      * @var Secret
      */
@@ -50,7 +50,7 @@ class SecretController extends BaseController
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $user, $author_id)
+    public function store(Request $request)
     {
 //        dd($request->all());
         $this->validate($request, [
@@ -58,24 +58,18 @@ class SecretController extends BaseController
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:6',
-            'category_id'=>'required'
+            'category_id' => 'required'
 
         ]);
         $secret = $this->secret->newInstance($request->all());
-        $secret->password= encrypt(request('password'));
+        $secret->password = encrypt(request('password'));
 
         $secret->forceFill(['author_id' => $request->user()->id]);
+        if ($secret->save()) {
+            $author_id = $request->user()->id;
+            $secret->sharedUsers()->sync($author_id);
 
-         $secret->sharedUsers()->save($user);
-         return $secret;
-// {
-//            $secret->sharedUsers()->sync([$author_id]);
-//            $this->response->item($secret->refresh(), new SecretTransformer)->setStatusCode(200);
-//            return 'success';
-//        }
-//
-//        return $this->response->error("Secret could not be created");
-
+        }
     }
 
     /**
@@ -109,6 +103,7 @@ class SecretController extends BaseController
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:6'
+
         ]);
         if (!$secret) {
             throw new NotFoundHttpException();
@@ -133,6 +128,8 @@ class SecretController extends BaseController
     {
         $secret = $this->secret->where('author_id', $request->user()->id)->find($id);
         if ($secret->delete()) {
+            $author_id = $request->user()->id;
+            $secret->sharedUsers()->detach($author_id);
             $this->response->noContent();
             return "Successfully deleted secret";
         } else {
@@ -140,4 +137,6 @@ class SecretController extends BaseController
         }
 
     }
+
+
 }

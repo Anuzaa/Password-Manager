@@ -13,11 +13,15 @@ $api = app(\Dingo\Api\Routing\Router::class);
 
 $api->version('v1', function ($api) {
     $api->post('login', 'App\Http\Controllers\AuthController@login');
+    $api->get('users', 'App\Http\Controllers\UserController@index');
+    $api->post('register', 'App\Http\Controllers\UserController@register');
+
 
 
 
 });
 $api->version('v1', ['middleware' => ['api.auth'], 'namespace' => 'App\Http\Controllers'], function ($api) {
+
     $api->post('logout', 'AuthController@logout');
 });
 
