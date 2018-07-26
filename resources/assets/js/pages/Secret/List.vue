@@ -49,9 +49,10 @@
                                 <button @click="deleteSecret(secret.id)" class="button is-white">
                                     <i class="fa fa-trash"></i>
                                 </button>
-                                <button class="button is-white">
+                                <router-link class="button is-white" type="button"
+                                             :to="{name:'secret.share',params:{id:secret.id}}">
                                     <i class="fas fa-share-square"></i>
-                                </button>
+                                </router-link>
 
                             </td>
                         </tr>
@@ -96,8 +97,6 @@
                 } else {
                     this.shownPasswordId.push(id)
                 }
-
-
             },
             deleteSecret(id) {
                 if (confirm("Are you sure?")) {
@@ -115,9 +114,11 @@
                         this.secrets = response.data
                     })
             },
+
         },
         mounted() {
             this.getSecret();
+
         },
     }
 </script>

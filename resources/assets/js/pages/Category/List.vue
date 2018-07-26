@@ -67,34 +67,23 @@
                     window.axios
                         .delete(`categories/${id}`).then(() => {
                             this.getCategory();
-
-
                         }
                     )
                 }
             },
             getCategory() {
-
                 window.axios
                     .get('categories')
                     .then((response) => {
-
                         this.categories=response.data
-                        // console.log(response.data)
+
                     })
                     .catch(error =>{
                         console.log(error);
                     })
-                    // .then((response) => {
-                    //     console.log(response.data)
-                    // })
-
-
-
             },
         },
         mounted() {
-
             this.getCategory();
         },
     }

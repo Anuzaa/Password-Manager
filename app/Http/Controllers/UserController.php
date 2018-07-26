@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Http\Transformers\UserTransformer;
+use Illuminate\Http\Request;
 
 
 class UserController extends Controller
@@ -38,7 +39,7 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-//        dd($request->all());
+
         $this->validate($request, [
 
             'name' => 'required',
@@ -48,11 +49,9 @@ class UserController extends Controller
 
         ]);
         $user = $this->user->newInstance($request->all());
+
         $user->password = encrypt(request('password'));
-        if($user->save()){
-            $this->response->item($user->refresh(), new UserTransformer)->setStatusCode(201);
-            return 'Successfully created user';
-        }
+        $user->save();
 
 
     }

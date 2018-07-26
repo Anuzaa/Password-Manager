@@ -11,6 +11,7 @@ import CreateCategory from '../pages/Category/Create.vue';
 import CreateSecret from '../pages/Secret/Create.vue';
 import SecretDetail from '../pages/Secret/Detail.vue';
 import EditSecret from '../pages/Secret/Edit.vue';
+import ShareSecret from '../pages/Secret/Share.vue';
 import Dashboard from '../pages/Dashboard.vue';
 import Auth from '../common/auth/index';
 
@@ -112,6 +113,13 @@ const router = new Router({
             path: '/secret/:id/edit',
             name: 'secret.edit',
             component: EditSecret,
+            meta: {
+                requiresAuth: true
+            },
+        }, {
+            path: '/secret/:id/share',
+            name: 'secret.share',
+            component: ShareSecret,
             meta: {
                 requiresAuth: true
             },

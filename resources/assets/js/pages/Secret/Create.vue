@@ -109,7 +109,6 @@
 
             },
             getCategory() {
-
                 window.axios
                     .get('categories')
                     .then(response => {
