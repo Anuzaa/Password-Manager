@@ -94,7 +94,6 @@
                     email: '',
                     password: '',
                    category_id:'',
-
                 },
 
             }

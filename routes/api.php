@@ -23,7 +23,7 @@ $api->version('v1', function ($api) {
 $api->version('v1', ['middleware' => ['api.auth'], 'namespace' => 'App\Http\Controllers'], function ($api) {
     $api->post('logout', 'AuthController@logout');
     $api->get('users', 'UserController@index');
-    $api->post('share', 'ShareSecretController@store');
+    $api->post('share/{id}', 'ShareSecretController@share');
 
 
 });

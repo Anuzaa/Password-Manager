@@ -35,11 +35,8 @@ class SecretController extends BaseController
      */
     public function index(Request $request)
     {
-//        $secret=Secret::find();
-//        $secret->sharedUsers()->sync([3]);
-//        dd($secret->sharedUsers);
-////        dd($request->user()->id);
-        $secrets = $this->secret->where('author_id', $request->user()->id)->get();
+        $user = $request->user();
+        $secrets = $user->sharedSecrets;
 
         return $this->response->collection($secrets, new SecretTransformer);
     }
@@ -67,7 +64,7 @@ class SecretController extends BaseController
         $secret->forceFill(['author_id' => $request->user()->id]);
         if ($secret->save()) {
             $author_id = $request->user()->id;
-            $secret->sharedUsers()->sync($author_id);
+            $secret->sharedUsers()->attach($author_id);
 
         }
     }

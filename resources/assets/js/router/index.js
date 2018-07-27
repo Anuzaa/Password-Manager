@@ -121,7 +121,7 @@ const router = new Router({
             name: 'secret.share',
             component: ShareSecret,
             meta: {
-                requiresAuth: true
+                requiresAuth: false
             },
         },
 
