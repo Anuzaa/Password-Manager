@@ -24,6 +24,7 @@ $api->version('v1', ['middleware' => ['api.auth'], 'namespace' => 'App\Http\Cont
     $api->post('logout', 'AuthController@logout');
     $api->get('users', 'UserController@index');
     $api->post('share/{id}', 'ShareSecretController@share');
+    $api->post('revert/{id}', 'ShareSecretController@revert');
 
 
 });

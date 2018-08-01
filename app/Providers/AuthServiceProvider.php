@@ -24,7 +24,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Gate::define('share-secret', function ($user, $secret) {
+        Gate::define('update-secret', function ($user, $secret) {
             return $user->id == $secret->user_id;
         });
 

@@ -52,7 +52,8 @@
                 window.axios.put(`categories/${this.$route.params.id}`, this.formData)
                     .then(() => {
                         this.$router.push({name: "category"})
-                    });
+                    })
+                    .then(() => this.$swal('Category Successfully Updated'));
             }
         },
         mounted() {
@@ -62,6 +63,7 @@
                     // console.log(response.data.data.name);
                     this.formData.name = response.data.data.name;
                 });
+
 
         }
 

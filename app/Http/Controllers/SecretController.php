@@ -35,8 +35,8 @@ class SecretController extends BaseController
      */
     public function index(Request $request)
     {
-        $user = $request->user();
-        $secrets = $user->sharedSecrets;
+
+        $secrets =  $request->user()->sharedSecrets;
 
         return $this->response->collection($secrets, new SecretTransformer);
     }
@@ -123,17 +123,14 @@ class SecretController extends BaseController
      */
     public function destroy(Request $request, $id)
     {
-        $secret = $this->secret->where('author_id', $request->user()->id)->find($id);
-        if ($secret->delete()) {
-            $author_id = $request->user()->id;
-            $secret->sharedUsers()->detach($author_id);
-            $this->response->noContent();
-            return "Successfully deleted secret";
+        $secret = $this->secret->find($id);
+
+        $user = $this->user->find($request['author_id']);
+        if ($user) {
+            $secret->sharedUsers()->detach($user);
+            return 'Successfully shared secrets';
         } else {
-            return $this->response->error('Secret could not be deleted');
+            return 'uncsuccessful';
         }
-
     }
-
-
 }

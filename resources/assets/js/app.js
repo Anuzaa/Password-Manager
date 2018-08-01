@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import axios from 'axios';
+import VueSweetalert2 from 'vue-sweetalert2';
 import router from './router/index';
 import Index from './Index.vue';
 import Auth from "./common/auth";
@@ -58,12 +59,12 @@ window.axios.interceptors.response.use(response =>
     return Promise.reject(error);
 });
 
+Vue.use(VueSweetalert2);
+
 new Vue({
     el: '#app',
     router,
-
     components: {
         Index,
-
     },
 });

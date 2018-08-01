@@ -4,10 +4,9 @@
             <div class="columns">
                 <div class="column is-11">
                     <strong>Categories</strong>
-
                 </div>
                 <div class="column is-1">
-                    <router-link class="button is-info is-pulled-right " :to="{name:'category.create'}">
+                    <router-link :to="{ name: 'category.create' }" class="button is-info is-pulled-right" tag="button" type="button">
                         Add
                     </router-link>
                 </div>
@@ -27,15 +26,15 @@
                             <td>{{category.id}}</td>
                             <td>{{category.name}}</td>
                             <td>
-                                <router-link class="button is-white" type="button"
+                                <router-link class="button is-white" tag="button" type="button"
                                              :to="{name:'category.detail',params:{id:category.id}}">
                                     <i class="fa fa-eye"></i>
                                 </router-link>
-                                <router-link class="button is-white" type="button"
+                                <router-link class="button is-white" tag="button" type="button"
                                              :to="{name:'category.edit',params:{id:category.id}}">
                                     <i class="fas fa-edit"></i>
                                 </router-link>
-                                <button @click="deleteCategory(category.id)" class="button is-white">
+                                <button type="button" @click="deleteCategory(category.id)" class="button is-white">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </td>
@@ -69,6 +68,7 @@
                             this.getCategory();
                         }
                     )
+                        .then(() => this.$swal('Category Successfully Deleted'));
                 }
             },
             getCategory() {

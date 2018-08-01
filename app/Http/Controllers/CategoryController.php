@@ -60,7 +60,7 @@ class CategoryController extends BaseController
 
         if ($category->save()) {
             $this->response->item($category->refresh(), new CategoryTransformer)->setStatusCode(201);
-            return "Successfully created category";
+           return 'Successfully created category';
         } else {
             return $this->response->error("Category could not be created", 500);
         }

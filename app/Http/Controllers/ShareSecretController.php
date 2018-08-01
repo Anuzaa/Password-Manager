@@ -47,7 +47,20 @@ class ShareSecretController extends Controller
         $user = $this->user->find($request['author_id']);
         if ($user) {
             $secret->sharedUsers()->attach($user);
-            return 'success';
+            return 'Successfully shared secrets';
+        } else {
+            return 'uncsuccessful';
+        }
+    }
+
+    public function revert(Request $request, $id)
+    {
+        $secret = $this->secret->find($id);
+
+        $user = $this->user->find($request['author_id']);
+        if ($user) {
+            $secret->sharedUsers()->detach($user);
+            return 'Successfully shared secrets';
         } else {
             return 'uncsuccessful';
         }

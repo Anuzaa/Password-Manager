@@ -1,4 +1,5 @@
 <template>
+
     <div class="container">
         <form @submit.prevent="create">
             <div class="columns">
@@ -25,7 +26,7 @@
                             <button type="submit" class="button is-info">Save</button>
                         </div>
                         <div class="control">
-                            <router-link to="/categories" button class="button">Cancel</router-link>
+                            <router-link to="/categories" tag="button" type="button" class="button">Cancel</router-link>
                         </div>
                     </div>
                 </div>
@@ -44,20 +45,18 @@
                 formData: {
                     name: '',
                 },
-
             }
 
         },
         methods: {
             create() {
-                window.axios.post('categories', this.formData).then(() => {
-                    this.$router.push({name: 'category'});
-                });
-            }
+                window.axios.post('categories', this.formData)
+                    .then(() => this.$router.push({name: 'category'}))
+                    .then(() => this.$swal('Category Successfully Added'));
+            },
         }
     }
 </script>
 
 <style scoped>
-
 </style>

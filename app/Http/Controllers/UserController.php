@@ -29,11 +29,12 @@ class UserController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->user->get();
+        $users = $this->user->where('id','!=', $request->user()->id)->get();
         return $this->response->collection($users, new UserTransformer);
     }
 
