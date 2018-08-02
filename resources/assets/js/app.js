@@ -1,6 +1,10 @@
 import Vue from 'vue';
+import VueAlert from '@vuejs-pt/vue-alert';
 import axios from 'axios';
-import VueSweetalert2 from 'vue-sweetalert2';
+import vSelect from 'vue-select';
+import VuejsDialog from 'vuejs-dialog';
+import 'vuejs-dialog/dist/vuejs-dialog.min.css';
+
 import router from './router/index';
 import Index from './Index.vue';
 import Auth from "./common/auth";
@@ -59,7 +63,11 @@ window.axios.interceptors.response.use(response =>
     return Promise.reject(error);
 });
 
-Vue.use(VueSweetalert2);
+Vue.use(VueAlert);
+
+Vue.component('v-select', vSelect);
+
+Vue.use(VuejsDialog);
 
 new Vue({
     el: '#app',

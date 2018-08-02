@@ -57,13 +57,8 @@
             <div class="columns">
                 <div class="column is-half">
                     <label class="label">Category</label>
-                    <select class="form-control" v-model="formData.category_id">
-                        <option disabled value=''>Please select one </option>
-                        <option v-for="category in categories.data" v-bind:value="category.id">
-                            {{ category.name }}
-                        </option>
-                    </select>
-
+                    <v-select label="name" :options="categories" v-model="selectedCategory">
+                    </v-select>
                 </div>
             </div>
             <div class="columns">
@@ -88,12 +83,13 @@
         data() {
             return {
                 categories: [],
+                selectedCategory: '',
                 formData: {
                     url: '',
                     name: '',
                     email: '',
                     password: '',
-                   category_id:'',
+                    category_id: '',
                 },
 
             }
@@ -101,9 +97,11 @@
         },
         methods: {
             create() {
+                this.formData.category_id = this.selectedCategory.id;
                 window.axios.post('secrets', this.formData).then(() => {
                     this.$router.push({name: 'secret'});
-                });
+                })
+                    .then(() => this.$alert.success({message: 'Secret Successfully created'}));
 
 
             },
@@ -111,7 +109,7 @@
                 window.axios
                     .get('categories')
                     .then(response => {
-                        this.categories = response.data;
+                        this.categories = response.data.data;
 
                     });
 

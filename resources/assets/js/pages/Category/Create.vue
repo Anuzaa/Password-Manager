@@ -52,8 +52,8 @@
             create() {
                 window.axios.post('categories', this.formData)
                     .then(() => this.$router.push({name: 'category'}))
-                    .then(() => this.$swal('Category Successfully Added'));
-            },
+                    .then(() => this.$alert.success({message: 'Category Successfully Added'}));
+            }
         }
     }
 </script>

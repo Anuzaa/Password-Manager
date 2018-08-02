@@ -100,7 +100,8 @@
                     this.formData.name = response.data.data.name;
                     this.formData.email = response.data.data.email;
                     this.formData.password = response.data.data.password;
-                });
+                })
+                .then(() => this.$alert.success({message: 'Secret Successfully Updated'}));
 
         }
 

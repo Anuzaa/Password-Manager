@@ -10,12 +10,14 @@
                 <div class="column is-half">
                     <div class="field">
                         <label class="label">Select User</label>
-                        <select class="form-control" v-model="formData.author_id">
-                            <option disabled value=''>Please select one</option>
-                            <option v-for="user in users.data" v-bind:value="user.id">
-                                {{ user.name }}
-                            </option>
-                        </select>
+                        <v-select label="name" :options="users" v-model="selectedUser">
+                        </v-select>
+                        <!--<select class="form-control" v-model="formData.author_id">-->
+                            <!--<option disabled value=''>Please select one</option>-->
+                            <!--<option v-for="user in users.data" v-bind:value="user.id">-->
+                                <!--{{ user.name }}-->
+                            <!--</option>-->
+                        <!--</select>-->
                     </div>
                 </div>
             </div>
@@ -42,6 +44,7 @@
         data() {
             return {
                 users: [],
+                selectedUser:'',
                 formData: {
                     author_id: '',
                 },
@@ -53,16 +56,18 @@
                 window.axios
                     .get('users')
                     .then((response) => {
-                        this.users = response.data
+                        this.users = response.data.data;
                     })
             },
 
             share() {
+                this.formData.author_id = this.selectedUser.id;
                 window.axios
                     .post(`share/${this.$route.params.id}`, this.formData)
                     .then(() => {
                         this.$router.push({name: "secret"})
                     })
+                    .then(() => this.$alert.success({message: 'Secret Successfully Shared'}));
             }
         },
         mounted() {

@@ -1,6 +1,7 @@
 <template>
     <main>
         <navBar v-if="$route.meta.requiresAuth"></navBar>
+        <vue-alert></vue-alert>
         <router-view></router-view>
     </main>
 </template>
@@ -20,10 +21,13 @@
         components: {
             navBar,
         },
+
     }
 </script>
 
 <style scoped>
-
+    .vue-alert {
+        margin-top: 10px;
+    }
 
 </style>

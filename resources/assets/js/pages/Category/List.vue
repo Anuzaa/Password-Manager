@@ -6,7 +6,8 @@
                     <strong>Categories</strong>
                 </div>
                 <div class="column is-1">
-                    <router-link :to="{ name: 'category.create' }" class="button is-info is-pulled-right" tag="button" type="button">
+                    <router-link :to="{ name: 'category.create' }" class="button is-info is-pulled-right" tag="button"
+                                 type="button">
                         Add
                     </router-link>
                 </div>
@@ -68,17 +69,17 @@
                             this.getCategory();
                         }
                     )
-                        .then(() => this.$swal('Category Successfully Deleted'));
+                        .then(() => this.$alert.success({message:'Category Successfully Deleted'}));
                 }
             },
             getCategory() {
                 window.axios
                     .get('categories')
                     .then((response) => {
-                        this.categories=response.data
+                        this.categories = response.data
 
                     })
-                    .catch(error =>{
+                    .catch(error => {
                         console.log(error);
                     })
             },

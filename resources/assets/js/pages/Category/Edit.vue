@@ -53,7 +53,7 @@
                     .then(() => {
                         this.$router.push({name: "category"})
                     })
-                    .then(() => this.$swal('Category Successfully Updated'));
+                    .then(() => this.$alert.success({message:'Category Successfully Updated'}));
             }
         },
         mounted() {
