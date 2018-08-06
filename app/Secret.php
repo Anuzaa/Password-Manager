@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Secret extends Model
 {
-    protected $fillable=[
+    protected $fillable = [
         'id',
         'url',
         'name',
@@ -16,17 +16,18 @@ class Secret extends Model
     ];
 
 
-  public function category()
-  {
-       return $this->belongsTo(Category::class, 'category_id','id');
-   }
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'author_id','id');
+        return $this->belongsTo(User::class, 'author_id', 'id');
     }
 
-    public function sharedUsers(){
-        return $this->belongsToMany(User::class, 'user_secret','secret_id','author_id')->withTimestamps();
+    public function sharedUsers()
+    {
+        return $this->belongsToMany(User::class, 'user_secret', 'secret_id', 'author_id')->withTimestamps();
     }
 }

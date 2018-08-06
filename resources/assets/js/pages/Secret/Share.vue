@@ -12,12 +12,7 @@
                         <label class="label">Select User</label>
                         <v-select label="name" :options="users" v-model="selectedUser">
                         </v-select>
-                        <!--<select class="form-control" v-model="formData.author_id">-->
-                            <!--<option disabled value=''>Please select one</option>-->
-                            <!--<option v-for="user in users.data" v-bind:value="user.id">-->
-                                <!--{{ user.name }}-->
-                            <!--</option>-->
-                        <!--</select>-->
+
                     </div>
                 </div>
             </div>
@@ -28,7 +23,8 @@
                             <button type="submit" class="button is-info">Send</button>
                         </div>
                         <div class="control">
-                            <router-link to="/secrets" button class="button">Cancel</router-link>
+                            <button class="button" type="button" @click.prevent="handleDismiss">Cancel
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -39,12 +35,16 @@
 </template>
 
 <script>
+    import DialogMixin from 'vuejs-dialog/dist/vuejs-dialog-mixin.min'
+
+
     export default {
+        mixins: [DialogMixin],
         name: "share-secret",
         data() {
             return {
                 users: [],
-                selectedUser:'',
+                selectedUser: '',
                 formData: {
                     author_id: '',
                 },
@@ -61,14 +61,18 @@
             },
 
             share() {
-                this.formData.author_id = this.selectedUser.id;
-                window.axios
-                    .post(`share/${this.$route.params.id}`, this.formData)
-                    .then(() => {
-                        this.$router.push({name: "secret"})
-                    })
-                    .then(() => this.$alert.success({message: 'Secret Successfully Shared'}));
-            }
+                // this.formData.author_id = this.selectedUser.id;
+                return this.proceed(this.selectedUser.id);
+                // window.axios
+                //     .post(`share/`, this.formData)
+                //     .then(() => {
+                //         this.$router.push({name: "secret"})
+                //     })
+                //     .then(() => this.$alert.success({message: 'Secret Successfully Shared'}));
+            },
+            handleDismiss() {
+                this.cancel();
+            },
         },
         mounted() {
             this.getUser();

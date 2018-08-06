@@ -60,7 +60,7 @@ class CategoryController extends BaseController
 
         if ($category->save()) {
             $this->response->item($category->refresh(), new CategoryTransformer)->setStatusCode(201);
-           return 'Successfully created category';
+            return 'Successfully created category';
         } else {
             return $this->response->error("Category could not be created", 500);
         }
@@ -120,16 +120,20 @@ class CategoryController extends BaseController
      */
     public function destroy(Request $request, $id)
     {
-        $category = $this->category->where('author_id', $request->user()->id)->find($id);
-        if (!$category) {
-            throw new NotFoundHttpException('Category not found');
+        try {
+            $category = $this->category->where('author_id', $request->user()->id)->find($id);
+            if (!$category) {
+                throw new NotFoundHttpException('Category not found');
+            }
+            if ($category->delete()) {
+                $this->response->noContent();
+                return "Successfully deleted category";
+            } else {
+                return "Unsuccessfull";
+            }
+        } catch (\Exception $e) {
+            return "Category is in use";
         }
-        if ($category->delete()) {
-            $this->response->noContent();
-            return "Successfully deleted category";
-        }
-        return $this->response->error('Category could not  be deleted');
-
     }
 }
 

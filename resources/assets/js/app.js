@@ -4,7 +4,6 @@ import axios from 'axios';
 import vSelect from 'vue-select';
 import VuejsDialog from 'vuejs-dialog';
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
-
 import router from './router/index';
 import Index from './Index.vue';
 import Auth from "./common/auth";
@@ -62,12 +61,10 @@ window.axios.interceptors.response.use(response =>
     }
     return Promise.reject(error);
 });
-
 Vue.use(VueAlert);
-
+Vue.use(VuejsDialog);
 Vue.component('v-select', vSelect);
 
-Vue.use(VuejsDialog);
 
 new Vue({
     el: '#app',

@@ -88,7 +88,8 @@
                 window.axios.put(`secrets/${this.$route.params.id}`, this.formData)
                     .then(() => {
                         this.$router.push({name: "secret"})
-                    });
+                    })
+                    .then(() => this.$alert.success({message: 'Secret Successfully Updated'}));
             }
         },
         mounted() {
@@ -101,8 +102,6 @@
                     this.formData.email = response.data.data.email;
                     this.formData.password = response.data.data.password;
                 })
-                .then(() => this.$alert.success({message: 'Secret Successfully Updated'}));
-
         }
 
 

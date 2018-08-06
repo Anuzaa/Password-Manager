@@ -39,20 +39,18 @@
                             <td>
                                 <button class="button is-white" type="button"
                                         @click="togglePasswordVisibility(secret.id)">
-
                                     <i class="fa fa-eye"></i>
                                 </button>
                                 <router-link class="button is-white" type="button"
                                              :to="{name:'secret.edit',params:{id:secret.id}}">
                                     <i class="fas fa-edit"></i>
                                 </router-link>
-                                <button @click="deleteSecret(secret.id)" class="button is-white">
+                                <button @click="deleteSecret(secret.id)" class="button is-white" type="button">
                                     <i class="fa fa-trash"></i>
                                 </button>
-                                <router-link class="button is-white" type="button"
-                                             :to="{name:'secret.share',params:{id:secret.id}}">
+                                <button @click="showUser" class="button is-white" type="button">
                                     <i class="fas fa-share-square"></i>
-                                </router-link>
+                                </button>
 
                             </td>
                         </tr>
@@ -60,12 +58,14 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 </template>
 
 <script>
+    import Share from './Share.vue';
+
+    const VIEW_NAME = 'my-unique-view-name';
 
     export default {
 
@@ -99,13 +99,17 @@
                 }
             },
             deleteSecret(id) {
-                if (confirm("Are you sure?")) {
-                    window.axios
-                        .delete(`secrets/${id}`).then(() => {
+                this.$dialog.confirm('Are you sure?')
+                    .then(() => {
+                        window.axios
+                            .delete(`secrets/${id}`).then(() => {
                             this.getSecret();
-                        }
-                    )
-                }
+                        });
+                    })
+                    .then(() => this.$alert.success({message:'Secret Successfully Deleted'}))
+                    .catch(function () {
+                        console.log('Clicked on cancel')
+                    });
             },
             getSecret() {
                 window.axios
@@ -114,11 +118,28 @@
                         this.secrets = response.data
                     })
             },
-
+            showUser(id) {
+                // Note: Use confirm instead of alert if you need to handle rejection
+                this.$dialog.confirm('', {
+                    view: VIEW_NAME, // can be set globally too
+                    html: true,
+                    animation: 'fade',
+                    backdropClose: true
+                }).then(() => {
+                    window.axios
+                        .post(`share/`, this.formData)
+                        .then(() => {
+                            this.$router.push({name: "secret"})
+                        })
+                        .then(() => this.$alert.success({message: 'Secret Successfully Shared'}));
+                }).catch(() => {
+                    console.log('catch');
+                })
+            },
         },
         mounted() {
             this.getSecret();
-
+            this.$dialog.registerComponent(VIEW_NAME, Share);
         },
     }
 </script>

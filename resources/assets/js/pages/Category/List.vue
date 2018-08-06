@@ -63,14 +63,25 @@
         },
         methods: {
             deleteCategory(id) {
-                if (confirm("Are you sure?")) {
-                    window.axios
-                        .delete(`categories/${id}`).then(() => {
+                this.$dialog.confirm('Are you sure?')
+                    .then(() => {
+                        window.axios
+                            .delete(`categories/${id}`).then(() => {
                             this.getCategory();
-                        }
-                    )
-                        .then(() => this.$alert.success({message:'Category Successfully Deleted'}));
-                }
+                        });
+                    })
+
+                    .catch(function () {
+                        console.log('Clicked on cancel')
+                    });
+                // if (confirm("Are you sure?")) {
+                //     window.axios
+                //         .delete(`categories/${id}`).then(() => {
+                //             this.getCategory();
+                //         }
+                //     )
+                //         .then(() => this.$alert.success({message:'Category Successfully Deleted'}));
+                // }
             },
             getCategory() {
                 window.axios
