@@ -10,6 +10,7 @@
                                  type="button">
                         Add
                     </router-link>
+
                 </div>
             </div>
             <div class="columns">

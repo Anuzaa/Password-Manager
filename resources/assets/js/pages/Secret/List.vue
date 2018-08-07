@@ -48,7 +48,7 @@
                                 <button @click="deleteSecret(secret.id)" class="button is-white" type="button">
                                     <i class="fa fa-trash"></i>
                                 </button>
-                                <button @click="showUser" class="button is-white" type="button">
+                                <button @click="shareSecret(secret.id)" class="button is-white" type="button">
                                     <i class="fas fa-share-square"></i>
                                 </button>
 
@@ -118,23 +118,25 @@
                         this.secrets = response.data
                     })
             },
-            showUser(id) {
+            shareSecret(id) {
                 // Note: Use confirm instead of alert if you need to handle rejection
                 this.$dialog.confirm('', {
                     view: VIEW_NAME, // can be set globally too
                     html: true,
                     animation: 'fade',
                     backdropClose: true
-                }).then(() => {
+                }).then((authorId) => {
+                    const payload = {
+                        author_id: authorId,
+                    };
                     window.axios
-                        .post(`share/`, this.formData)
+                        .post(`share/${id}`, payload)
                         .then(() => {
-                            this.$router.push({name: "secret"})
+                           this.getSecret();
                         })
-                        .then(() => this.$alert.success({message: 'Secret Successfully Shared'}));
-                }).catch(() => {
-                    console.log('catch');
-                })
+                        .then(() => this.$alert.success({message: 'Secret Successfully Shared'}))
+                        .catch(() => this.$alert.danger({message: 'Secret Share Failed'}));
+                });
             },
         },
         mounted() {

@@ -45,9 +45,6 @@
             return {
                 users: [],
                 selectedUser: '',
-                formData: {
-                    author_id: '',
-                },
             }
 
         },
@@ -61,14 +58,7 @@
             },
 
             share() {
-                // this.formData.author_id = this.selectedUser.id;
                 return this.proceed(this.selectedUser.id);
-                // window.axios
-                //     .post(`share/`, this.formData)
-                //     .then(() => {
-                //         this.$router.push({name: "secret"})
-                //     })
-                //     .then(() => this.$alert.success({message: 'Secret Successfully Shared'}));
             },
             handleDismiss() {
                 this.cancel();

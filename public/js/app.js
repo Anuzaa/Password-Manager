@@ -17753,7 +17753,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17764,6 +17764,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -18088,7 +18089,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -18224,7 +18225,7 @@ var VIEW_NAME = 'my-unique-view-name';
                 _this2.secrets = response.data;
             });
         },
-        showUser: function showUser(id) {
+        shareSecret: function shareSecret(id) {
             var _this3 = this;
 
             // Note: Use confirm instead of alert if you need to handle rejection
@@ -18233,14 +18234,17 @@ var VIEW_NAME = 'my-unique-view-name';
                 html: true,
                 animation: 'fade',
                 backdropClose: true
-            }).then(function () {
-                window.axios.post('share/', _this3.formData).then(function () {
-                    _this3.$router.push({ name: "secret" });
+            }).then(function (authorId) {
+                var payload = {
+                    author_id: authorId
+                };
+                window.axios.post('share/' + id, payload).then(function () {
+                    _this3.getSecret();
                 }).then(function () {
                     return _this3.$alert.success({ message: 'Secret Successfully Shared' });
+                }).catch(function () {
+                    return _this3.$alert.danger({ message: 'Secret Share Failed' });
                 });
-            }).catch(function () {
-                console.log('catch');
             });
         }
     },
@@ -18285,7 +18289,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -18343,10 +18347,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             users: [],
-            selectedUser: '',
-            formData: {
-                author_id: ''
-            }
+            selectedUser: ''
         };
     },
 
@@ -18359,14 +18360,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         share: function share() {
-            // this.formData.author_id = this.selectedUser.id;
             return this.proceed(this.selectedUser.id);
-            // window.axios
-            //     .post(`share/`, this.formData)
-            //     .then(() => {
-            //         this.$router.push({name: "secret"})
-            //     })
-            //     .then(() => this.$alert.success({message: 'Secret Successfully Shared'}));
         },
         handleDismiss: function handleDismiss() {
             this.cancel();
@@ -18600,7 +18594,11 @@ var render = function() {
                         {
                           staticClass: "button is-white",
                           attrs: { type: "button" },
-                          on: { click: _vm.showUser }
+                          on: {
+                            click: function($event) {
+                              _vm.shareSecret(secret.id)
+                            }
+                          }
                         },
                         [_c("i", { staticClass: "fas fa-share-square" })]
                       )
@@ -21052,8 +21050,6 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "navbar-end" }, [
-            _vm._m(0),
-            _vm._v(" "),
             _c(
               "a",
               {
@@ -21073,29 +21069,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field has-addons" }, [
-      _c("div", { staticClass: "control" }, [
-        _c("input", {
-          staticClass: "input",
-          attrs: { type: "text", placeholder: "Find a repository" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "control" }, [
-        _c("a", { staticClass: "button is-info" }, [
-          _vm._v(
-            "\n                            Search\n                        "
-          )
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
