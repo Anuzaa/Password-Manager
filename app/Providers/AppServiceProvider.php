@@ -26,5 +26,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        \Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
+            // filter oauth ones
+                \Log::debug($query->sql . ' - ' . serialize($query->bindings));
+        });
+
     }
 }

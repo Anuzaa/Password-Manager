@@ -969,7 +969,7 @@ module.exports = defaults;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.5.16
+ * Vue.js v2.5.17
  * (c) 2014-2018 Evan You
  * Released under the MIT License.
  */
@@ -6058,7 +6058,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.5.16';
+Vue.version = '2.5.17';
 
 /*  */
 
@@ -17753,7 +17753,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -17816,10 +17816,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-
     name: "category-list",
     data: function data() {
         return {
@@ -17829,6 +17845,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        entered: function entered(e) {
+            this.getCategory(e.target.value);
+        },
         deleteCategory: function deleteCategory(id) {
             var _this = this;
 
@@ -17839,19 +17858,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function () {
                 console.log('Clicked on cancel');
             });
-            // if (confirm("Are you sure?")) {
-            //     window.axios
-            //         .delete(`categories/${id}`).then(() => {
-            //             this.getCategory();
-            //         }
-            //     )
-            //         .then(() => this.$alert.success({message:'Category Successfully Deleted'}));
-            // }
         },
         getCategory: function getCategory() {
             var _this2 = this;
 
-            window.axios.get('categories').then(function (response) {
+            var query = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+            var endpoint = 'categories?keywords=' + query;
+            window.axios.get(endpoint).then(function (response) {
                 _this2.categories = response.data;
             }).catch(function (error) {
                 console.log(error);
@@ -17876,6 +17890,28 @@ var render = function() {
       _c("div", { staticClass: "columns" }, [
         _vm._m(0),
         _vm._v(" "),
+        _c("div", { staticClass: "column is-3" }, [
+          _c("div", { staticClass: "control has-icons-left has-icons-right" }, [
+            _c("input", {
+              staticClass: "input",
+              attrs: { type: "text", placeholder: "Search..." },
+              on: {
+                keydown: function($event) {
+                  if (
+                    !("button" in $event) &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                  ) {
+                    return null
+                  }
+                  return _vm.entered($event)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(1)
+          ])
+        ]),
+        _vm._v(" "),
         _c(
           "div",
           { staticClass: "column is-1" },
@@ -17890,7 +17926,7 @@ var render = function() {
                   type: "button"
                 }
               },
-              [_vm._v("\n                    Add\n                ")]
+              [_c("i", { staticClass: "fas fa-plus" })]
             )
           ],
           1
@@ -17900,69 +17936,83 @@ var render = function() {
       _c("div", { staticClass: "columns" }, [
         _c("div", { staticClass: "column is-12" }, [
           _c("table", { staticClass: "table is-hoverable is-fullwidth " }, [
-            _vm._m(1),
+            _vm._m(2),
             _vm._v(" "),
             _c(
               "tbody",
-              _vm._l(_vm.categories.data, function(category) {
-                return _c("tr", { key: category.id }, [
-                  _c("td", [_vm._v(_vm._s(category.id))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(category.name))]),
-                  _vm._v(" "),
-                  _c(
-                    "td",
-                    [
+              [
+                _vm.categories.data && _vm.categories.data.length
+                  ? _vm._l(_vm.categories.data, function(category) {
+                      return _c("tr", { key: category.id }, [
+                        _c("td", [_vm._v(_vm._s(category.id))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(category.name))]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "button is-white",
+                                attrs: {
+                                  tag: "button",
+                                  type: "button",
+                                  to: {
+                                    name: "category.detail",
+                                    params: { id: category.id }
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-eye" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "button is-white",
+                                attrs: {
+                                  tag: "button",
+                                  type: "button",
+                                  to: {
+                                    name: "category.edit",
+                                    params: { id: category.id }
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-edit" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "button is-white",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteCategory(category.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-trash" })]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    })
+                  : _c("tr", [
                       _c(
-                        "router-link",
+                        "td",
                         {
-                          staticClass: "button is-white",
-                          attrs: {
-                            tag: "button",
-                            type: "button",
-                            to: {
-                              name: "category.detail",
-                              params: { id: category.id }
-                            }
-                          }
+                          staticClass: "has-text-centered",
+                          attrs: { colspan: "7" }
                         },
-                        [_c("i", { staticClass: "fa fa-eye" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "button is-white",
-                          attrs: {
-                            tag: "button",
-                            type: "button",
-                            to: {
-                              name: "category.edit",
-                              params: { id: category.id }
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fas fa-edit" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "button is-white",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              _vm.deleteCategory(category.id)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fa fa-trash" })]
+                        [_vm._v(" No matching records found.")]
                       )
-                    ],
-                    1
-                  )
-                ])
-              })
+                    ])
+              ],
+              2
             )
           ])
         ])
@@ -17975,8 +18025,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "column is-11" }, [
+    return _c("div", { staticClass: "column is-8" }, [
       _c("strong", [_vm._v("Categories")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-medium is-left" }, [
+      _c("i", { staticClass: "fas fa-search" })
     ])
   },
   function() {
@@ -18089,7 +18147,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -18102,6 +18160,23 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Share_vue__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Share_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Share_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -18181,11 +18256,15 @@ var VIEW_NAME = 'my-unique-view-name';
                     data: {}
                 }
             },
-            shownPasswordId: []
+            shownPasswordId: [],
+            showdata: true
         };
     },
 
     methods: {
+        entered: function entered(e) {
+            this.getSecret(e.target.value);
+        },
         getPassword: function getPassword(id, password) {
             if (this.isPasswordShown(id)) {
                 return password;
@@ -18221,7 +18300,10 @@ var VIEW_NAME = 'my-unique-view-name';
         getSecret: function getSecret() {
             var _this2 = this;
 
-            window.axios.get('secrets').then(function (response) {
+            var query = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+            var endpoint = 'secrets?keywords=' + query;
+            window.axios.get(endpoint).then(function (response) {
                 _this2.secrets = response.data;
             });
         },
@@ -18497,6 +18579,28 @@ var render = function() {
       _c("div", { staticClass: "columns" }, [
         _vm._m(0),
         _vm._v(" "),
+        _c("div", { staticClass: "column is-3" }, [
+          _c("div", { staticClass: "control has-icons-left has-icons-right" }, [
+            _c("input", {
+              staticClass: "input",
+              attrs: { type: "text", placeholder: "Search..." },
+              on: {
+                keydown: function($event) {
+                  if (
+                    !("button" in $event) &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                  ) {
+                    return null
+                  }
+                  return _vm.entered($event)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(1)
+          ])
+        ]),
+        _vm._v(" "),
         _c(
           "div",
           { staticClass: "column is-1" },
@@ -18507,7 +18611,7 @@ var render = function() {
                 staticClass: "button is-info is-pulled-right ",
                 attrs: { to: { name: "secret.create" } }
               },
-              [_vm._v("\n                    Add\n                ")]
+              [_c("i", { staticClass: "fas fa-plus" })]
             )
           ],
           1
@@ -18517,96 +18621,110 @@ var render = function() {
       _c("div", { staticClass: "columns" }, [
         _c("div", { staticClass: "column is-12" }, [
           _c("table", { staticClass: "table is-hoverable is-fullwidth " }, [
-            _vm._m(1),
+            _vm._m(2),
             _vm._v(" "),
             _c(
               "tbody",
-              _vm._l(_vm.secrets.data, function(secret) {
-                return _c("tr", { key: secret.id }, [
-                  _c("td", [_vm._v(_vm._s(secret.id))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(secret.url))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(secret.name))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(secret.email))]),
-                  _vm._v(" "),
-                  _c("td", {
-                    domProps: {
-                      innerHTML: _vm._s(
-                        _vm.getPassword(secret.id, secret.password)
+              [
+                _vm.secrets.data && _vm.secrets.data.length
+                  ? _vm._l(_vm.secrets.data, function(secret) {
+                      return _c("tr", { key: secret.id }, [
+                        _c("td", [_vm._v(" " + _vm._s(secret.id))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(secret.url))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(secret.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(secret.email))]),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.getPassword(secret.id, secret.password)
+                            )
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(secret.category.data.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(" " + _vm._s(secret.user.data.name))]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "button is-white",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.togglePasswordVisibility(secret.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-eye" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "button is-white",
+                                attrs: {
+                                  type: "button",
+                                  to: {
+                                    name: "secret.edit",
+                                    params: { id: secret.id }
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-edit" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "button is-white",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.deleteSecret(secret.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-trash" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "button is-white",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.shareSecret(secret.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-share-square" })]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    })
+                  : _c("tr", [
+                      _c(
+                        "td",
+                        {
+                          staticClass: "has-text-centered",
+                          attrs: { colspan: "7" }
+                        },
+                        [_vm._v(" No matching records found.")]
                       )
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(secret.category.data.name))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(" " + _vm._s(secret.user.data.name))]),
-                  _vm._v(" "),
-                  _c(
-                    "td",
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "button is-white",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              _vm.togglePasswordVisibility(secret.id)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fa fa-eye" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "button is-white",
-                          attrs: {
-                            type: "button",
-                            to: {
-                              name: "secret.edit",
-                              params: { id: secret.id }
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fas fa-edit" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "button is-white",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              _vm.deleteSecret(secret.id)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fa fa-trash" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "button is-white",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              _vm.shareSecret(secret.id)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fas fa-share-square" })]
-                      )
-                    ],
-                    1
-                  )
-                ])
-              })
+                    ])
+              ],
+              2
             )
           ])
         ])
@@ -18619,8 +18737,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "column is-11" }, [
+    return _c("div", { staticClass: "column is-8" }, [
       _c("strong", [_vm._v("Secrets")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-medium is-left" }, [
+      _c("i", { staticClass: "fas fa-search" })
     ])
   },
   function() {
@@ -20928,7 +21054,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -20940,16 +21066,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_auth_index__ = __webpack_require__(4);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //

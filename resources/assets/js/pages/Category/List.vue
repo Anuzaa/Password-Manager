@@ -2,13 +2,25 @@
     <div id="category">
         <div class="container">
             <div class="columns">
-                <div class="column is-11">
+                <div class="column is-8">
                     <strong>Categories</strong>
+                </div>
+                <div class="column is-3">
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input"
+                               type="text"
+                               placeholder="Search..."
+                               @keydown.enter="entered"
+                        />
+                        <span class="icon is-medium is-left">
+                 <i class="fas fa-search"></i>
+                    </span>
+                    </div>
                 </div>
                 <div class="column is-1">
                     <router-link :to="{ name: 'category.create' }" class="button is-info is-pulled-right" tag="button"
                                  type="button">
-                        Add
+                        <i class="fas fa-plus"></i>
                     </router-link>
 
                 </div>
@@ -24,6 +36,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <template v-if="categories.data && categories.data.length">
                         <tr v-for="category in categories.data" :key="category.id">
                             <td>{{category.id}}</td>
                             <td>{{category.name}}</td>
@@ -41,6 +54,10 @@
                                 </button>
                             </td>
                         </tr>
+                        </template>
+                        <tr v-else>
+                            <td colspan="7" class="has-text-centered"> No matching records found.</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -52,17 +69,18 @@
 
 <script>
 
-
     export default {
-
         name: "category-list",
         data() {
             return {
                 categories: {},
                 added: true,
-            }
+            };
         },
         methods: {
+            entered(e) {
+                this.getCategory(e.target.value);
+            },
             deleteCategory(id) {
                 this.$dialog.confirm('Are you sure?')
                     .then(() => {
@@ -75,18 +93,11 @@
                     .catch(function () {
                         console.log('Clicked on cancel')
                     });
-                // if (confirm("Are you sure?")) {
-                //     window.axios
-                //         .delete(`categories/${id}`).then(() => {
-                //             this.getCategory();
-                //         }
-                //     )
-                //         .then(() => this.$alert.success({message:'Category Successfully Deleted'}));
-                // }
             },
-            getCategory() {
+            getCategory(query = '') {
+                const endpoint = `categories?keywords=${query}`;
                 window.axios
-                    .get('categories')
+                    .get(endpoint)
                     .then((response) => {
                         this.categories = response.data
 
@@ -99,7 +110,7 @@
         mounted() {
             this.getCategory();
         },
-    }
+    };
 </script>
 
 <style scoped>

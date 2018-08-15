@@ -2,13 +2,25 @@
     <div id="secret">
         <div class="container">
             <div class="columns">
-                <div class="column is-11">
+                <div class="column is-8">
                     <strong>Secrets</strong>
 
                 </div>
+                <div class="column is-3">
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input"
+                               type="text"
+                               placeholder="Search..."
+                               @keydown.enter="entered"
+                        />
+                        <span class="icon is-medium is-left">
+                 <i class="fas fa-search"></i>
+                    </span>
+                    </div>
+                </div>
                 <div class="column is-1">
                     <router-link class="button is-info is-pulled-right " :to="{name:'secret.create'}">
-                        Add
+                        <i class="fas fa-plus"></i>
                     </router-link>
                 </div>
             </div>
@@ -28,31 +40,36 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="secret in secrets.data" :key="secret.id">
-                            <td>{{secret.id}}</td>
-                            <td>{{secret.url}}</td>
-                            <td>{{secret.name}}</td>
-                            <td>{{secret.email}}</td>
-                            <td v-html="getPassword(secret.id, secret.password)"></td>
-                            <td>{{secret.category.data.name}}</td>
-                            <td> {{secret.user.data.name}}</td>
-                            <td>
-                                <button class="button is-white" type="button"
-                                        @click="togglePasswordVisibility(secret.id)">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                                <router-link class="button is-white" type="button"
-                                             :to="{name:'secret.edit',params:{id:secret.id}}">
-                                    <i class="fas fa-edit"></i>
-                                </router-link>
-                                <button @click="deleteSecret(secret.id)" class="button is-white" type="button">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                                <button @click="shareSecret(secret.id)" class="button is-white" type="button">
-                                    <i class="fas fa-share-square"></i>
-                                </button>
+                        <template v-if="secrets.data && secrets.data.length">
+                            <tr v-for="secret in secrets.data" :key="secret.id">
+                                <td> {{secret.id}}</td>
+                                <td>{{secret.url}}</td>
+                                <td>{{secret.name}}</td>
+                                <td>{{secret.email}}</td>
+                                <td v-html="getPassword(secret.id, secret.password)"></td>
+                                <td>{{secret.category.data.name}}</td>
+                                <td> {{secret.user.data.name}}</td>
+                                <td>
+                                    <button class="button is-white" type="button"
+                                            @click="togglePasswordVisibility(secret.id)">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <router-link class="button is-white" type="button"
+                                                 :to="{name:'secret.edit',params:{id:secret.id}}">
+                                        <i class="fas fa-edit"></i>
+                                    </router-link>
+                                    <button @click="deleteSecret(secret.id)" class="button is-white" type="button">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                    <button @click="shareSecret(secret.id)" class="button is-white" type="button">
+                                        <i class="fas fa-share-square"></i>
+                                    </button>
 
-                            </td>
+                                </td>
+                            </tr>
+                        </template>
+                        <tr v-else>
+                            <td colspan="7" class="has-text-centered"> No matching records found.</td>
                         </tr>
                         </tbody>
                     </table>
@@ -78,9 +95,13 @@
                     },
                 },
                 shownPasswordId: [],
+                showdata: true,
             }
         },
         methods: {
+            entered(e) {
+                this.getSecret(e.target.value);
+            },
             getPassword(id, password) {
                 if (this.isPasswordShown(id)) {
                     return password;
@@ -106,14 +127,15 @@
                             this.getSecret();
                         });
                     })
-                    .then(() => this.$alert.success({message:'Secret Successfully Deleted'}))
+                    .then(() => this.$alert.success({message: 'Secret Successfully Deleted'}))
                     .catch(function () {
                         console.log('Clicked on cancel')
                     });
             },
-            getSecret() {
+            getSecret(query = '') {
+                const endpoint = `secrets?keywords=${query}`;
                 window.axios
-                    .get('secrets')
+                    .get(endpoint)
                     .then((response) => {
                         this.secrets = response.data
                     })
@@ -132,7 +154,7 @@
                     window.axios
                         .post(`share/${id}`, payload)
                         .then(() => {
-                           this.getSecret();
+                            this.getSecret();
                         })
                         .then(() => this.$alert.success({message: 'Secret Successfully Shared'}))
                         .catch(() => this.$alert.danger({message: 'Secret Share Failed'}));

@@ -38,9 +38,16 @@ class CategoryController extends BaseController
      */
     public function index(Request $request)
     {
-        $categories = $this->category->where('author_id', $request->user()->id)->get();
-
-        return $this->response->collection($categories, new CategoryTransformer);
+        $categories = $this->category->newQuery()
+            ->where('author_id', $request->user()->id)
+            ->when($request->has('keywords'), function ($query) use ($request) {
+                return $query->where(function ($query) use ($request) {
+                    $keyword = $request->get('keywords');
+                    $query->where('name', 'LIKE', '%' . $keyword . '%')
+                        ->groupBy('categories.id');
+                });
+            })->paginate();
+        return $this->response->paginator($categories, new CategoryTransformer);
     }
 
     /**
@@ -100,13 +107,10 @@ class CategoryController extends BaseController
         if (!$category) {
             throw new NotFoundHttpException('Category not found');
         }
-
-
         if ($category->fill($validatedData)->save()) {
             $this->response->item($category->fresh(), new CategoryTransformer)->setStatusCode(200);
             return "Successfully updated category";
         }
-
         return $this->response->error('Category could not be updated');
     }
 

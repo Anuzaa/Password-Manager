@@ -36,9 +36,21 @@ class SecretController extends BaseController
     public function index(Request $request)
     {
 
-        $secrets = $request->user()->sharedSecrets;
+        $secrets = $request->user()->sharedSecrets()
+            ->leftJoin('categories', 'categories.id', 'secrets.category_id')
+            ->leftJoin('users', 'users.id', 'secrets.author_id')
+            ->when($request->has('keywords'), function ($query) use ($request) {
+                return $query->where(function ($query) use ($request) {
+                    $keyword = $request->get('keywords');
+                    $query->where('categories.name', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('users.name', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('url', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('secrets.name', 'LIKE', '%' . $keyword . '%')
+                        ->groupBy('secrets.id');
 
-        return $this->response->collection($secrets, new SecretTransformer);
+                });
+            })->paginate();
+        return $this->response->paginator($secrets, new SecretTransformer);
     }
 
     /**
@@ -56,16 +68,13 @@ class SecretController extends BaseController
             'email' => 'required|email',
             'password' => 'required|min:6',
             'category_id' => 'required'
-
         ]);
         $secret = $this->secret->newInstance($request->all());
         $secret->password = encrypt(request('password'));
-
         $secret->forceFill(['author_id' => $request->user()->id]);
         if ($secret->save()) {
             $author_id = $request->user()->id;
             $secret->sharedUsers()->attach($author_id);
-
         }
     }
 
