@@ -1,64 +1,55 @@
 <template>
-    <div>
-        <ul>
-            <li v-for="p in paginatedData">
-                {{p.first}}
-                {{p.last}}
-                {{p.suffix}}
-            </li>
-        </ul>
-        <button @click="prevPage">
-            Previous
-        </button>
-        <button @click="nextPage">
-            Next
-        </button>
+    <div class="container" style="margin-top: 16px;">
+        <button type="button" @click="prev" :disabled="!canPrev">Prev</button>
+        <button type="button" disabled>{{pagination.current}}/{{pagination.total}}</button>
+        <button type="button" @click="next" :disabled="!canNext">Next</button>
+        <!--<ul class="pagination">-->
+        <!--<li v-if="pagination.current_page > 1">-->
+        <!--<a href="javascript:void(0)" aria-label="Previous" @click.prevent="prev" :disabled="!canPrev">-->
+        <!--<span aria-hidden="true">«</span>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--<li v-for="page in pagesNumber" :class="{'active': page == pagination.current_page}">-->
+        <!--<a href="javascript:void(0)" v-on:click.prevent="changePage(page)">{{ page }}</a>-->
+        <!--</li>-->
+        <!--<li v-if="pagination.current_page < pagination.last_page">-->
+        <!--<a href="javascript:void(0)" aria-label="Next" v-on:click.prevent="changePage(pagination.current_page + 1)">-->
+        <!--<span aria-hidden="true">»</span>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--</ul>-->
     </div>
 </template>
 
 <script>
     export default {
-        name: "Paginate",
-        props: {
-            listData: {
-                type: Array,
-                required: true
-            },
-            size:{
-                type:Number,
-                required:false,
-                default:10
-            }
-        },
-
         data() {
             return {
-                pageNumber: 1,
-                prevUrl: false,
-                nextUrl: false
-            }
-
-        },
-        methods:{
-            nextPage(){
-                this.pageNumber++;
-            },
-            prevPage(){
-                this.pageNumber--;
-            }
+                pagination: {
+                    total: 5,
+                    current: 1,
+                },
+            };
         },
         computed: {
-            pageCount(){
-                let l = this.listData.length,
-                    s = this.size;
-                return Math.floor(l/s);
+            canPrev() {
+                return this.pagination.current > 1;
             },
-            paginatedData(){
-                const start = this.pageNumber * this.size,
-                    end = start + this.size;
-                return this.listData.slice(start, end);
+            canNext() {
+                return this.pagination.current < this.pagination.total;
+            },
+        },
+        methods: {
+            prev() {
+                if (this.canPrev) {
+                    this.pagination.current -= 1;
+                }
+            },
+            next() {
+                if (this.canNext) {
+                    this.pagination.current += 1;
+                }
             }
-
         }
     }
 </script>

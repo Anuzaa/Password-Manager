@@ -40,7 +40,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <template v-if="secrets.data && secrets.data.length">
+                        <template v-if="hasSecret">
                             <tr v-for="secret in secrets.data" :key="secret.id">
                                 <td> {{secret.id}}</td>
                                 <td>{{secret.url}}</td>
@@ -75,6 +75,17 @@
                     </table>
                 </div>
             </div>
+            <div class="columns">
+                <div class="column-6">
+                    <button type="button" class="button" :disabled="!canPrev" @click.prevent="paginate('prev')"> Prev
+                    </button>
+                </div>
+                <div class="column-6">
+                    <button type="button" class="button" :disabled="!canNext" @click.prevent="paginate('next')"> Next
+                    </button>
+                </div>
+            </div>
+            <div class="columns" style="height: 100px"></div>
         </div>
     </div>
 </template>
@@ -89,18 +100,36 @@
         name: "secret-list",
         data() {
             return {
-                secrets: {
-                    user: {
-                        data: {},
-                    },
-                },
+                secrets: {},
+                pagination: {},
                 shownPasswordId: [],
                 showdata: true,
             }
         },
+        computed: {
+            hasSecret() {
+                return this.secrets.data && this.secrets.data.length;
+            },
+            canPrev() {
+                return this.pagination.current_page > 1;
+            },
+            canNext() {
+                return this.pagination.current_page < this.pagination.total_pages;
+            },
+        },
         methods: {
             entered(e) {
                 this.getSecret(e.target.value);
+            },
+            paginate(secret) {
+                let newPage = 1;
+                if (secret === 'next' && this.canNext) {
+                    newPage = this.pagination.current_page + 1;
+                }
+                if (secret === 'prev' && this.canPrev) {
+                    newPage = this.pagination.current_page - 1;
+                }
+                this.getSecret('', newPage);
             },
             getPassword(id, password) {
                 if (this.isPasswordShown(id)) {
@@ -132,16 +161,16 @@
                         console.log('Clicked on cancel')
                     });
             },
-            getSecret(query = '') {
-                const endpoint = `secrets?keywords=${query}`;
+            getSecret(query = '', page = 1) {
+                const endpoint = `secrets?keywords=${query}&page=${page}`;
                 window.axios
                     .get(endpoint)
                     .then((response) => {
-                        this.secrets = response.data
+                        this.secrets = response.data;
+                        this.pagination = response.data.meta.pagination;
                     })
             },
             shareSecret(id) {
-                // Note: Use confirm instead of alert if you need to handle rejection
                 this.$dialog.confirm('', {
                     view: VIEW_NAME, // can be set globally too
                     html: true,

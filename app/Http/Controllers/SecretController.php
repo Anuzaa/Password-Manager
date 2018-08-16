@@ -49,7 +49,7 @@ class SecretController extends BaseController
                         ->groupBy('secrets.id');
 
                 });
-            })->paginate();
+            })->paginate(5);
         return $this->response->paginator($secrets, new SecretTransformer);
     }
 

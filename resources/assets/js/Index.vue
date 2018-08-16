@@ -8,6 +8,7 @@
 
 <script>
     import navBar from './components/NavBar';
+    import paginate from './components/Paginate';
     import 'bulma';
 
     export default {
@@ -20,6 +21,7 @@
         },
         components: {
             navBar,
+            paginate
         },
 
     }
