@@ -64,7 +64,6 @@
                                     <button @click="shareSecret(secret.id)" class="button is-white" type="button">
                                         <i class="fas fa-share-square"></i>
                                     </button>
-
                                 </td>
                             </tr>
                         </template>
@@ -75,29 +74,24 @@
                     </table>
                 </div>
             </div>
-            <div class="columns">
-                <div class="column-6">
-                    <button type="button" class="button" :disabled="!canPrev" @click.prevent="paginate('prev')"> Prev
-                    </button>
-                </div>
-                <div class="column-6">
-                    <button type="button" class="button" :disabled="!canNext" @click.prevent="paginate('next')"> Next
-                    </button>
-                </div>
-            </div>
+            <paginate :pagination="pagination" @paginate="paginate"></paginate>
             <div class="columns" style="height: 100px"></div>
         </div>
     </div>
 </template>
-
 <script>
     import Share from './Share.vue';
+    import Paginate from '../../components/Paginate.vue';
+
 
     const VIEW_NAME = 'my-unique-view-name';
 
     export default {
 
         name: "secret-list",
+        components:{
+            Paginate,
+        },
         data() {
             return {
                 secrets: {},
@@ -110,27 +104,15 @@
             hasSecret() {
                 return this.secrets.data && this.secrets.data.length;
             },
-            canPrev() {
-                return this.pagination.current_page > 1;
-            },
-            canNext() {
-                return this.pagination.current_page < this.pagination.total_pages;
-            },
         },
         methods: {
             entered(e) {
                 this.getSecret(e.target.value);
             },
-            paginate(secret) {
-                let newPage = 1;
-                if (secret === 'next' && this.canNext) {
-                    newPage = this.pagination.current_page + 1;
-                }
-                if (secret === 'prev' && this.canPrev) {
-                    newPage = this.pagination.current_page - 1;
-                }
+            paginate(newPage) {
                 this.getSecret('', newPage);
             },
+
             getPassword(id, password) {
                 if (this.isPasswordShown(id)) {
                     return password;

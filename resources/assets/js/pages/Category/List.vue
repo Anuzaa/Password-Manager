@@ -62,24 +62,31 @@
                     </table>
                 </div>
             </div>
-
+            <paginate :pagination="pagination" @paginate="paginate"></paginate>
         </div>
     </div>
 </template>
 
 <script>
-
+    import Paginate from '../../components/Paginate.vue';
     export default {
         name: "category-list",
+        components:{
+          Paginate
+        },
         data() {
             return {
                 categories: {},
+                pagination: {},
                 added: true,
             };
         },
         methods: {
             entered(e) {
                 this.getCategory(e.target.value);
+            },
+            paginate(newPage) {
+                this.getCategory('', newPage);
             },
             deleteCategory(id) {
                 this.$dialog.confirm('Are you sure?')
@@ -94,12 +101,13 @@
                         console.log('Clicked on cancel')
                     });
             },
-            getCategory(query = '') {
-                const endpoint = `categories?keywords=${query}`;
+            getCategory(query = '',page=1) {
+                const endpoint = `categories?keywords=${query}&page=${page}`;
                 window.axios
                     .get(endpoint)
                     .then((response) => {
-                        this.categories = response.data
+                        this.categories = response.data;
+                        this.pagination = response.data.meta.pagination;
 
                     })
                     .catch(error => {

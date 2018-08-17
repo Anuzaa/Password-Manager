@@ -1,55 +1,46 @@
 <template>
-    <div class="container" style="margin-top: 16px;">
-        <button type="button" @click="prev" :disabled="!canPrev">Prev</button>
-        <button type="button" disabled>{{pagination.current}}/{{pagination.total}}</button>
-        <button type="button" @click="next" :disabled="!canNext">Next</button>
-        <!--<ul class="pagination">-->
-        <!--<li v-if="pagination.current_page > 1">-->
-        <!--<a href="javascript:void(0)" aria-label="Previous" @click.prevent="prev" :disabled="!canPrev">-->
-        <!--<span aria-hidden="true">«</span>-->
-        <!--</a>-->
-        <!--</li>-->
-        <!--<li v-for="page in pagesNumber" :class="{'active': page == pagination.current_page}">-->
-        <!--<a href="javascript:void(0)" v-on:click.prevent="changePage(page)">{{ page }}</a>-->
-        <!--</li>-->
-        <!--<li v-if="pagination.current_page < pagination.last_page">-->
-        <!--<a href="javascript:void(0)" aria-label="Next" v-on:click.prevent="changePage(pagination.current_page + 1)">-->
-        <!--<span aria-hidden="true">»</span>-->
-        <!--</a>-->
-        <!--</li>-->
-        <!--</ul>-->
+    <div class="container">
+        <div class="columns">
+            <div class="column-6">
+                <h4> {{ pagination.current_page }} of {{ pagination.total_pages }} </h4>
+                <button type="button" class="button" :disabled="!canPrev" @click.prevent="changePage('prev')"> Prev
+                </button>
+            </div>
+            <div class="column-6">
+                <button type="button" class="button" :disabled="!canNext" @click.prevent="changePage('next')"> Next
+                </button>
+            </div>
+        </div>
     </div>
 </template>
-
 <script>
     export default {
+        props: ['pagination'],
         data() {
             return {
-                pagination: {
-                    total: 5,
-                    current: 1,
-                },
+                page: 1,
+
             };
         },
         computed: {
             canPrev() {
-                return this.pagination.current > 1;
+                return this.pagination.current_page > 1;
             },
             canNext() {
-                return this.pagination.current < this.pagination.total;
+                return this.pagination.current_page < this.pagination.total_pages;
             },
         },
         methods: {
-            prev() {
-                if (this.canPrev) {
-                    this.pagination.current -= 1;
+            //To change the page
+            changePage(page) {
+                if (page === 'next' && this.canNext) {
+                    this.page = this.pagination.current_page + 1;
                 }
+                if (page === 'prev' && this.canPrev) {
+                    this.page = this.pagination.current_page - 1;
+                }
+                this.$emit('paginate', this.page);
             },
-            next() {
-                if (this.canNext) {
-                    this.pagination.current += 1;
-                }
-            }
         }
     }
 </script>

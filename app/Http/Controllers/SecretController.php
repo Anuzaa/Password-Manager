@@ -35,7 +35,6 @@ class SecretController extends BaseController
      */
     public function index(Request $request)
     {
-
         $secrets = $request->user()->sharedSecrets()
             ->leftJoin('categories', 'categories.id', 'secrets.category_id')
             ->leftJoin('users', 'users.id', 'secrets.author_id')

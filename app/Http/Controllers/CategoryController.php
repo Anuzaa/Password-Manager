@@ -46,7 +46,7 @@ class CategoryController extends BaseController
                     $query->where('name', 'LIKE', '%' . $keyword . '%')
                         ->groupBy('categories.id');
                 });
-            })->paginate();
+            })->paginate(5);
         return $this->response->paginator($categories, new CategoryTransformer);
     }
 
