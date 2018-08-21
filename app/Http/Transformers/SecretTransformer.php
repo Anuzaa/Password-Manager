@@ -25,6 +25,7 @@ class SecretTransformer extends TransformerAbstract
     protected $defaultIncludes = [
         'category',
         'user'
+
     ];
 
 
@@ -37,6 +38,7 @@ class SecretTransformer extends TransformerAbstract
      */
     public function transform(Secret $secret)
     {
+//        dd($secret->sharedUsers);
         return [
             'id' => $secret->getKey(),
             'url' => $secret->getAttribute('url'),
@@ -46,6 +48,7 @@ class SecretTransformer extends TransformerAbstract
             'author_id' => $secret->getAttribute('author_id'),
             'category_id' => $secret->getAttribute('category_id'),
             'created_at' => $secret->getAttribute('created_at'),
+//             'sharedUser' => $secret->sharedUsers->pluck('email')
         ];
     }
 
@@ -75,7 +78,9 @@ class SecretTransformer extends TransformerAbstract
 
     public function includeUser(Secret $secret)
     {
+//        dd($secret->sharedUsers);
         $user = $secret->user;
+//        return $user;
         return $this->item($user, function ($user) {
             return [
                 'id' => $user->id,
@@ -83,5 +88,24 @@ class SecretTransformer extends TransformerAbstract
             ];
         });
     }
+
+
+//    /**
+//     * Include Author
+//     *
+//     * @param  Secret $secret
+//     * @return \League\Fractal\Resource\Item
+//     */
+//
+//    public function includesharedSecret(Secret $secret)
+//    {
+//        $user = $secret->user;
+//        return $this->item($user, function ($user) {
+//            return [
+//                'id' => $user->id,
+//                'name' => $user->name
+//            ];
+//        });
+//    }
 
 }

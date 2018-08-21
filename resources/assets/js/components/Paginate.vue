@@ -1,12 +1,14 @@
 <template>
     <div class="container">
         <div class="columns">
-            <div class="column-6">
-                <h4> {{ pagination.current_page }} of {{ pagination.total_pages }} </h4>
+            <div class="column is-1">
+                <strong>{{ pagination.current_page }} of {{ pagination.total_pages }}</strong>
+            </div>
+            <div class="column-5">
                 <button type="button" class="button" :disabled="!canPrev" @click.prevent="changePage('prev')"> Prev
                 </button>
             </div>
-            <div class="column-6">
+            <div class="column-5">
                 <button type="button" class="button" :disabled="!canNext" @click.prevent="changePage('next')"> Next
                 </button>
             </div>

@@ -10,11 +10,12 @@
             <div class="columns">
                 <div class="column is-half">
                     <div class="field">
-                        <label class="label">Category Name</label>
+                        <label class="label">Category Name <span class="is-danger">*</span></label>
                         <div class="control">
-                            <input class="input" type="text"
-                                   v-model="formData.name"
-                                   required>
+                            <input class="input" type="text" name="name"
+                                   v-model="formData.name" placeholder="Enter category name"
+                                   v-validate="'required'">
+                            <p class="help is-danger" v-if="errors.has('name')">{{errors.first('name')}}</p>
                         </div>
                     </div>
                 </div>

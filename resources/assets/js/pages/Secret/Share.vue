@@ -7,6 +7,11 @@
                 </div>
             </div>
             <div class="columns">
+                <div class="column is-11">
+                    <strong>{{secrets.name}}</strong>
+                </div>
+            </div>
+            <div class="columns">
                 <div class="column is-half">
                     <div class="field">
                         <label class="label">Select User</label>
@@ -43,6 +48,7 @@
         name: "share-secret",
         data() {
             return {
+                secrets:{},
                 users: [],
                 selectedUser: '',
             }
@@ -56,10 +62,19 @@
                         this.users = response.data.data;
                     })
             },
+            getSecret() {
+                window.axios
+                    .get('secrets')
+                    .then((response) => {
+                        this.secrets = response.data;
+
+                    })
+            },
 
             share() {
                 return this.proceed(this.selectedUser.id);
             },
+
             handleDismiss() {
                 this.cancel();
             },

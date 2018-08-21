@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueAlert from '@vuejs-pt/vue-alert';
+import VeeValidate from 'vee-validate';
 import axios from 'axios';
 import vSelect from 'vue-select';
 import VuejsDialog from 'vuejs-dialog';
@@ -64,6 +65,8 @@ window.axios.interceptors.response.use(response =>
 Vue.use(VueAlert);
 Vue.use(VuejsDialog);
 Vue.component('v-select', vSelect);
+
+Vue.use(VeeValidate);
 
 
 new Vue({

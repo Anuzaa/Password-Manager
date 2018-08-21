@@ -64,6 +64,9 @@
                                     <button @click="shareSecret(secret.id)" class="button is-white" type="button">
                                         <i class="fas fa-share-square"></i>
                                     </button>
+                                    <router-link  class="button is-white" type="button" :to="{name:'secret.detail',params:{id:secret.id}}">
+                                        <i class="fas fa-info-circle"></i>
+                                    </router-link>
                                 </td>
                             </tr>
                         </template>

@@ -15,13 +15,16 @@
                 <small>
                     <div class="panel-body">
                         <div class="column is-half">
-                            URL: {{secret.url}}
+                           <strong>{{secret.url}}</strong>
                         </div>
                         <div class="column is-half is-small">
                             Email : {{secret.name}}
                         </div>
                         <div class="column is-half is-small">
-                            User : {{secret.user.data.name}}
+                           Author : {{secret.user.data.name}}
+                        </div>
+                        <div class="column is-half is-small">
+                            Shared with <li>{{secret.sharedUser}}</li>
                         </div>
                         <hr>
                         <small>Created at {{secret.created_at.date}}</small>
